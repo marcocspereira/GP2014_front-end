@@ -20,10 +20,10 @@ function checkCookie(cookieName) {
 	console.log("verificar cookie");
     var user = getCookie(cookieName);
     if (user != "") {
-        alert("ja ca estiveste");
+        console.log("ja ca estiveste");
     } else {
         user = "primeira vez";
-        alert(user);
+        console.log(user);
         if (user != "" && user != null) {
             setCookie(cookieName, user, 365);//expira em 365 dias
         }
