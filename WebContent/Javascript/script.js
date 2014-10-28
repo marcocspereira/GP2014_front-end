@@ -101,10 +101,12 @@ function progress(percent, $element) {
 	//renomeia a div newbar, cria nova newbar
 	$('#newBar').height(10);
 
+	var emotionbartop = $('#progressBar').position().top-37;
+
 	if(barcounter==0)
-		$('#newBar').css({"position": 'absolute' , "top": '512px'});
+		$('#newBar').css({"position": 'absolute' , "top": emotionbartop});
 	else
-		$('#newBar').css({"position": 'absolute' , "top": '512px' , "left": barcounter*progressBarWidth+8});
+		$('#newBar').css({"position": 'absolute' , "top": emotionbartop , "left": barcounter*progressBarWidth+8});
 	barcounter++;
 	
 	$('#newBar').attr("id","legacydiv");
