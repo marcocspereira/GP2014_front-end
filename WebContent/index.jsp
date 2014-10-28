@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"   pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
+<html>  
+<head>   
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -16,17 +16,66 @@
 			//document.cookie = "tourVerify=; expires=Thu, 01 Jan 1970 00:00:00 UTC";//delete cookie
 			checkCookie("tourVerify");
 			
+			$('#feedbackB').click(function(){
+				//alert("hello");
+				$("#cover").fadeIn(500);
+				$("#feedbackDiv").fadeIn(1000);
+				
+			});
+			
+			$('#closeFeedb').click(function(){
+				$("#feedbackDiv").fadeOut(500); //after done.
+				$("#cover").fadeOut(1000); //after done.
+				
+				
+			});
+			
+			
 		});
 		
 		
 	
 	</script>
 	
+	<style type="text/css">
+	
+		#cover {
+		   position: absolute;
+		   top: 0;
+		   left: 0;
+		   right: 0;
+		   bottom: 0;
+		   opacity: 0.80;
+		   background: #aaa;
+		   z-index: 10;
+		   display: none;
+		}
+		
+		#feedbackDiv {
+		 	position: absolute;
+		 	top: 20px;
+			left: 100px;
+			width: 300px;
+			height: 100px;
+			background: #FFFFFF;
+			z-index : 50;
+			display: none;
+		}
+	
+	
+	</style>
 	<link rel="stylesheet" type="text/css" href="CSS/base.css">
 
 	<title>YouTube Lyrics - GP2014</title>
 </head>
 <body>
+
+	<button id="feedbackB">Disable</button>
+	
+	<div id="feedbackDiv">
+		<button id="closeFeedb">Close</button>
+	</div>
+	
 	<div id="scumDiv">
 	</div>
 	
@@ -43,7 +92,7 @@
 			<div id="progressBar"><div id="newBar"></div></div>
 		</div>
 	</div>
-
+	<div id="cover"> </div>
 </body>
 </html>
 
