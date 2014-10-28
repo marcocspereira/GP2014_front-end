@@ -6,12 +6,19 @@
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script type="text/javascript" src="Javascript/script.js"></script>
+	<script type="text/javascript" src="Javascript/cookie.js"></script>
 	
 	<script type="text/javascript">
 	
 		$( document ).ready(function() {
 			$('#scumDiv').css({"background-color": '#FFFFFF', "width": '960px', "height": '30px', "position": 'absolute', "top": '522px'});
+			
+			//document.cookie = "tourVerify=; expires=Thu, 01 Jan 1970 00:00:00 UTC";//delete cookie
+			checkCookie("tourVerify");
+			
 		});
+		
+		
 	
 	</script>
 	
