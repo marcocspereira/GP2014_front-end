@@ -1,0 +1,18 @@
+#progressBar {
+	width: 960px;
+	height: 10px;
+	background-color: #ffffff;
+	display: none;
+	margin-top: 1px;
+}
+
+#progressBar div {
+	height: 100%;
+	width: 0;
+	background-color: #FF0000;
+}
+		
+#newBar {
+	display: inline;
+	background-color: #FF0000;
+}
