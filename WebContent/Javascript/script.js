@@ -14,7 +14,7 @@ function onYouTubeIframeAPIReady() {
     player = new YT.Player('ytplayer', {
       height: '540',
       width: '960',
-      videoId: 'pQxh4aoq_U4',
+      videoId: '1lefGrqcC1A',//'pQxh4aoq_U4',
         playerVars: {
         'controls' : 1,
         'modestbranding' : 0,
@@ -107,7 +107,7 @@ function progress(percent, $element) {
 	
 }
 
-//apaga a barra de emoçoes apenas quando existe uma nova reproducao do video
+//apaga a barra de emoï¿½oes apenas quando existe uma nova reproducao do video
 function clearBar(){
 	if(checkstate==1){
 		checkstate=0;
