@@ -72,7 +72,7 @@ function onPlayerStateChange(event) {
 	
 	if(barcounter==0){
 		var scumtop = $('#progressBar').position().top-27;
-		console.log("scum "+scumtop);
+		//console.log("scum "+scumtop);
 		$('#scumDiv').css({"background-color": '#FFFFFF', "width": '960px', "height": '30px', "position": 'absolute', "top": scumtop});
 	}
 		

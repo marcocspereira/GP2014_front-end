@@ -60,15 +60,20 @@
 			z-index : 50;
 			display: none;
 		}
-	
-	
+		
+		
+		/*CSS animacao feedback*/
+		
+		
 	</style>
 	<link rel="stylesheet" type="text/css" href="CSS/base.css">
-
+	<link rel="stylesheet" type="text/css" href="font-awesome-4.2.0/css/font-awesome.min.css">
+ 
 	<title>YouTube Lyrics - GP2014</title>
 </head>
 <body>
 
+	<i class="fa fa-cog fa-spin"></i>
 	<button id="feedbackB">Disable</button>
 	
 	<div id="feedbackDiv">
