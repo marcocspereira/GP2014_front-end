@@ -5,6 +5,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 	<script type="text/javascript" src="Javascript/YTBEmoBar.js"></script>
 	<script type="text/javascript" src="Javascript/cookie.js"></script>
 	
@@ -26,18 +27,18 @@
 				
 			});
 			
-			$('body').click(function(evt){    
-		        if(evt.target.id == "feedbackDiv") //div que vai abrir
+			$('body').click(function(evt){
+		        if(evt.target.id == "feedbackDiv" || $(evt.target).closest('#feedbackDiv').length) //div que vai abrir
 		        	return;
-		        else if(evt.target.id == "feedbackB") //div botao
+		        else if(evt.target.id == "feedbackB" || $(evt.target).closest('#feedbackB').length) //div botao
 			    	return;
-		        else if($(evt.target).closest('#feedbackDiv').length)//dentro div que abre
-		            return;
 		        
 				$("#feedbackDiv").fadeOut(500);
 				$("#cover").fadeOut(1000); 
-					
+			
 			});
+			
+			$("#feedbackDiv").draggable();
 			
 		});
 	</script>
@@ -74,7 +75,6 @@
 			border-style: solid;
 			border-width: 1px;
 			overflow-y: scroll;
-
 		}
 		
 		#feedbackB {
