@@ -8,6 +8,7 @@
 	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 	<script type="text/javascript" src="Javascript/YTBEmoBar.js"></script>
 	<script type="text/javascript" src="Javascript/cookie.js"></script>
+	<script type="text/javascript" src="Javascript/pinterestStyle.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400">
 	<link rel="stylesheet" type="text/css" href="CSS/base.css">
@@ -15,7 +16,9 @@
 	
 	<title>YouTube Lyrics - GP2014</title>     
 	<script type="text/javascript">
-		$( document ).ready(function() {		
+		$( document ).ready(function() {
+			
+			setupBlocks(1);
 			
 			//document.cookie = "tourVerify=; expires=Thu, 01 Jan 1970 00:00:00 UTC";//delete cookie
 			checkCookie("tourVerify");
@@ -36,6 +39,10 @@
 				$("#feedbackDiv").fadeOut(500);
 				$("#cover").fadeOut(1000); 
 			
+			});
+			
+			$('.pint1').mouseup(function(){
+				setupBlocks(1);
 			});
 			
 			$("#feedbackDiv").draggable();
@@ -107,14 +114,30 @@
 		}
 		::-webkit-scrollbar-thumb:window-inactive {
 			background: rgba(132,129,129,0.4); 
-		}	
+		}
+		
+		
+		/*.pint1
+    		{
+			    position: absolute;
+			    background: #eee;
+			    padding: 20px;
+			    width: 300px;
+			    border: 1px solid #ddd;
+			    
+			    -webkit-transition: all 1s ease-in-out;
+			    -moz-transition: all 1s ease-in-out;
+			    -o-transition: all 1s ease-in-out;
+			    -ms-transition: all 1s ease-in-out;
+			    transition: all 1s ease-in-out;
+			}*/
 			
 	</style>
 	
  
 	
 </head>
-<body>
+<body >
 
 	<!-- caixa    de feedback ao utilizador -->
 	<span id="feedbackB"><i class="fa fa-cog fa-spin"></i> Background activities... <i class="fa fa-cog"></i></span>
@@ -145,6 +168,11 @@
 			<div id="progressBar"><div id="newBar"></div></div>
 		</div>
 	</div>
+	
+	<!-- <div class="pint1" style="width: 200px; height: 200px; background: red;"></div>
+	<div class="pint1" style="width: 200px; height: 200px; background: pink;"></div>
+	<div class="pint1" style="width: 200px; height: 200px; background: blue;"></div>
+	<div class="pint1" style="width: 200px; height: 200px; background: green;"></div> -->
 	
 	
 	
