@@ -18,7 +18,7 @@
 	<script type="text/javascript">
 		$( document ).ready(function() {
 			
-			setupBlocks(1);
+			//setupBlocks(1);
 			
 			//document.cookie = "tourVerify=; expires=Thu, 01 Jan 1970 00:00:00 UTC";//delete cookie
 			checkCookie("tourVerify");
@@ -41,9 +41,9 @@
 			
 			});
 			
-			$('.pint1').mouseup(function(){
+			/*$('.pint1').mouseup(function(){
 				setupBlocks(1);
-			});
+			});*/
 			
 			$("#feedbackDiv").draggable();
 			
