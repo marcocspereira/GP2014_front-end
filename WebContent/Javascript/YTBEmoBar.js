@@ -75,6 +75,7 @@ function onPlayerStateChange(event) {
 		var scumtop = $('#progressBar').position().top-27;
 		//console.log("scum "+scumtop);
 		$('#scumDiv').css({"background-color": '#FFFFFF', "width": '960px', "height": '30px', "position": 'absolute', "top": scumtop});
+		$('#scumDiv').slideDown("slow") ;
 	}
 		
 	
