@@ -5,7 +5,7 @@ body{
 
 #main_content_div{
 	width: 98%;
-	min-height: 1000px;
+	
 	margin: 0 auto;
 	background-color: #FFFFFF;
 }
@@ -57,9 +57,9 @@ body{
 	}
 
 .content {
-	background-color: red;
-  width:960px;
+  width: 98%;
   height:0px;
+  margin-top: 25px;
   margin-right: auto;
   margin-left: auto;
 }

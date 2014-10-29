@@ -1,7 +1,6 @@
 .separator { height: 50%; }
 
 .logo {
-	height: 300px;
 	text-align: center;
 	font-size: 40px;
 	font-family: Impact, "Arial Black"; /* Not perfect, but :\ */
