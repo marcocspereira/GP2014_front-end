@@ -3,16 +3,16 @@
 .logo {
 	height: 300px;
 	text-align: center;
-	font-size: 60px;
+	font-size: 40px;
 	font-family: Impact, "Arial Black"; /* Not perfect, but :\ */
-	line-height: 300px;
+	line-height: 100px;
 }
 
-#You {
+#YouTube {
 	text-shadow: .02em .02em 0.06em rgba(0,0,0,0.4);
 }
 
-#Tube{
+#Lyrics{
 	padding: 0.05em .15em;
 	border: .05em solid red;
 	box-shadow: .02em .02em 0.06em rgba(0,0,0,0.4);
