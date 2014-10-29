@@ -8,10 +8,13 @@
 	<script type="text/javascript" src="Javascript/script.js"></script>
 	<script type="text/javascript" src="Javascript/cookie.js"></script>
 	
-	<script type="text/javascript">
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400">
+	<link rel="stylesheet" type="text/css" href="CSS/base.css">
+	<link rel="stylesheet" type="text/css" href="font-awesome-4.2.0/css/font-awesome.min.css">
 	
-		$( document ).ready(function() {
-			
+	<title>YouTube Lyrics - GP2014</title>     
+	<script type="text/javascript">
+		$( document ).ready(function() {		
 			//document.cookie = "tourVerify=; expires=Thu, 01 Jan 1970 00:00:00 UTC";//delete cookie
 			checkCookie("tourVerify");
 			
@@ -29,14 +32,14 @@
 				
 			});
 			
-			
 		});
-		
-		
-	
 	</script>
 	
 	<style type="text/css">
+	
+		body {
+        	font-family: 'Open Sans', sans-erif;
+        }
 	
 		#cover {
 		   position: absolute;
@@ -59,33 +62,29 @@
 			background: #FFFFFF;
 			z-index : 50;
 			display: none;
-		}
-		
-		
-		/*CSS animacao feedback*/
-		
-		
+		}		
 	</style>
-	<link rel="stylesheet" type="text/css" href="CSS/base.css">
-	<link rel="stylesheet" type="text/css" href="font-awesome-4.2.0/css/font-awesome.min.css">
+	
  
-	<title>YouTube Lyrics - GP2014</title>
+	
 </head>
 <body>
 
+	<!-- caixa de feedback ao utilizador -->
 	<span id="feedbackB"><i class="fa fa-cog fa-spin"></i> Background activities... <i class="fa fa-cog"></i></span>
-	 
-	
-
 	<!-- <button id="feedbackB">Disable</button> -->
-	
 	<div id="feedbackDiv">
 		<button id="closeFeedb">Close</button>
 	</div>
 	
-	<div id="scumDiv">
-	</div>
 	
+	
+	<!-- barra usada para cobrir os controls do youtube player -->
+	<div id="scumDiv"></div>
+	
+	
+	
+	<!-- player youtube e barra de emocoes -->
 	<div class="now_playing">
 		<div class="n_p_video_container" >
 	       
@@ -99,6 +98,10 @@
 			<div id="progressBar"><div id="newBar"></div></div>
 		</div>
 	</div>
+	
+	
+	
+	<!-- onde será implementado o bloqueio da página ao abrir a caixa de feedback -->
 	<div id="cover"> </div>
 </body>
 </html>

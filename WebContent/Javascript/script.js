@@ -21,6 +21,7 @@ function onYouTubeIframeAPIReady() {
         'rel' : 0,
         'showinfo' : 0,
         'autohide' : 0,
+        'iv_load_policy': 3,
         'wmode': 'transparent'
       },
         events: {
