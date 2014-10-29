@@ -73,8 +73,11 @@
 </head>
 <body>
 
-	<i class="fa fa-cog fa-spin"></i>
-	<button id="feedbackB">Disable</button>
+	<span id="feedbackB"><i class="fa fa-cog fa-spin"></i> Background activities... <i class="fa fa-cog"></i></span>
+	 
+	
+
+	<!-- <button id="feedbackB">Disable</button> -->
 	
 	<div id="feedbackDiv">
 		<button id="closeFeedb">Close</button>
