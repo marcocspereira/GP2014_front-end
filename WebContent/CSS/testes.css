@@ -7,25 +7,52 @@ body{
 	width: 98%;
 	min-height: 1000px;
 	margin: 0 auto;
-	background-color: gray;
+	background-color: #FFFFFF;
 }
 
 #top_banner_div{
 	width: 100%;
 	height: 100px;
-	background-color: yellow;
+	border-bottom: 1px solid #666666;
 }
 
 #logo_div{
 	width: 50%;
 	height: 100px;
 	float: left;
-	background-color: blue;
 }
 
-#search_div{
+#top_buttons_div{
 	width: 50%;
 	height: 100px;
 	float: left;
-	background-color: pink;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
 }
+
+#search_button, #feedback_button{
+	background-color: #666666;
+	color: #FFFFFF;
+	cursor: pointer;
+	border: 1px solid #666666;
+	width: 70px;
+	height: 35px;
+	display: inline-block;
+	margin-top: 35px;
+	/* fade-in na transicao da cor (on hover) */
+	-moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+}
+
+	#search_button:hover, #feedback_button:hover{
+		background-color: #FFFFFF;
+		color: #666666;
+		cursor: pointer;
+		border: 1px solid #666666;
+		width: 70px;
+		height: 35px;
+	}
+
