@@ -69,6 +69,14 @@ function onPlayerStateChange(event) {
       clearTimeout(mytimer);
       //$('#progressBar').hide();
     }
+	
+	if(barcounter==0){
+		var scumtop = $('#progressBar').position().top-27;
+		console.log("scum "+scumtop);
+		$('#scumDiv').css({"background-color": '#FFFFFF', "width": '960px', "height": '30px', "position": 'absolute', "top": scumtop});
+	}
+		
+	
 }
 
 
@@ -93,11 +101,12 @@ function progress(percent, $element) {
 	//renomeia a div newbar, cria nova newbar
 	$('#newBar').height(10);
 
-	//$('#scumDiv').css({"background-color": '#FFFFFF', "width": '960px', "height": '30px', "position": 'absolute', "top": '522px'});
+	var emotionbartop = $('#progressBar').position().top-37;
+
 	if(barcounter==0)
-		$('#newBar').css({"position": 'absolute' , "top": '512px'});
+		$('#newBar').css({"position": 'absolute' , "top": emotionbartop});
 	else
-		$('#newBar').css({"position": 'absolute' , "top": '512px' , "left": barcounter*progressBarWidth+8});
+		$('#newBar').css({"position": 'absolute' , "top": emotionbartop , "left": barcounter*progressBarWidth+8});
 	barcounter++;
 	
 	$('#newBar').attr("id","legacydiv");
