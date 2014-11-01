@@ -39,9 +39,6 @@
 				
 			});
 			
-			/*$('.pint1').mouseup(function(){
-				setupBlocks(1);
-			});*/
 			
 			
 			$('body').click(function(evt){
@@ -55,9 +52,9 @@
 			
 			});
 			
-			/*$('.pint1').mouseup(function(){
+			$('.pint1').mouseup(function(){
 				setupBlocks(1);
-			});*/
+			});
 			
 			$("#feedbackDiv").draggable();
 			
@@ -135,20 +132,20 @@
 		}
 		
 		
-		/*.pint1
+		.pint1
     		{
 			    position: absolute;
 			    background: #eee;
 			    padding: 20px;
 			    width: 300px;
 			    border: 1px solid #ddd;
-			    
+			    /*
 			    -webkit-transition: all 1s ease-in-out;
 			    -moz-transition: all 1s ease-in-out;
 			    -o-transition: all 1s ease-in-out;
 			    -ms-transition: all 1s ease-in-out;
-			    transition: all 1s ease-in-out;
-			}*/
+			    transition: all 1s ease-in-out;*/
+			}
 			
 	</style>
 	
@@ -185,10 +182,10 @@
 		</div>
 	</div>
 	
-	<!-- <div class="pint1" style="width: 200px; height: 200px; background: red;"></div>
+	<div class="pint1" style="width: 200px; height: 200px; background: red;"></div>
 	<div class="pint1" style="width: 200px; height: 200px; background: pink;"></div>
 	<div class="pint1" style="width: 200px; height: 200px; background: blue;"></div>
-	<div class="pint1" style="width: 200px; height: 200px; background: green;"></div> -->
+	<div class="pint1" style="width: 200px; height: 200px; background: green;"></div>
 	
 	
 	

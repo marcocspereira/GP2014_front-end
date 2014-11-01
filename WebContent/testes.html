@@ -9,16 +9,17 @@
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="CSS/testes.css">
 	<link rel="stylesheet" type="text/css" href="CSS/youtubelogo.css">
+	<link rel="stylesheet" type="text/css" href="CSS/library.css">
 	<link rel="stylesheet" type="text/css" href="CSS/dragndrop.css">
 	<link rel="stylesheet" type="text/css" href="CSS/font-awesome-4.2.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="CSS/bootstrap-3.2.0-dist/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="CSS/bootstrap-3.2.0-dist/css/bootstrap-theme.min.css">
+	<!-- <link rel="stylesheet" type="text/css" href="CSS/bootstrap-3.2.0-dist/css/bootstrap-theme.min.css">  -->
 	
 	<!-- JavaScript -->
 	
 	<script type="text/javascript" src="Javascript/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-	<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>	
+	<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -38,37 +39,50 @@
 				<button id="feedback_button"><i class="fa fa-question-circle fa-2x"></i></button>
 			</div>
 		</div>		
-	</div>
 	
-	<!-- Middle Container -->
-	<div>
-		<div class="content">
-			<div class="panel-group" id="accordion">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Library</a>
-						</h4>
-					</div>
-					<div id="collapseOne" class="panel-collapse collapse">
-						<div class="panel-body">
-							<img src="http://files.conceptcarz.com/img/Suzuki/suzuki-concept-kizashi-3-2008-01-800.jpg" />
+	
+		<!-- Middle Container -->
+		<div>
+			<div class="content">
+				<div class="panel-group" id="accordion">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Library</a>
+							</h4>
+						</div>
+						<div id="collapseOne" class="panel-collapse collapse">
+							<div class="panel-body">
+								<img src="http://files.conceptcarz.com/img/Suzuki/suzuki-concept-kizashi-3-2008-01-800.jpg" />
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+
+			<section id="janelas3_section">
+				<ul id="sortable-with-handles" class="sortable">
+					<li draggable="true">
+						<div class="handle">::</div>
+						<div class="conteudo">CONA 1</div>
+					</li>
+					<li draggable="true">
+						<div class="handle">::</div>
+						<div class="conteudo">BOCA 2</div>
+					</li>
+					<li draggable="true">
+						<div class="handle">::</div>
+						<div class="conteudo">CU 3</div>
+					</li>
+				</ul>
+			
+				<script type="text/javascript" src="Javascript/dragndrop-1.js"></script>
+				<script type="text/javascript" src="Javascript/dragndrop-2.js"></script>
+				<script type="text/javascript" src="Javascript/dragndrop-3.js"></script>
+			</section>
+			
 		</div>
-		
-		<div id="columns-full">
-  			<div class="column" draggable="false"><header>A</header></div>
-  			<div class="column" draggable="true"><header>B</header></div>
-  			<div class="column" draggable="true"><header>C</header></div>
-		</div>
-				
 	</div>
-
-	<script type="text/javascript" src="Javascript/dragndrop.js"></script>
-
 
 </body>
 </html>

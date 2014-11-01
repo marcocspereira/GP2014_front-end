@@ -18,6 +18,7 @@ function setupBlocks(id) {
 	$( '.pint' +id).draggable();
     windowWidth = $(window).width();
     colWidth = $('.pint'+id).outerWidth();
+    console.log(colWidth);
     colCount = Math.floor(windowWidth/(colWidth+margin));
     for(var i=0;i<colCount;i++) {
         blocks.push(margin);
