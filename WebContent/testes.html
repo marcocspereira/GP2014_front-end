@@ -63,6 +63,24 @@
 		$("#feedbackDiv").draggable();
 			
 	});
+	
+	
+	$( window ).resize(function() {
+
+		var scumtop = $('#progressBar').position().top-31;
+		var scumw = $('#progressBar').width();
+		console.log("scum "+scumw);
+
+		$('#scumDiv').css({"background-color": '#FFFFFF', "width": scumw, "height": '27px', "position": 'absolute', "top": scumtop});
+		
+		var emotionbartop = $('#progressBar').position().top-40;
+		$('#legacydiv').css({"position": 'absolute' , "top": emotionbartop });
+		
+		
+		
+		
+	});
+	
 
 </script>
 
@@ -274,20 +292,20 @@ body {
 									<span class="fa fa-play organized_3divs_ul_header_border_fas"></span>
 									NOW PLAYING
 								</header>
-								<div id="scumDiv" style="display: none"></div> <!-- PLAYER YOUTUBE E BARRA DE EMOCOES -->
+								<div id="scumDiv" ></div> <!-- PLAYER YOUTUBE E BARRA DE EMOCOES -->
 								<div class="now_playing">
 									<div class="n_p_video_container">
 										<div class="n_p_video_play"></div>
 										<div id="ytplayer"></div>
 									</div>
 
-									<!-- 
+									
 									<div class="n_p_video_progressbar">
 										<div id="progressBar">
 											<div id="newBar"></div>
 										</div>
 									</div>
-						 			-->
+						 			
 								</div></li>
 							<!-- RUSSELL PLOT -->
 							<li><header>

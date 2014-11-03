@@ -23,6 +23,7 @@ function onYouTubeIframeAPIReady() {
         'showinfo' : 0,
         'autohide' : 0,
         'iv_load_policy': 3,
+        'playsinline': 1,
         'wmode': 'transparent'
       },
         events: {
@@ -67,9 +68,11 @@ function onPlayerStateChange(event) {
     }
 	
 	if(barcounter==0){
-		var scumtop = $('#progressBar').position().top-27;
-		//console.log("scum "+scumtop);
-		$('#scumDiv').css({"background-color": '#FFFFFF', "width": '360px', "height": '30px', "position": 'absolute', "top": scumtop});
+		var scumtop = $('#progressBar').position().top-31;
+		var scumw = $('#progressBar').width();
+		console.log("scum "+scumw);
+		$('#scumDiv').show();
+		$('#scumDiv').css({"background-color": '#FFFFFF', "width": scumw, "height": '27px', "position": 'absolute', "top": scumtop});
 		$('#scumDiv').slideDown("slow") ;
 	}
 		
@@ -98,12 +101,12 @@ function progress(percent, $element) {
 	//renomeia a div newbar, cria nova newbar
 	$('#newBar').height(10);
 
-	var emotionbartop = $('#progressBar').position().top-37;
+	var emotionbartop = $('#progressBar').position().top-40;
 
 	if(barcounter==0)
 		$('#newBar').css({"position": 'absolute' , "top": emotionbartop});
 	else
-		$('#newBar').css({"position": 'absolute' , "top": emotionbartop , "left": barcounter*progressBarWidth+29});
+		$('#newBar').css({"position": 'absolute' , "top": emotionbartop , "left": barcounter*progressBarWidth+25});
 	barcounter++;
 	
 	$('#newBar').attr("id","legacydiv");
