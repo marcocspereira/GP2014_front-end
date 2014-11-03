@@ -1,50 +1,116 @@
 .content {
-  width: 98%;
+  width: 100%;
   height:0px;
   margin-top: 25px;
-  margin-right: auto;
-  margin-left: auto;
 }
 .panel-group {
-  width:430px;
+  width:100%;
   z-index: 100;
   -webkit-backface-visibility: hidden;
-  -webkit-transform: translateX(-100%) rotate(-90deg);
-  -webkit-transform-origin: right top;
-  -moz-transform: translateX(-100%) rotate(-90deg);
-  -moz-transform-origin: right top;
-  -o-transform: translateX(-100%) rotate(-90deg);
-  -o-transform-origin: right top;
-  transform: translateX(-100%) rotate(-90deg);
-  transform-origin: right top;
 }
 .panel-heading {
-  width: 430px;
+  width:100%;
+  height:38px;
 }
 .panel-title {
-  height:18px
+  height:18px;
+  width: 25%;
+  float: left;
 }
 .panel-title a {
-  float:right;
+  float:left;
   text-decoration:none;
-  padding: 10px 430px;
-  margin: -10px -430px;
+  padding: 7px;
+  margin: -7px;
 }
 .panel-body {
-  height:830px;
+  height:230px;
+  overflow-y: scroll;
 }
-.panel-group img {
+
+.panel-group p {
   -webkit-backface-visibility: hidden;
-  -webkit-transform: translateX(0%) rotate(90deg);
-  -webkit-transform-origin: left top;
-  -moz-transform: translateX(0%) rotate(90deg);
-  -moz-transform-origin: left top;
-  -o-transform: translateX(0%) rotate(90deg);
-  -o-transform-origin: left top;
-  transform: translateX(0%) rotate(90deg);
-  transform-origin: left top;
 }
-.panel-group .panel img {
-  margin-left:400px;
+
+.panel-group .panel p {
+  
   position: absolute;
 }
+
+
+/*********************************************************************************************/
+
+.imports_div{
+	float:right;
+	width:75%;
+}
+
+.music_div{
+	border: 2px solid #666666;
+	padding: 0;
+	width: 49.7%;
+	height: 60px;
+	margin-bottom: 3px;
+	margin-right: 3px;
+	float: left;	
+}
+
+.thumbnail_img{
+	width: 58px;
+	height: 58px;
+	float: left;
+}
+
+.track_info_div{
+	height: 58px;
+	line-height: 29px;
+	float: left;
+	margin-left: 5px;
+	background-color: transparent;
+}
+
+.play_div, .play_div:HOVER{
+	height: 43px;
+	width: 46px;
+	float: right;
+	text-align: center;
+	vertical-align: bottom;
+	margin-top: 8px;
+	margin-right: 20px;
+	-moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+	-ms-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.play_div{
+	background-color: #E8E8E8;
+	border: 1px solid #666666;
+}
+
+.play_div:HOVER{
+	background-color: #666666;
+	border: 1px solid #666666;
+	color: #E8E8E8;
+	cursor: pointer;
+}
+
+@media only screen and (max-width: 1100px)  {
+	.music_div{
+		width: 100%;
+	}	
+}
+
+/*
+.track_name
+.author_name
+
+.a_value
+.v_value
+.play_
+*/

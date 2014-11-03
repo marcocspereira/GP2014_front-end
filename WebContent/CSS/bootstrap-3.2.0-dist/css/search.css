@@ -1,0 +1,90 @@
+
+h1{
+color: #444;
+margin-top:5px;
+}
+
+h2{
+padding: 0;
+margin: 0;
+}
+
+/*Form Settings */
+.button{
+  width:100px;
+  background:#678ED3;
+  display:block;
+  margin:0 auto;
+  margin-top:1%;
+  padding:10px;
+  text-align:center;
+  text-decoration:none;
+  color:#fff;
+  cursor:pointer;
+  transition:background .3s;
+  -webkit-transition:background .3s;
+}
+
+.button:hover{
+  background:#2288bb;
+}
+
+#login{
+  width:400px;
+  margin:0 auto;
+  margin-top:8px;
+  margin-bottom:2%;
+  transition:opacity 1s;
+  -webkit-transition:opacity 1s;
+}
+
+#triangle{
+  width:0;
+  border-top:12x solid transparent;
+  border-right:12px solid transparent;
+  border-bottom:12px solid #EC6767;
+  border-left:12px solid transparent;
+  margin:0 auto;
+}
+
+#login h2{
+  background:#EC6767 !important;
+  padding:20px 0 !important;
+  font-size:140% !important;
+  font-weight:300 !important;
+  text-align:center !important;
+  color:#fff !important;
+}
+
+form{
+  background:#DDD;
+  padding:6% 4%;
+}
+
+input[type="email"],input[type="password"]{
+  width:92%;
+  background:#fff;
+  margin-bottom:4%;
+  border:1px solid #ccc;
+  padding:4%;
+  font-family:'Open Sans',sans-serif;
+  font-size:125%;
+  color:#555;
+}
+
+input[type="submit"]{
+  width:100%;
+  background:#EC6767;
+  border:0;
+  padding:4%;
+  font-family:'Open Sans',sans-serif;
+  font-size:125%;
+  color:#fff;
+  cursor:pointer;
+  transition:background .3s;
+  -webkit-transition:background .3s;
+}
+
+input[type="submit"]:hover{
+  background:#2288bb;
+}
