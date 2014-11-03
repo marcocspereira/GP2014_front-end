@@ -12,9 +12,9 @@ var barcounter=0;
 // 3. This function creates an <iframe> (and YouTube player)  after the API code downloads.
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('ytplayer', {
-      height: '540',
-      width: '960',
-      videoId: '1lefGrqcC1A',//'pQxh4aoq_U4',
+      //height: '420',
+      //width: '390',
+      videoId: '9dgng_ekbV0', //'1lefGrqcC1A',//'pQxh4aoq_U4',
         playerVars: {
         'controls' : 1,
         'modestbranding' : 0,
@@ -74,7 +74,7 @@ function onPlayerStateChange(event) {
 	if(barcounter==0){
 		var scumtop = $('#progressBar').position().top-27;
 		//console.log("scum "+scumtop);
-		$('#scumDiv').css({"background-color": '#FFFFFF', "width": '960px', "height": '30px', "position": 'absolute', "top": scumtop});
+		$('#scumDiv').css({"background-color": '#FFFFFF', "width": '360px', "height": '30px', "position": 'absolute', "top": scumtop});
 		$('#scumDiv').slideDown("slow") ;
 	}
 		
