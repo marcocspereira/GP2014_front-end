@@ -75,9 +75,6 @@
 		var emotionbartop = $('#progressBar').position().top-40;
 		$('#legacydiv').css({"position": 'absolute' , "top": emotionbartop });
 		
-		
-		
-		
 	});
 	
 
@@ -180,7 +177,48 @@ body {
 			<div class="modal fade bs-example-modal-search" tabindex="-1"
 				role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-lg">
-					<div class="modal-content">SEARCH</div>
+					<div class="modal-content">
+						<!-- Nav tabs -->
+						<ul class="nav nav-tabs" role="tablist">
+  							<li class="active title_search_li" role="presentation"><a href="#home" role="tab" data-toggle="tab">Search by author or music name</a></li>
+  							<li class="title_search_li" role="presentation"><a href="#profile" role="tab" data-toggle="tab">Search by Arousal and Valence</a></li>
+						</ul>
+
+						<!-- Tab panes -->
+						<div class="tab-content">
+  							<div role="tabpanel" class="tab-pane active" id="home">
+  								Sport Lisboa
+  								<br />
+  								<form>
+									<input type="submit" class="btn_search" value="Search" />
+								</form>
+  							</div>
+  							<div role="tabpanel" class="tab-pane" id="profile">
+  								<br />
+  								<!-- PESQUISA POR AROUSAL -->
+  								<p>
+  									<label for="amount_arousal">Arousal (Y):</label>
+  									<input type="text" id="amount_arousal" readonly style="border:0; color:#f6931f; font-weight:bold; ">
+								</p>
+								<div id="slider-range-arousal" style="width: 80%; margin:auto;"></div>
+								<br />
+								<!-- PESQUISA POR VALENCE -->
+								<p>
+  									<label for="amount_valence">Valence (X):</label>
+  									<input type="text" id="amount_valence" readonly style="border:0; color:#f6931f; font-weight:bold; ">
+								</p>
+								<div id="slider-range-valence" style="width: 80%; margin:auto;"></div>
+								<br />
+								<form>
+									<input type="submit" class="btn_search" value="Search" />
+								</form>
+								<!-- SCRIPTS DE APOIO AS RANGE BARS -->
+								<script type="text/javascript" src="Javascript/rangeSlider.js"></script>
+  								<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  								<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+  							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			
@@ -194,138 +232,125 @@ body {
 		</nav>
 	</header>
 
+
+
+	<!-- MIDLE CONTAINER -->
 	<div id="main_content_div">
 
-		<!-- MIDLE CONTAINER -->
-		<div id="main_content_div">
-
-			<!-- LIBRARY -->
-			<div class="content">
-				<div class="panel-group" id="accordion">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<div class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion"
-									href="#collapseOne">
-									<button style="float: right;">
-										<span class="fa fa-list-alt"></span> Library
-									</button>
-								</a>
-							</div>
-							<div class="imports_div">
-								<!-- IMPORT LINKS -->
-								<button type="button" data-toggle="modal"
-									data-target=".bs-example-modal-links" style="float: right;">
-									<span class="fa fa-link"></span> Import Links
+		<div class="content">
+			<div class="panel-group" id="accordion">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion"
+								href="#collapseOne">
+								<button style="float: right;">
+									<span class="fa fa-list-alt"></span> Library
 								</button>
-								<div class="modal fade bs-example-modal-links" tabindex="-1"
-									role="dialog" aria-labelledby="myLargeModalLabel"
-									aria-hidden="true">
-									<div class="modal-dialog modal-lg">
-										<div class="modal-content">IMPORTAR LINKS</div>
+							</a>
+						</div>
+						<div class="imports_div">
+							<!-- IMPORT LINKS -->
+							<button type="button" data-toggle="modal"
+								data-target=".bs-example-modal-links" style="float: right;">
+								<span class="fa fa-link"></span> Import Links
+							</button>
+							<div class="modal fade bs-example-modal-links" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-content">
+										IMPORTAR LINKS
 									</div>
 								</div>
-								<!-- IMPORT FILE -->
-								<button type="button" data-toggle="modal"
-									data-target=".bs-example-modal-file" style="float: right;">
-									<span class="fa fa-file-text-o"></span> Import File
-								</button>
-								<div class="modal fade bs-example-modal-file" tabindex="-1"
-									role="dialog" aria-labelledby="myLargeModalLabel"
-									aria-hidden="true">
-									<div class="modal-dialog modal-lg">
-										<div class="modal-content">IMPORTAR FICHEIRO</div>
-									</div>
+							</div>
+							<!-- IMPORT FILE -->
+							<button type="button" data-toggle="modal" data-target=".bs-example-modal-file" style="float: right;">
+								<span class="fa fa-file-text-o"></span> Import File
+							</button>
+							<div class="modal fade bs-example-modal-file" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-content">IMPORTAR FICHEIRO</div>
 								</div>
 							</div>
 						</div>
-						<div id="collapseOne" class="panel-collapse collapse">
-							<div class="panel-body">
-
-								<div class="music_div" style="background-color: pink;">
-									<img alt="" src="images/capa.png" class="thumbnail_img" />
-									<div class="track_info_div">
-										Katy Perry <br /> Roar
-									</div>
-									<div class="fa fa-play fa-3x play_div"></div>
+					</div>
+					<!-- LIBRARY -->
+					<div id="collapseOne" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="music_div" style="background-color: pink;">
+								<img alt="" src="images/capa.png" class="thumbnail_img" />
+								<div class="track_info_div">
+									Katy Perry <br /> Roar
 								</div>
-								<div class="music_div" style="background-color: red;">
-									puta que pariu</div>
-								<div class="music_div" style="background-color: blue;">
-									puta que pariu</div>
-								<div class="music_div" style="background-color: green;">
-									puta que pariu</div>
-
-								<!-- ><img src="http://files.conceptcarz.com/img/Suzuki/suzuki-concept-kizashi-3-2008-01-800.jpg" />  -->
+								<div class="fa fa-play fa-3x play_div"></div>
+							</div>
+							<div class="music_div" style="background-color: red;">
+								puta que pariu
+							</div>
+							<div class="music_div" style="background-color: blue;">
+								puta que pariu
+							</div>
+							<div class="music_div" style="background-color: green;">
+								puta que pariu
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
 
-				<!-- 3 WINDOWS - VIDEO | PLOT | LYRIC -->
-				<section>
-						<!-- 3 WINDOWS ORGANIZATION AS HORIZONTAL LISTS -->
-						<ul id="organized_3divs_ul">
-							<!-- YOUTUBE VIDEO -->
-							<li><header>
-									<span class="fa fa-play organized_3divs_ul_header_border_fas"></span>
-									NOW PLAYING
-								</header>
-								<div id="scumDiv" ></div> <!-- PLAYER YOUTUBE E BARRA DE EMOCOES -->
-								<div class="now_playing">
-									<div class="n_p_video_container">
-										<div class="n_p_video_play"></div>
-										<div id="ytplayer"></div>
-									</div>
-
-									<!-- 
-									<div class="n_p_video_progressbar">
-										<div id="progressBar">
-											<div id="newBar"></div>
-										</div>
-									</div>
-						 			 -->
+			<!-- 3 WINDOWS - VIDEO | PLOT | LYRIC -->
+			<section>
+				<!-- 3 WINDOWS ORGANIZATION AS HORIZONTAL LISTS -->
+				<ul id="organized_3divs_ul">
+					<!-- YOUTUBE VIDEO -->
+					<li>
+						<header>
+							<span class="fa fa-play organized_3divs_ul_header_border_fas"></span>
+							NOW PLAYING
+						</header>
+						<div id="scumDiv" ></div> <!-- PLAYER YOUTUBE E BARRA DE EMOCOES -->
+						<div class="now_playing">
+							<div class="n_p_video_container">
+								<div class="n_p_video_play"></div>
+								<div id="ytplayer"></div>
+							</div>
+							<!-- 
+							<div class="n_p_video_progressbar">
+								<div id="progressBar">
+									<div id="newBar"></div>
 								</div>
-							</li>
-							<!-- RUSSELL PLOT -->
-							<li><header>
-									<span
-										class="fa fa-bar-chart organized_3divs_ul_header_border_fas"></span>
-									RUSSELL PLOT
-								</header>
-								<div></div> bbbbbbb</li>
-							<!-- LYRICS -->
-							<li id="lyrics_li"><header>
-									<span class="fa fa-bars organized_3divs_ul_header_border_fas"></span>
-									LYRIC
-								</header>
-								<article>
-									<p>
-										I used to bite my tongue and hold my breath <br /> Scared to
-										rock the boat and make a mess <br /> So I sat quietly, agree
-										politely <br /> I guess that I forgot I had a choice <br />
-										I let you push me past the breaking point <br /> I stood for
-										nothing, so I fell for everything <br />
-									</p>
-								</article></li>
-						</ul>
-
+							</div>
+					 		 -->
+						</div>
+					</li>
+					<!-- RUSSELL PLOT -->
+					<li>
+						<header>
+							<span class="fa fa-bar-chart organized_3divs_ul_header_border_fas"></span>
+							RUSSELL PLOT
+						</header>
+						bbbbbbb
+					</li>
+					<!-- LYRICS -->
+					<li id="lyrics_li">
+						<header>
+							<span class="fa fa-bars organized_3divs_ul_header_border_fas"></span>
+							LYRIC
+						</header>
+						<article>
+							<p>
+								I used to bite my tongue and hold my breath <br /> Scared to
+								rock the boat and make a mess <br /> So I sat quietly, agree
+								politely <br /> I guess that I forgot I had a choice <br />
+								I let you push me past the breaking point <br /> I stood for
+								nothing, so I fell for everything <br />
+							</p>
+						</article>
+					</li>
+				</ul>
 			</section>
-								
 		</div>
-		
-
-</div>
+			
 	</div>
-	<p style="text-align: center;">
-  <label for="amount">Price range:</label>
-  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold; ">
-</p>
- 
-<div id="slider-range" style="width: 80%; margin:auto;"></div>
-	<script type="text/javascript" src="Javascript/rangeSlider.js"></script>
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
 </body>
 </html>
