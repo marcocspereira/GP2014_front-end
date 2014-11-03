@@ -5,20 +5,38 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 	<script type="text/javascript" src="Javascript/YTBEmoBar.js"></script>
 	<script type="text/javascript" src="Javascript/cookie.js"></script>
+	<script type="text/javascript" src="Javascript/jquery.nestable.js"></script>
 	<script type="text/javascript" src="Javascript/pinterestStyle.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400">
 	<link rel="stylesheet" type="text/css" href="CSS/base.css">
 	<link rel="stylesheet" type="text/css" href="CSS/font-awesome-4.2.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="CSS/nestable.css">
+	
 	
 	<title>YouTube Lyrics - GP2014</title> 
 	
 	
 	<script type="text/javascript">
 		$( document ).ready(function() {
+			
+			 $('#nestable-menu').on('click', function(e)
+		    {
+		        var target = $(e.target),
+		            action = target.data('action');
+		        if (action === 'expand-all') {
+		            $('.dd').nestable('expandAll');
+		        }
+		        if (action === 'collapse-all') {
+		            $('.dd').nestable('collapseAll');
+		        }
+		    });
+
+		    $('#nestable3').nestable();
 			
 			//setupBlocks(1);
 			
@@ -39,6 +57,9 @@
 				
 			});
 			
+			/*$('.pint1').mouseup(function(){
+				setupBlocks(1);
+			});*/
 			
 			
 			$('body').click(function(evt){
@@ -52,15 +73,15 @@
 			
 			});
 			
-			$('.pint1').mouseup(function(){
+			/*$('.pint1').mouseup(function(){
 				setupBlocks(1);
-			});
+			});*/
 			
 			$("#feedbackDiv").draggable();
 			
-			
-		});
-		
+
+			});
+	
 		
 	
 	</script>
@@ -139,8 +160,8 @@
 			    padding: 20px;
 			    width: 300px;
 			    border: 1px solid #ddd;
-			    /*
-			    -webkit-transition: all 1s ease-in-out;
+			    
+			   /* -webkit-transition: all 1s ease-in-out;
 			    -moz-transition: all 1s ease-in-out;
 			    -o-transition: all 1s ease-in-out;
 			    -ms-transition: all 1s ease-in-out;
@@ -150,7 +171,7 @@
 	</style>
 	
 </head>
-<body >
+<body onload="setupBlocks(1)">
 
 	<!-- caixa    de feedback ao utilizador -->
 	<span id="feedbackB"><i class="fa fa-cog fa-spin"></i> Background activities... <i class="fa fa-cog"></i></span>
@@ -182,10 +203,30 @@
 		</div>
 	</div>
 	
-	<div class="pint1" style="width: 200px; height: 200px; background: red;"></div>
+	<!--  <div class="pint1" style="width: 200px; height: 200px; background: red;"></div>
 	<div class="pint1" style="width: 200px; height: 200px; background: pink;"></div>
 	<div class="pint1" style="width: 200px; height: 200px; background: blue;"></div>
-	<div class="pint1" style="width: 200px; height: 200px; background: green;"></div>
+	<div class="pint1" style="width: 200px; height: 200px; background: green;"></div>  -->
+	
+	
+	
+	
+	<div class="dd" id="nestable3">
+		<ol class="dd-list">
+		    <li class="dd-item dd3-item" data-id="13">
+		        <div class="dd-handle dd3-handle">Drag</div>
+		        <div class="dd3-content">Item 13</div>
+		    </li>
+		    <li class="dd-item dd3-item" data-id="14">
+		        <div class="dd-handle dd3-handle">Drag</div>
+		        <div class="dd3-content">Item 14</div>
+		    </li>
+		    <li class="dd-item dd3-item" data-id="15">
+		        <div class="dd-handle dd3-handle">Drag</div>
+		        <div class="dd3-content">Item 15</div>
+		    </li>
+		</ol>
+	</div>
 	
 	
 	

@@ -2,10 +2,10 @@
 $(window).resize(handler);
 
 function handler(){
-	setupBlocks(0);
+	//setupBlocks(0);
 	setupBlocks(1);
-	setupBlocks(2);
-	setupBlocks(4);
+	//setupBlocks(2);
+	//setupBlocks(4);
 }
 
 function setupBlocks(id) {
@@ -18,7 +18,7 @@ function setupBlocks(id) {
 	$( '.pint' +id).draggable();
     windowWidth = $(window).width();
     colWidth = $('.pint'+id).outerWidth();
-    console.log(colWidth);
+    //console.log(colWidth);
     colCount = Math.floor(windowWidth/(colWidth+margin));
     for(var i=0;i<colCount;i++) {
         blocks.push(margin);

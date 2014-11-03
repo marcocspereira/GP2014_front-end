@@ -16,6 +16,7 @@ function onYouTubeIframeAPIReady() {
       width: '960',
       videoId: '1lefGrqcC1A',//'pQxh4aoq_U4',
         playerVars: {
+        'autoplay' : 1,
         'controls' : 1,
         'modestbranding' : 0,
         'rel' : 0,
@@ -55,12 +56,7 @@ function onPlayerStateChange(event) {
 	} 
     
     else if (event.data == YT.PlayerState.ENDED) {
-    	/*console.log("parou");
     	
-    	$('div[id|="legacydiv"]').fadeOut("slow");
-    	sleep(2000);
-    	$('div[id|="legacydiv"]').remove();
-    	 */
     	barcounter=0;
     	checkstate=1;    	
     	
@@ -68,7 +64,6 @@ function onPlayerStateChange(event) {
     else {
       
       clearTimeout(mytimer);
-      //$('#progressBar').hide();
     }
 	
 	if(barcounter==0){
@@ -108,7 +103,7 @@ function progress(percent, $element) {
 	if(barcounter==0)
 		$('#newBar').css({"position": 'absolute' , "top": emotionbartop});
 	else
-		$('#newBar').css({"position": 'absolute' , "top": emotionbartop , "left": barcounter*progressBarWidth+8});
+		$('#newBar').css({"position": 'absolute' , "top": emotionbartop , "left": barcounter*progressBarWidth+29});
 	barcounter++;
 	
 	$('#newBar').attr("id","legacydiv");
@@ -118,7 +113,7 @@ function progress(percent, $element) {
 	
 }
 
-//apaga a barra de emo�oes apenas quando existe uma nova reproducao do video
+//apaga a barra de emocoes apenas quando existe uma nova reproducao do video
 function clearBar(){
 	if(checkstate==1){
 		checkstate=0;
