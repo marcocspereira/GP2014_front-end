@@ -187,6 +187,10 @@ body{
 	text-align: center;	
 }
 
+.link_bar_input{
+	width: 96%;
+}
+
 .search_file_button{
 	width: 96%;
 }
