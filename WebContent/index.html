@@ -6,34 +6,58 @@
 
 <title>YouTube2Lyrics - GP2014</title>
 
+
+
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="CSS/youtubelogo.css">
 <link rel="stylesheet" type="text/css" href="CSS/library.css">
 <link rel="stylesheet" type="text/css" href="CSS/font-awesome-4.2.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="CSS/bootstrap-3.2.0-dist/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="CSS/search.css">
+<!-- <link rel="stylesheet" type="text/css" href="CSS/search.css"> -->
 <link rel="stylesheet" type="text/css" href="CSS/testes.css">
 <link rel="stylesheet" type="text/css" href="CSS/base.css">
-<!-- RANGE SLIDER -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">	
-<!-- <link rel="stylesheet" type="text/css" href="CSS/bootstrap-3.2.0-dist/css/bootstrap-theme.min.css">  -->
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400">
 <link rel="stylesheet" type="text/css" href="CSS/font-awesome-4.2.0/css/font-awesome.min.css">
+
+
+<!-- RANGE SLIDER -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">	
+
+
 
 <!-- JavaScript -->
 <script type="text/javascript" src="Javascript/YTBEmoBar.js"></script>
 <script type="text/javascript" src="Javascript/cookie.js"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+
+ <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 <script type="text/javascript" src="Javascript/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="CSS/pageguide.css">
+<script src="Javascript/jquery.pageguide.js"></script>
+
+
+
+
+
+
+
+
+
 
 <script type="text/javascript">
 	$( document ).ready(function() {
 		//setupBlocks(1);
+		 // tl.pg.init();
 			
 		//document.cookie = "tourVerify=; expires=Thu, 01 Jan 1970 00:00:00 UTC";//delete cookie
 		checkCookie("tourVerify");
 			
-		$('#feedbackB').click(function(){
+		/*$('#feedbackB').click(function(){
 			//alert("hello");
 			$("#cover").fadeIn(500);
 			$("#feedbackDiv").fadeIn(1000);
@@ -60,7 +84,39 @@
 			setupBlocks(1);
 		});
 			
-		$("#feedbackDiv").draggable();
+		$("#feedbackDiv").draggable();*/
+		
+		russel_div
+		var simpleGuide = {
+				  id: 'simple',
+				  'title': '',
+				  steps: [
+					{
+					    target: '#now_playing_div',
+					    content: 'Video a decorre no momento',
+					    direction: 'top'
+					},
+					{
+					    target: '#russel_div',
+					    content: 'Valores de A e V consoante a analise do video.',
+					    direction: 'top'
+					  },
+				    
+				    {
+				      target: '#lyrics_li',
+				      content: 'Aqui é exibida a letra da musica em questão.',
+				      direction: 'top',
+				      /*margin: {
+				        bottom: 200
+				      }*/
+				    },
+				    
+				    
+				  ]
+				};
+		
+
+			  $.pageguide(simpleGuide);
 			
 	});
 	
@@ -89,11 +145,14 @@
 			  else
 			  	$(this).css({"position": 'absolute' , "width" : progbarW, "top": emotionbartop , "left": index*progbarW+emotionbarleft});
 		});
-			
 		
 	});
 	
 
+	
+	
+		
+	
 </script>
 
 <style type="text/css">
@@ -177,7 +236,7 @@ body {
 </style>
 
 </head>
-<body>
+<body >
 	<!-- BANNER TOP -->
 	<header id="top_banner_div">
 		<div id="logo_div">
@@ -221,7 +280,7 @@ body {
 				<i class="fa fa-cog"></i>
 			</button>
 			<!-- http://linkedin.github.io/hopscotch/ -->
-			<button id="feedback_button">
+			<button id="tour_button">
 				<i class="fa fa-question-circle"></i>
 			</button>
 		</nav>
@@ -300,7 +359,7 @@ body {
 						<!-- 3 WINDOWS ORGANIZATION AS HORIZONTAL LISTS -->
 						<ul id="organized_3divs_ul">
 							<!-- YOUTUBE VIDEO -->
-							<li><header>
+							<li id = "now_playing_div"><header>
 									<span class="fa fa-play organized_3divs_ul_header_border_fas"></span>
 									NOW PLAYING
 								</header>
@@ -320,7 +379,7 @@ body {
 						 			
 								</div></li>
 							<!-- RUSSELL PLOT -->
-							<li><header>
+							<li id  = "russel_div"><header>
 									<span
 										class="fa fa-bar-chart organized_3divs_ul_header_border_fas"></span>
 									RUSSELL PLOT
@@ -349,7 +408,7 @@ body {
 
 </div>
 	</div>
-	<p style="text-align: center;">
+	<!-- <p style="text-align: center;">
   <label for="amount">Price range:</label>
   <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold; ">
 </p>
@@ -357,7 +416,7 @@ body {
 <div id="slider-range" style="width: 80%; margin:auto;"></div>
 	<script type="text/javascript" src="Javascript/rangeSlider.js"></script>
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script> -->
 
 </body>
 </html>
