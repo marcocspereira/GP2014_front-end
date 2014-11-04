@@ -22,6 +22,7 @@
 <!-- JavaScript -->
 <script type="text/javascript" src="Javascript/YTBEmoBar.js"></script>
 <script type="text/javascript" src="Javascript/cookie.js"></script>
+<script type="text/javascript" src="Javascript/dragndroptxt.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 <script type="text/javascript" src="Javascript/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
 
@@ -158,6 +159,23 @@ body {
 			    -ms-transition: all 1s ease-in-out;
 			    transition: all 1s ease-in-out;*/
 }
+
+
+#filelist {
+    margin-top: 15px;
+}
+
+#uploadFilesButtonContainer, #selectFilesButtonContainer, #overallProgress {
+    display: inline-block;
+}
+
+#overallProgress {
+    float: right;
+}
+
+.yellowBackground {
+  background: #F2E699;
+}
 </style>
 
 </head>
@@ -187,9 +205,10 @@ body {
 						<!-- Tab panes -->
 						<div class="tab-content">
   							<div role="tabpanel" class="tab-pane active" id="home">
-  								Sport Lisboa
-  								<br />
   								<form>
+  									<br />
+  									<input type="search" id="input_search_field" placeholder="Search music or artist..." />
+  									<br />
 									<input type="submit" class="btn_search" value="Search" />
 								</form>
   							</div>
@@ -257,7 +276,7 @@ body {
 							</button>
 							<div class="modal fade bs-example-modal-links" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 								<div class="modal-dialog modal-lg">
-									<div class="modal-content">
+									<div class="modal-content import-things">
 										IMPORTAR LINKS
 									</div>
 								</div>
@@ -268,7 +287,16 @@ body {
 							</button>
 							<div class="modal fade bs-example-modal-file" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 								<div class="modal-dialog modal-lg">
-									<div class="modal-content">IMPORTAR FICHEIRO</div>
+									<div class="modal-content import-things">
+										<h1 class="import_file_h1">IMPORT FILE</h1>
+										<form>
+											<input type="file" name="txt" accept="text/*" class="btn btn-primary search_file_button">
+											<br /><br />
+											<input type="submit" class="btn btn-success">
+											<br /><br />
+											<small>You must upload a .txt file with the links separated by new lines or blank spaces</small>
+										</form>										
+									</div>
 								</div>
 							</div>
 						</div>
