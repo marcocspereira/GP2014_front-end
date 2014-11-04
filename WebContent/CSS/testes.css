@@ -25,7 +25,7 @@ body{
 	text-align: center;
 }
 
-#search_button, #feedback_button{
+#search_button, #feedback_button, #tour_button{
 	background-color: #E8E8E8;
 	color: #666666;
 	cursor: pointer;
@@ -46,7 +46,7 @@ body{
 	border-radius: 5px;
 }
 
-	#search_button:hover, #feedback_button:hover{
+	#search_button:hover, #feedback_button:hover, #tour_button:hover{
 		background-color: #666666;
 		color: #E8E8E8;
 		cursor: pointer;
