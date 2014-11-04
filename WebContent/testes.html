@@ -257,6 +257,7 @@ body {
 	<div id="main_content_div">
 
 		<div class="content">
+			<!-- ACCORDION QUE CONTEM LIBRARY (COLAPSAVEL) E, MAIS EM BAIXO, AS 3 JANELAS -->
 			<div class="panel-group" id="accordion">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -270,21 +271,31 @@ body {
 						</div>
 						<div class="imports_div">
 							<!-- IMPORT LINKS -->
+							<!-- BOTAO -->
 							<button type="button" data-toggle="modal"
 								data-target=".bs-example-modal-links" style="float: right;">
 								<span class="fa fa-link"></span> Import Links
 							</button>
+							<!-- JANELA PARA INSERIR LINKS -->
 							<div class="modal fade bs-example-modal-links" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 								<div class="modal-dialog modal-lg">
 									<div class="modal-content import-things">
-										IMPORTAR LINKS
+										<h1 class="import_file_h1">IMPORT LINKS</h1>
+										<form>
+											<input type="url" class="form-control link_bar_input" placeholder="URL input">
+											<br /><br />
+											<input type="submit" class="btn btn-success">
+											<br /><br />
+										</form>	
 									</div>
 								</div>
 							</div>
 							<!-- IMPORT FILE -->
+							<!-- BOTAO -->
 							<button type="button" data-toggle="modal" data-target=".bs-example-modal-file" style="float: right;">
 								<span class="fa fa-file-text-o"></span> Import File
 							</button>
+							<!-- JANELA PARA INSERIR FICHEIRO -->
 							<div class="modal fade bs-example-modal-file" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 								<div class="modal-dialog modal-lg">
 									<div class="modal-content import-things">
@@ -301,6 +312,7 @@ body {
 							</div>
 						</div>
 					</div>
+					
 					<!-- LIBRARY -->
 					<div id="collapseOne" class="panel-collapse collapse">
 						<div class="panel-body">
