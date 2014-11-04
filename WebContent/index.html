@@ -51,42 +51,10 @@
 
 <script type="text/javascript">
 	$( document ).ready(function() {
-		//setupBlocks(1);
-		 // tl.pg.init();
 			
 		//document.cookie = "tourVerify=; expires=Thu, 01 Jan 1970 00:00:00 UTC";//delete cookie
 		checkCookie("tourVerify");
 			
-		/*$('#feedbackB').click(function(){
-			//alert("hello");
-			$("#cover").fadeIn(500);
-			$("#feedbackDiv").fadeIn(1000);
-		});
-			
-		$('#closeFeedb').click(function(){
-			$("#feedbackDiv").fadeOut(500); //after done.
-			$("#cover").fadeOut(1000); //after done.
-		});
-
-			
-		$('now_plaing').click(function(evt){
-			if(evt.target.id == "feedbackDiv" || $(evt.target).closest('#feedbackDiv').length) //div que vai abrir
-				return;
-			else if(evt.target.id == "feedbackB" || $(evt.target).closest('#feedbackB').length) //div botao
-				return;
-		        
-			$("#feedbackDiv").fadeOut(500);
-			$("#cover").fadeOut(1000); 
-			
-		});
-			
-		$('.pint1').mouseup(function(){
-			setupBlocks(1);
-		});
-			
-		$("#feedbackDiv").draggable();*/
-		
-		russel_div
 		var simpleGuide = {
 				  id: 'simple',
 				  'title': '',
@@ -115,44 +83,41 @@
 				  ]
 				};
 		
-
 			  $.pageguide(simpleGuide);
-			
 	});
 	
 	
 	$( window ).resize(function() {
-
-		var scumtop = $('#progressBar').position().top-31;
+		updateBarsPos(0);		
+	});
+	
+	
+	function updateBarsPos(ver){
+		var extraHeight = 0;
+		if(ver != 0){
+			if ($('#library_button').hasClass('collapsed'))
+				extraHeight= -230;
+			else
+				extraHeight= 230;
+		}
+		console.log("update "+extraHeight);
+		var scumtop = $('#progressBar').position().top-31+extraHeight;
 		var scumw = $('#progressBar').width();
-		//console.log("scum "+scumw);
-
+		
 		$('#scumDiv').css({"background-color": '#FFFFFF', "width": scumw, "height": '27px', "position": 'absolute', "top": scumtop});
 		
-		
-		
-		
-		//console.log("estamos no resize");
 		$(".legacydiv").each(function( index ) {
-			  //console.log( index + ": " + $( this ).text() );
-			  var emotionbartop = $('#progressBar').position().top-40;
+			  var emotionbartop = $('#progressBar').position().top-40+extraHeight;
 			  var emotionbarleft = $('#progressBar').position().left;
 			  var progbarW = getprogbarw();
-			  //console.log(index + "   "+emotionbartop);
-			  //var barc = getBarCounter();
+			  
 			  if(index == 0)
 				$(this).css({"position": 'absolute' , "width" : progbarW, "top": emotionbartop});
 			  else
 			  	$(this).css({"position": 'absolute' , "width" : progbarW, "top": emotionbartop , "left": index*progbarW+emotionbarleft});
 		});
-		
-	});
-	
+	}	
 
-	
-	
-		
-	
 </script>
 
 <style type="text/css">
@@ -297,14 +262,14 @@ body {
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<div class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion"
-									href="#collapseOne">
-									<button style="float: right;">
-										<span class="fa fa-list-alt"></span> Library
+								<a data-toggle="collapse" data-parent="#accordion"	href="#collapseOne" id="library_button" onclick="updateBarsPos(1);">
+									<button style="float: right;" >
+										<span class="fa fa-list-alt" ></span> Library
 									</button>
 								</a>
 							</div>
 							<div class="imports_div">
+							
 								<!-- IMPORT LINKS -->
 								<button type="button" data-toggle="modal"
 									data-target=".bs-example-modal-links" style="float: right;">
@@ -358,6 +323,7 @@ body {
 				<section>
 						<!-- 3 WINDOWS ORGANIZATION AS HORIZONTAL LISTS -->
 						<ul id="organized_3divs_ul">
+						
 							<!-- YOUTUBE VIDEO -->
 							<li id = "now_playing_div"><header>
 									<span class="fa fa-play organized_3divs_ul_header_border_fas"></span>
@@ -378,6 +344,7 @@ body {
 									</div>
 						 			
 								</div></li>
+								
 							<!-- RUSSELL PLOT -->
 							<li id  = "russel_div"><header>
 									<span
@@ -385,6 +352,7 @@ body {
 									RUSSELL PLOT
 								</header>
 								<div></div> bbbbbbb</li>
+								
 							<!-- LYRICS -->
 							<li id="lyrics_li"><header>
 									<span class="fa fa-bars organized_3divs_ul_header_border_fas"></span>
@@ -408,15 +376,7 @@ body {
 
 </div>
 	</div>
-	<!-- <p style="text-align: center;">
-  <label for="amount">Price range:</label>
-  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold; ">
-</p>
- 
-<div id="slider-range" style="width: 80%; margin:auto;"></div>
-	<script type="text/javascript" src="Javascript/rangeSlider.js"></script>
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script> -->
+
 
 </body>
 </html>
