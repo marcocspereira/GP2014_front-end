@@ -13,18 +13,27 @@
 <link rel="stylesheet" type="text/css" href="CSS/bootstrap-3.2.0-dist/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="CSS/testes.css">
 <link rel="stylesheet" type="text/css" href="CSS/base.css">
-<!-- RANGE SLIDER -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">	
-<!-- <link rel="stylesheet" type="text/css" href="CSS/bootstrap-3.2.0-dist/css/bootstrap-theme.min.css">  -->
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400">
 <link rel="stylesheet" type="text/css" href="CSS/font-awesome-4.2.0/css/font-awesome.min.css">
+<!-- RANGE SLIDER -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 
 <!-- JavaScript -->
+<!-- FUNCIONALIDADES AVULSAS - VER NOME DOS FICHEIROS -->
 <script type="text/javascript" src="Javascript/YTBEmoBar.js"></script>
 <script type="text/javascript" src="Javascript/cookie.js"></script>
-<script type="text/javascript" src="Javascript/dragndroptxt.js"></script>
+<!-- BOOTSTRAP -->
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 <script type="text/javascript" src="Javascript/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+<!-- RANGE SLIDER -->
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script type="text/javascript" src="Javascript/rangeSlider.js"></script>
+<!-- TOUR - PROBLEMAS DE COMPATIBILIDADE COM O RANGE SLIDER -->
+<!-- 
+<link rel="stylesheet" type="text/css" href="CSS/pageguide.css">
+<script src="Javascript/jquery.pageguide.js"></script>
+-->  								
 
 <script type="text/javascript">
 	$( document ).ready(function() {
@@ -32,35 +41,37 @@
 			
 		//document.cookie = "tourVerify=; expires=Thu, 01 Jan 1970 00:00:00 UTC";//delete cookie
 		checkCookie("tourVerify");
-			
-		$('#feedbackB').click(function(){
-			//alert("hello");
-			$("#cover").fadeIn(500);
-			$("#feedbackDiv").fadeIn(1000);
-		});
-			
-		$('#closeFeedb').click(function(){
-			$("#feedbackDiv").fadeOut(500); //after done.
-			$("#cover").fadeOut(1000); //after done.
-		});
 
-			
-		$('now_plaing').click(function(evt){
-			if(evt.target.id == "feedbackDiv" || $(evt.target).closest('#feedbackDiv').length) //div que vai abrir
-				return;
-			else if(evt.target.id == "feedbackB" || $(evt.target).closest('#feedbackB').length) //div botao
-				return;
-		        
-			$("#feedbackDiv").fadeOut(500);
-			$("#cover").fadeOut(1000); 
-			
-		});
-			
-		$('.pint1').mouseup(function(){
-			setupBlocks(1);
-		});
-			
-		$("#feedbackDiv").draggable();
+		var simpleGuide = {
+				  id: 'simple',
+				  'title': '',
+				  steps: [
+					{
+					    target: '#now_playing_div',
+					    content: 'Video a decorre no momento',
+					    direction: 'top'
+					},
+					{
+					    target: '#russel_div',
+					    content: 'Valores de A e V consoante a analise do video.',
+					    direction: 'top'
+					  },
+				    
+				    {
+				      target: '#lyrics_li',
+				      content: 'Aqui é exibida a letra da musica em questão.',
+				      direction: 'top',
+				      /*margin: {
+				        bottom: 200
+				      }*/
+				    },
+				    
+				    
+				  ]
+				};
+		
+			  $.pageguide(simpleGuide);
+		
 			
 	});
 	
@@ -160,22 +171,6 @@ body {
 			    transition: all 1s ease-in-out;*/
 }
 
-
-#filelist {
-    margin-top: 15px;
-}
-
-#uploadFilesButtonContainer, #selectFilesButtonContainer, #overallProgress {
-    display: inline-block;
-}
-
-#overallProgress {
-    float: right;
-}
-
-.yellowBackground {
-  background: #F2E699;
-}
 </style>
 
 </head>
@@ -189,6 +184,7 @@ body {
 		</div>
 
 		<nav id="top_buttons_div">
+			<!-- PESQUISA -->
 			<button id="search_button" type="button" data-toggle="modal" data-target=".bs-example-modal-search">
 				<i class="fa fa-search"></i>
 			</button>
@@ -232,26 +228,96 @@ body {
 									<input type="submit" class="btn_search" value="Search" />
 								</form>
 								<!-- SCRIPTS DE APOIO AS RANGE BARS -->
-								<script type="text/javascript" src="Javascript/rangeSlider.js"></script>
-  								<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  								<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+								
   							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			
-			<button id="feedback_button">
+			<!-- FEEDBACK DOS VIDEOS QUE ESTAO EM PROCESSAMENTO -->
+			<button id="feedback_button" data-toggle="modal" data-target=".bs-example-modal-feedback">
 				<i class="fa fa-cog"></i>
 			</button>
+			<div class="modal fade bs-example-modal-feedback" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  				<div class="modal-dialog modal-lg">
+    				<div class="modal-content">
+      					<h1><i class="fa fa-cog fa-spin"></i> FEEDBACK</h1>
+      					<br /> <br />
+      					<!-- ACCORDION COM AS MUSICAS EM ANALISE NO SISTEMA -->
+      					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      					
+  							<div class="panel panel-default">
+    							<div class="panel-heading" role="tab" id="headingOne">
+      								<h4 class="panel-title">
+        								<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          									MUSICA 1
+        								</a>
+      								</h4>
+    							</div>
+    							<div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      								<div class="panel-body">
+        								<ul class="list-group">
+  											<li class="list-group-item feedback_ok_li"><i class="fa fa-check"></i> Validating Link YouTube</li>
+  											<li class="list-group-item feedback_ok_li"><i class="fa fa-check"></i> Segmentation</li>
+  											<li class="list-group-item feedback_processing_li"><i class="fa fa-cog fa-spin"></i> OCR</li>
+  											<li class="list-group-item feedback_problem_li"><i class="fa fa-remove"></i> etc.</li>
+										</ul>
+      								</div>
+    							</div>
+  							</div>
+  							
+  							<div class="panel panel-default">
+    							<div class="panel-heading" role="tab" id="headingTwo">
+      								<h4 class="panel-title">
+        								<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          									MUSICA 2
+        								</a>
+      								</h4>
+    							</div>
+    							<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      								<div class="panel-body">
+        								<ul class="list-group">
+  											<li class="list-group-item feedback_ok_li"><i class="fa fa-check"></i> Validating Link YouTube</li>
+  											<li class="list-group-item feedback_ok_li"><i class="fa fa-check"></i> Segmentation</li>
+  											<li class="list-group-item feedback_processing_li"><i class="fa fa-cog fa-spin"></i> OCR</li>
+  											<li class="list-group-item feedback_processing_li"><i class="fa fa-cog fa-spin"></i> etc.</li>
+										</ul>
+      								</div>
+    							</div>
+  							</div>
+  							
+  							<div class="panel panel-default">
+    							<div class="panel-heading" role="tab" id="headingThree">
+      								<h4 class="panel-title">
+        								<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          									MUSICA N
+        								</a>
+      								</h4>
+    							</div>
+    							<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      								<div class="panel-body">
+        								<ul class="list-group">
+  											<li class="list-group-item feedback_ok_li"><i class="fa fa-check"></i> Validating Link YouTube</li>
+  											<li class="list-group-item feedback_ok_li"><i class="fa fa-check"></i> Segmentation</li>
+  											<li class="list-group-item feedback_processing_li"><i class="fa fa-cog fa-spin"></i> OCR</li>
+  											<li class="list-group-item feedback_processing_li"><i class="fa fa-cog fa-spin"></i> etc.</li>
+										</ul>
+      								</div>
+    							</div>
+  							</div>
+  							
+						</div>
+    				</div>
+  				</div>
+			</div>
 			<!-- http://linkedin.github.io/hopscotch/ -->
-			<button id="feedback_button">
+			<!-- TAKE A TOUR -->
+			<button id="tour_button">
 				<i class="fa fa-question-circle"></i>
-			</button>
+			</button>			
 		</nav>
 	</header>
-
-
 
 	<!-- MIDLE CONTAINER -->
 	<div id="main_content_div">
