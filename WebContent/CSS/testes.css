@@ -107,6 +107,18 @@ body{
   text-decoration: none;
   border: 0;
 }
+
+.feedback_ok_li{
+	background-color: #A9F5BC;
+}
+
+.feedback_processing_li{
+	background-color: #F5F6CE;
+}
+
+.feedback_problem_li{
+	background-color: #F78181;
+}
 	
 #main_content_div{
 	width: 99%;
