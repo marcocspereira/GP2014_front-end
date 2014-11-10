@@ -5,6 +5,14 @@ body{
 	font-family: 'Open Sans', sans-erif;
 }
 
+/*user selection*/
+::selection {
+  background: #a8d1ff; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: #a8d1ff; /* Gecko Browsers */
+}
+
 /*emotion bar*/
 #progressBar {
 	width: 100%;
