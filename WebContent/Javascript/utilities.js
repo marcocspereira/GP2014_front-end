@@ -1,3 +1,4 @@
+/*da os valores ao tour (onde irá aparece ajuda)*/
 function initTour(){
 	var simpleGuide = {
 			  id: 'simple',
@@ -61,9 +62,13 @@ function initTour(){
 		  $.pageguide(simpleGuide,optionsGuideOverrides);
 }
 
+
+/*faz update a emotion e scum bar para redimensionarem com o redimensionamento da janela. tb é usada para as mudar de sitio com o colapse da library*/
 function updateBarsPos(ver){
 		var extraHeight = 0;
 		var extraWidth = 0;
+		
+		/*caso seja clicada a library*/
 		if(ver == 1){
 			if ($('#collapseLibrary').hasClass('in')){//($('#library_button').hasClass('collapsed'))
 				extraHeight= -230	;
@@ -78,8 +83,10 @@ function updateBarsPos(ver){
 		var scumtop = $('#progressBar').position().top-31+extraHeight;
 		var scumw = $('#progressBar').width()+extraWidth;
 		
+		/*altera a scumdiv*/
 		$('#scumDiv').css({"background-color": '#FFFFFF', "width": scumw, "height": '27px', "position": 'absolute', "top": scumtop});
 		
+		/*altera barra de emocao*/
 		$(".legacydiv").each(function( index ) {
 			  var emotionbartop = $('#progressBar').position().top-40+extraHeight;
 			  var emotionbarleft = $('#progressBar').position().left;

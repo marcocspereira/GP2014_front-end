@@ -79,6 +79,7 @@ function onPlayerStateChange(event) {
 	
 }
 
+/*retorna tamanho de cada pedaco da emotion bar*/
 function getprogbarw(){
 	return $('#progressBar').width() / player.getDuration();
 }

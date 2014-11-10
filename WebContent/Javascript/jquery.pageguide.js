@@ -243,13 +243,14 @@
                 shadow.append('<span class="pageguide-shadow-pulse"></span>');
 
                 //wrapper.append(toggle);
+                /*******ao nao fazer wrap do toggle, nao o apresenta na pagina *******/
                 wrapper.append(message);
                 wrapper.append(shadow);
                 $('body').append(wrapper);
 
                 this.$wrapper = wrapper;
                 //this.$toggle = toggle;
-                this.$toggle = $('#tour_button');
+                this.$toggle = $('#tour_button');/**** MODIFICACAO , ignora o botao default e reage ao nosso #tour_button*****/
                 this.$message = message;
                 this.$shadow = shadow;
 
