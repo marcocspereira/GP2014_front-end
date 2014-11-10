@@ -30,20 +30,9 @@
 <script type="text/javascript" src="Javascript/cookie.js"></script>
 <script type="text/javascript" src="Javascript/jquery.pageguide.js"></script>
 <script type="text/javascript" src="Javascript/rangeSlider.js"></script>
+
 <!-- BOOTSTRAP -->
-
 <script type="text/javascript" src="Javascript/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
-
-
-
-
-
-<!-- RANGE SLIDER -->
-
-<!-- RANGE SLIDER -->
-
-
-<!-- TOUR - PROBLEMAS DE COMPATIBILIDADE COM O RANGE SLIDER -->
 
 
 
@@ -51,58 +40,108 @@
 
 <script type="text/javascript">
 	$( document ).ready(function() {
-		//setupBlocks(1);
 			
 		//document.cookie = "tourVerify=; expires=Thu, 01 Jan 1970 00:00:00 UTC";//delete cookie
 		checkCookie("tourVerify");
-
+		
 		var simpleGuide = {
 				  id: 'simple',
 				  'title': '',
 				  steps: [
 					{
-					    target: '#now_playing_div',
-					    content: 'Video a decorre no momento',
+					    target: '#search_button',
+					    content: 'Search by artist, music name or values of Arousal and Valence',
+					    direction: 'bottom',
+					},
+					{
+					    target: '#feedback_button',
+					    content: 'Here you can see what is happening with your videos inside our system',
+					    direction: 'bottom'
+					},
+					
+					{
+					    target: '#importFile',
+					    content: 'Upload your formated .txt file with all the video URL you want',
 					    direction: 'top'
 					},
 					{
-					    target: '#russel_div',
-					    content: 'Valores de A e V consoante a analise do video.',
+					    target: '#importLink',
+					    content: 'Paste here your video URL',
 					    direction: 'top'
+					},
+					{
+					    target: '#library_button',
+					    content: 'Check the validated videos on the system',
+					    direction: 'top'
+					},
+					{
+					    target: '#now_playing_div',
+					    content: 'Video playing at the moment',
+					    direction: 'bottom'
+					},
+					{
+					    target: '#russel_div',
+					    content: 'Your video Arousal and Valence values will be displayed here',
+					    direction: 'bottom'
 					  },
 				    
 				    {
 				      target: '#lyrics_li',
-				      content: 'Aqui é exibida a letra da musica em questão.',
-				      direction: 'top',
-				      /*margin: {
-				        bottom: 200
-				      }*/
+				      content: 'The video lyrics appear in this section',
+				      direction: 'bottom',
+				     
 				    },
 				    
 				    
 				  ]
 				};
 		
-			  $.pageguide(simpleGuide);
+		var optionsGuideOverrides = {
+				  autoAdvanceInterval: 10,      // Rotate through the steps at 10 second intervals
+				  step: {
+				    shadow: false
+				  }
+				}
 		
-			
+			  $.pageguide(simpleGuide,optionsGuideOverrides);
 	});
 	
 	
 	$( window ).resize(function() {
-
-		var scumtop = $('#progressBar').position().top-31;
-		var scumw = $('#progressBar').width();
-		console.log("scum "+scumw);
-
-		$('#scumDiv').css({"background-color": '#FFFFFF', "width": scumw, "height": '27px', "position": 'absolute', "top": scumtop});
-		
-		var emotionbartop = $('#progressBar').position().top-40;
-		$('#legacydiv').css({"position": 'absolute' , "top": emotionbartop });
-		
+		updateBarsPos(0);		
 	});
 	
+	
+	function updateBarsPos(ver){
+		var extraHeight = 0;
+		var extraWidth = 0;
+		if(ver == 1){
+			if ($('#collapseLibrary').hasClass('in')){//($('#library_button').hasClass('collapsed'))
+				extraHeight= -230	;
+				extraWidth = 4;
+			}
+			else{
+				extraHeight= 230;
+				extraWidth = -4;
+			}
+		}
+		console.log("update "+extraHeight);
+		var scumtop = $('#progressBar').position().top-31+extraHeight;
+		var scumw = $('#progressBar').width()+extraWidth;
+		
+		$('#scumDiv').css({"background-color": '#FFFFFF', "width": scumw, "height": '27px', "position": 'absolute', "top": scumtop});
+		
+		$(".legacydiv").each(function( index ) {
+			  var emotionbartop = $('#progressBar').position().top-40+extraHeight;
+			  var emotionbarleft = $('#progressBar').position().left;
+			  var progbarW = getprogbarw();
+			  
+			  if(index == 0)
+				$(this).css({"position": 'absolute' , "width" : progbarW, "top": emotionbartop});
+			  else
+			  	$(this).css({"position": 'absolute' , "width" : progbarW, "top": emotionbartop , "left": index*progbarW+emotionbarleft});
+		});
+	}	
 
 </script>
 
@@ -342,7 +381,7 @@ body {
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<div class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapseLibrary">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseLibrary" id="library_button" onclick="updateBarsPos(1);">
 								<button style="float: right;">
 									<span class="fa fa-list-alt"></span> Library
 								</button>
@@ -351,7 +390,7 @@ body {
 						<div class="imports_div">
 							<!-- IMPORT LINKS -->
 							<!-- BOTAO -->
-							<button type="button" data-toggle="modal"
+							<button id="importLink" type="button" data-toggle="modal"
 								data-target=".bs-example-modal-links" style="float: right;">
 								<span class="fa fa-link"></span> Import Links
 							</button>
@@ -371,7 +410,7 @@ body {
 							</div>
 							<!-- IMPORT FILE -->
 							<!-- BOTAO -->
-							<button type="button" data-toggle="modal" data-target=".bs-example-modal-file" style="float: right;">
+							<button id="importFile" type="button" data-toggle="modal" data-target=".bs-example-modal-file" style="float: right;">
 								<span class="fa fa-file-text-o"></span> Import File
 							</button>
 							<!-- JANELA PARA INSERIR FICHEIRO -->
@@ -421,7 +460,7 @@ body {
 				<!-- 3 WINDOWS ORGANIZATION AS HORIZONTAL LISTS -->
 				<ul id="organized_3divs_ul">
 					<!-- YOUTUBE VIDEO -->
-					<li>
+					<li id = "now_playing_div" >
 						<header>
 							<span class="fa fa-play organized_3divs_ul_header_border_fas"></span>
 							NOW PLAYING
@@ -432,17 +471,17 @@ body {
 								<div class="n_p_video_play"></div>
 								<div id="ytplayer"></div>
 							</div>
-							<!-- 
+							<!-- onde aparece a barra de emocoes -->
 							<div class="n_p_video_progressbar">
 								<div id="progressBar">
 									<div id="newBar"></div>
 								</div>
 							</div>
-					 		 -->
+					 		 
 						</div>
 					</li>
 					<!-- RUSSELL PLOT -->
-					<li>
+					<li id  = "russel_div">
 						<header>
 							<span class="fa fa-bar-chart organized_3divs_ul_header_border_fas"></span>
 							RUSSELL PLOT
