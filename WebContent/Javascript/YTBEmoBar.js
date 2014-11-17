@@ -95,7 +95,7 @@ function progress(percent, $element) {
   	$element.find('#newBar').animate({ width: progressBarWidth });		  	
    
    	//cores random, vai ser substituido pelas cores atribuidas aos calores V e A
-  	var list = ['red', 'blue','black','yellow','brown','green'];
+  	var list = ['red', 'blue','yellow','green'];
    	Array.prototype.chooseRandom = function() {
 	   return this[Math.floor(Math.random() * this.length)];
 	 };
