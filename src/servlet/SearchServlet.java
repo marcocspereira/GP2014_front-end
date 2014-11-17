@@ -43,6 +43,7 @@ public class SearchServlet extends HttpServlet {
 		x.add(new Test("#5",0.1, 1, null, null));
 		x.add(new Test("#6",-0.6, -0.6, null, null));
 		x.add(new Test("#7",-0.5, 0.5, null, null));
+		x.add(new Test("#7",0.5, -0.5, null, null));
 		
 		if (!request.getParameterMap().isEmpty())
 		{

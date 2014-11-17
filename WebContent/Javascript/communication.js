@@ -26,7 +26,7 @@ function searchByName()
 function getChartData()
 {
 	var dataString = {"FLAG":"chartdata"};
-
+	
 	$.ajax({
 		type: "GET",
 	    data:dataString,
@@ -36,8 +36,12 @@ function getChartData()
 	    	if (data != null)
 	    	{
 	    		console.log(data);
-	    		return data;
+	    		//console.log(JSON.parse(data));
+	    		
+	    		drawChart(JSON.parse(data));
 	    	}
 	    }
 	});
+
+	
 }

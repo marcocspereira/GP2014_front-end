@@ -22,7 +22,6 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="CSS/base.css">
 
-<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages''corechart']}]}"></script>
 
 
 </head>
@@ -333,20 +332,22 @@
 	<!-- BOOTSTRAP -->
 	<script type="text/javascript" src="Javascript/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
 	
-	
-	
+	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['corechart']}]}"></script>
+    
+     
 	
 	
 	<script type="text/javascript">
 	
-		var serverdata;
+		
 		$( document ).ready(function() {	
 			//document.cookie = "tourVerify=; expires=Thu, 01 Jan 1970 00:00:00 UTC";//delete cookie
 			checkCookie("tourVerify");
 			initTour();
 			
-			serverdata = getChartData();
-			google.setOnLoadCallback(drawChart);
+			//serverdata = getChartData();
+			getChartData();
+			//google.setOnLoadCallback(drawChart);
 
 		});
 		
@@ -354,17 +355,22 @@
 
 			updateBarsPos(0);
 			
-			drawChart();
+			getChartData();
 
 		});
 		
 		
 		
-	    function drawChart() {
+	    function drawChart(serverdata) {
+	    	console.log("entrando!!!!!!!");
 	    	
+	    	console.log(serverdata);
+	    	/*$.each(serverdata, function(key,value){
+	    		console.log(key + ": " + value);
+	    	});*/
 	    	
-	    	
-	    	/*var ocrvalues = [[ 0.5,     		0.5],
+	    	/*var ocrvalues = [[ 0.5,    	    		return JSON.parse(data);
+ 		0.5],
 					        [ 0.2,     		0.5],
 					        [ 0.7,     		-1],
 					        [ -0.8,    		-0.4],
@@ -375,6 +381,7 @@
 	    	var googlevalues =  [[ '', 	'',	{'type': 'string', 'role': 'style'}]];
 	    	var i;
 	    	
+	    	console.log(serverdata);
 	    	for(i=0;i<serverdata.length;i++){
 	    		if(serverdata[i].arousal>0 && serverdata[i].valence>0)
 	    			googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: red}']);
