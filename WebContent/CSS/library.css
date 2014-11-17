@@ -106,11 +106,58 @@
 	}	
 }
 
-/*
-.track_name
-.author_name
 
-.a_value
-.v_value
-.play_
-*/
+/******************************* SEARCH *******************************/
+
+.search_box_div{
+	background-color: #F9F9F9;
+	width: 100%;
+	height: 50px;
+	margin-bottom: 10px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+	-ms-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#text_search_div{
+	width: 50%;
+	height: 50px;
+	padding-top: 4px;
+	float: left;
+}
+
+#text_search_div input{
+	font-size: 12px;
+	height: 28px;
+}
+
+#emotion_search_div{
+	width: 50%;
+	height: 50px;
+	float: left;
+	padding-left: 10px;
+}
+
+#slider-range-arousal, #slider-range-valence{
+	margin-top: 30px !important;
+}
+
+
+@media (min-width:1px) and (max-width:1000px) {
+	
+	.search_box_div{
+		width: 100%;
+		margin-bottom: 10px;
+	}
+	
+	#text_search_div{
+		float: left;
+	}
+	
+	#emotion_search_div{
+		width: 100%;
+	}
+}​
+

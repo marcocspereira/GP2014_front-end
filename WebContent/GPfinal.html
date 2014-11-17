@@ -1,105 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	 
-	<title>YouTube2Lyrics - GP2014</title>
-	
-	<!-- J-QUERY import -->
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-	
-	
-	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="CSS/youtubelogo.css">
-	<link rel="stylesheet" type="text/css" href="CSS/library.css">
-	<link rel="stylesheet" type="text/css" href="CSS/pageguide.css">
-	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400">
-	<link rel="stylesheet" type="text/css" href="CSS/font-awesome-4.2.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="CSS/bootstrap-3.2.0-dist/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="CSS/font-awesome-4.2.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-	<link rel="stylesheet" type="text/css" href="CSS/base.css">
-	
-	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['corechart']}]}"></script>
+<meta charset="UTF-8">
+ 
+<title>YouTube2Lyrics - GP2014</title>
 
-	<script type="text/javascript">
-		$( document ).ready(function() {
-		    google.setOnLoadCallback(drawChart);
-		    function drawChart() {
-		    	
-		    	var ocrvalues = [[ 0.5,     		0.5],
-						        [ 0.2,     		0.5],
-						        [ 0.7,     		-1],
-						        [ -0.8,    		-0.4],
-						        [ 0.1,     		1],
-								[ -0.6,    		-0.6],
-								[ -0.5,    		0.5]];
-		    	
-		    	var googlevalues =  [[ '', 	'',	{'type': 'string', 'role': 'style'}]];
-		    	var i;
-		    	
-		    	for(i=0;i<ocrvalues.length;i++){
-		    		if(ocrvalues[i][0]>0 && ocrvalues[i][1]>0)
-		    			googlevalues.push([ocrvalues[i][0],ocrvalues[i][1],'point { fill-color: red}']);
-		    		else if(ocrvalues[i][0]>0 && ocrvalues[i][1]<0)
-		    			googlevalues.push([ocrvalues[i][0],ocrvalues[i][1],'point { fill-color: blue}']);
-		    		else if(ocrvalues[i][0]<0 && ocrvalues[i][1]>0)
-		    			googlevalues.push([ocrvalues[i][0],ocrvalues[i][1],'point { fill-color: yellow}']);
-		    		else if(ocrvalues[i][0]<0 && ocrvalues[i][1]<0)
-		    			googlevalues.push([ocrvalues[i][0],ocrvalues[i][1],'point { fill-color: green}']);
-		    	}
-		    	
-		    	console.log(googlevalues);
-		    	
-		    	
-		    	
-		    	
-		    	
-		      /*var data = google.visualization.arrayToDataTable([
-		        [ 'Valence', 	'Arousal',	{'type': 'string', 'role': 'style'}],
-		        [ 0.5,     		0.5, 		'point { fill-color: red}'],
-		        [ 0.2,     		0.5, 		'point { fill-color: blue}'],
-		        [ 0.7,     		-1, 		'point { fill-color: green}'],
-		        [ -0.8,    		-0.4,		'point { fill-color: black}'],
-		        [ 0.1,     		1,			'point { fill-color: pink}'],
-				[ -0.6,    		-0.6,		'point { fill-color: brown}']
-		      ]);*/
-		      
-		      var data = google.visualization.arrayToDataTable(googlevalues);
-		 
-		      var options = {
-		        /*title: 'Age vs. Weight comparison',*/
-		        hAxis: {title: 'Valence', minValue: -1, maxValue: 1},
-		        vAxis: {title: 'Arousal', minValue: -1, maxValue: 1},
-		        legend: 'none',
-		        width: 400,
-		        height: 90,
-		       	//colors: ['red']
-		        /*series: {	0:{color: 'green'},
-			          		1:{color: 'blue'},
-		        			2:{color: 'pink'},
-		        			3:{color: 'brown'},
-		        			4:{color: 'black'},
-		        			5:{color: 'red'}
-		        }
-		        			*/
-		        
-		      };
-		      
-		     
-		
-		      var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
-		
-		      chart.draw(data, options);
-		      
-		
-		      
-		    }
-		});
-	
-	</script>
+<!-- J-QUERY import -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="CSS/youtubelogo.css">
+<link rel="stylesheet" type="text/css" href="CSS/library.css">
+<link rel="stylesheet" type="text/css" href="CSS/pageguide.css">
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400">
+<link rel="stylesheet" type="text/css" href="CSS/font-awesome-4.2.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="CSS/bootstrap-3.2.0-dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="CSS/font-awesome-4.2.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="CSS/base.css">
+
 
 </head>
 <body>
@@ -111,58 +33,7 @@
 			</div>
 		</div>
 
-		<nav id="top_buttons_div">
-			<!-- PESQUISA -->
-			<button id="search_button" type="button" data-toggle="modal" data-target=".bs-example-modal-search">
-				<i class="fa fa-search"></i>
-			</button>
-			<div class="modal fade bs-example-modal-search" tabindex="-1"
-				role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-lg">
-					<div class="modal-content">
-						<!-- Nav tabs -->
-						<ul class="nav nav-tabs" role="tablist">
-  							<li class="active title_search_li" role="presentation"><a href="#home" role="tab" data-toggle="tab">Search by author or music name</a></li>
-  							<li class="title_search_li" role="presentation"><a href="#profile" role="tab" data-toggle="tab">Search by Arousal and Valence</a></li>
-						</ul>
-
-						<!-- Tab panes -->
-						<div class="tab-content">
-  							<div role="tabpanel" class="tab-pane active" id="home">
-  								<!-- <form> -->
-  									<br />
-  									<input type="search" id="input_search_field" placeholder="Search music or artist..." />
-  									<br />
-									<input type="button" class="btn_search" value="Search" onclick="searchByName();" />
-								
-  							</div>
-  							<div role="tabpanel" class="tab-pane" id="profile">
-  								<br />
-  								<!-- PESQUISA POR AROUSAL -->
-  								<p>
-  									<label for="amount_arousal">Arousal (Y):</label>
-  									<input type="text" id="amount_arousal" readonly style="border:0; color:#f6931f; font-weight:bold; ">
-								</p>
-								<div id="slider-range-arousal" style="width: 80%; margin:auto;"></div>
-								<br />
-								<!-- PESQUISA POR VALENCE -->
-								<p>
-  									<label for="amount_valence">Valence (X):</label>
-  									<input type="text" id="amount_valence" readonly style="border:0; color:#f6931f; font-weight:bold; ">
-								</p>
-								<div id="slider-range-valence" style="width: 80%; margin:auto;"></div>
-								<br />
-								<form>
-									<input type="submit" class="btn_search" value="Search" />
-								</form>
-								<!-- SCRIPTS DE APOIO AS RANGE BARS -->
-								
-  							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
+		<nav id="top_buttons_div">			
 			<!-- FEEDBACK DOS VIDEOS QUE ESTAO EM PROCESSAMENTO -->
 			<button id="feedback_button" data-toggle="modal" data-target=".bs-example-modal-feedback">
 				<i class="fa fa-cog"></i>
@@ -229,7 +100,7 @@
   											<li class="list-group-item feedback_ok_li"><i class="fa fa-check"></i> Validating Link YouTube</li>
   											<li class="list-group-item feedback_ok_li"><i class="fa fa-check"></i> Segmentation</li>
   											<li class="list-group-item feedback_processing_li"><i class="fa fa-cog fa-spin"></i> OCR</li>
-  											<li claimagesss="list-group-item feedback_processing_li"><i class="fa fa-cog fa-spin"></i> etc.</li>
+  											<li class="list-group-item feedback_processing_li"><i class="fa fa-cog fa-spin"></i> etc.</li>
 										</ul>
       								</div>
     							</div>
@@ -252,7 +123,7 @@
 
 		<div class="content">
 			<!-- ACCORDION QUE CONTEM LIBRARY (COLAPSAVEL) E, MAIS EM BAIXO, AS 3 JANELAS -->
-			<div class="panel-group" id="accordion">height
+			<div class="panel-group" id="accordion">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<div class="panel-title">
@@ -309,8 +180,69 @@
 					<!-- LIBRARY -->
 					<div id="collapseLibrary" class="panel-collapse collapse">
 						<div class="panel-body">
+							<!-- PESQUISA -->
+							<div class="search_box_div">
+								<div id="text_search_div">
+									<form class="navbar-form navbar-left" role="search">
+        								<div class="form-group">
+          									<input type="text" class="form-control" placeholder="Search music or artist...">
+        								</div>
+        								<button type="submit" class="btn btn-default fa fa-search">Search</button>
+								      </form>
+								</div>
+								<div id="emotion_search_div">
+									<label for="instrumento"> Emotion</label>
+									<select name="instrumento" id="instrumento">
+  										<option value="all">All emotions</option>
+  										<option value="hap">Happiness</option>
+  										<option value="anx">Anxiety</option>
+  										<option value="mel">Melancholy</option>
+  										<option value="con">Contentment</option>
+									</select>
+								
+								<!-- BOTAO PARA PESQUISA POR AROUSAL E VALENCE -->
+								<button id="search_button" type="button" data-toggle="modal" data-target="#myModal">
+									<i class="fa fa-search"></i>
+								</button>
+
+								<!-- PESQUISA POR AROUSAL E VALENCE -->
+								<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  									<div class="modal-dialog">
+    									<div class="modal-content">
+      										<div class="modal-header">
+        										<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        										<h4 class="modal-title" id="myModalLabel">Search by Arousal and Valence</h4>
+      										</div>
+      										<div class="modal-body">
+        										<!-- PESQUISA POR AROUSAL -->
+  														<p>
+  															<label for="amount_arousal">Arousal (Y):</label>
+  															<input type="text" id="amount_arousal" readonly style="border:0; color:#f6931f; font-weight:bold; ">
+														</p>
+														<div id="slider-range-arousal" style="width: 80%; margin:auto;"></div>
+														<br />
+														<!-- PESQUISA POR VALENCE -->
+														<p>
+  															<label for="amount_valence">Valence (X):</label>
+  															<input type="text" id="amount_valence" readonly style="border:0; color:#f6931f; font-weight:bold; ">
+														</p>
+														<div id="slider-range-valence" style="width: 80%; margin:auto;"></div>
+														<br />
+      										</div>
+      										<div class="modal-footer">
+        										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        										<button type="button" class="btn btn-primary">Search</button>
+      										</div>
+    									</div>
+  									</div>
+								</div>
+								
+								</div>
+							</div>
+							<!-- FIM DE PESQUISA -->
+							<!-- MUSICAS -->
 							<div class="music_div" style="background-color: pink;">
-								<img alt="" src="img/capa.png" class="thumbnail_img" />
+								<img alt="" src="images/capa.png" class="thumbnail_img" />
 								<div class="track_info_div">
 									Katy Perry <br /> Roar
 								</div>
@@ -361,9 +293,7 @@
 							<span class="fa fa-bar-chart organized_3divs_ul_header_border_fas"></span>
 							RUSSELL PLOT
 						</header>
-						
-						 <div id="chart_div" ></div>
-						
+						bbbbbbb
 					</li>
 					<!-- LYRICS -->
 					<li id="lyrics_li">
@@ -402,23 +332,18 @@
 	
 	
 	
+	
 	<script type="text/javascript">
 		$( document ).ready(function() {	
 			//document.cookie = "tourVerify=; expires=Thu, 01 Jan 1970 00:00:00 UTC";//delete cookie
 			checkCookie("tourVerify");
 			initTour();
-
 		});
 		
 		$( window ).resize(function() {
-			updateBarsPos(0);
-			
-			//$("#chart_div").css({ "position":"absolute","width": "100%","height": "100%"});
-			$("#chart_div").height("90%");
+			updateBarsPos(0);		
 		});
 	</script>
-	
-	
 
 </body>
 </html>
