@@ -62,7 +62,7 @@ public class SearchServlet extends HttpServlet {
 				}
 				else if (op.equalsIgnoreCase("chartdata")){
 					
-					
+					System.out.println("Sending data...");
 					String json = new Gson().toJson(x);
 					out.write(json);
 				}
