@@ -12,17 +12,31 @@ function searchByName()
 	    	if (data == "name not found")
 	    	{
 	    		console.log("cenascenas");
-	    		//console.log(data);
-		    	//$('#searchResponse').append('<div class="iDiv">'+data+'</div>');
 	    	}
 	    	
 	    	else
 	    	{
 	    		console.log(data);
-	    		//$('#searchResponse').append('Idea "'+searchname.value+'" not found');
-	    		//$("#searchResponse").show().delay(7000).fadeOut();
-	    		//$('#searchname').val('');
 	    	}
 	 	}
+	});
+}
+
+
+function getChartData()
+{
+	var dataString = {"FLAG":"chartdata"};
+
+	$.ajax({
+		type: "GET",
+	    data:dataString,
+	    url: "SearchServlet",
+	    success: function(data)
+	    {
+	    	if (data != null)
+	    	{
+	    		console.log(data);
+	    	}
+	    }
 	});
 }
