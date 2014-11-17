@@ -244,7 +244,7 @@
 							<!-- FIM DE PESQUISA -->
 							<!-- MUSICAS -->
 							<div class="music_div" style="background-color: pink;">
-								<img alt="" src="images/capa.png" class="thumbnail_img" />
+								<img alt="" src="img/capa.png" class="thumbnail_img" />
 								<div class="track_info_div">
 									Katy Perry <br /> Roar
 								</div>
@@ -338,12 +338,14 @@
 	
 	
 	<script type="text/javascript">
+	
+		var serverdata;
 		$( document ).ready(function() {	
 			//document.cookie = "tourVerify=; expires=Thu, 01 Jan 1970 00:00:00 UTC";//delete cookie
 			checkCookie("tourVerify");
 			initTour();
 			
-			getChartData();
+			serverdata = getChartData();
 			google.setOnLoadCallback(drawChart);
 
 		});
@@ -362,29 +364,29 @@
 	    	
 	    	
 	    	
-	    	var ocrvalues = [[ 0.5,     		0.5],
+	    	/*var ocrvalues = [[ 0.5,     		0.5],
 					        [ 0.2,     		0.5],
 					        [ 0.7,     		-1],
 					        [ -0.8,    		-0.4],
 					        [ 0.1,     		1],
 							[ -0.6,    		-0.6],
-							[ -0.5,    		0.5]];
+							[ -0.5,    		0.5]];*/
 	    	
 	    	var googlevalues =  [[ '', 	'',	{'type': 'string', 'role': 'style'}]];
 	    	var i;
 	    	
-	    	for(i=0;i<ocrvalues.length;i++){
-	    		if(ocrvalues[i][0]>0 && ocrvalues[i][1]>0)
-	    			googlevalues.push([ocrvalues[i][0],ocrvalues[i][1],'point { fill-color: red}']);
-	    		else if(ocrvalues[i][0]>0 && ocrvalues[i][1]<0)
-	    			googlevalues.push([ocrvalues[i][0],ocrvalues[i][1],'point { fill-color: blue}']);
-	    		else if(ocrvalues[i][0]<0 && ocrvalues[i][1]>0)
-	    			googlevalues.push([ocrvalues[i][0],ocrvalues[i][1],'point { fill-color: yellow}']);
-	    		else if(ocrvalues[i][0]<0 && ocrvalues[i][1]<0)
-	    			googlevalues.push([ocrvalues[i][0],ocrvalues[i][1],'point { fill-color: green}']);
+	    	for(i=0;i<serverdata.length;i++){
+	    		if(serverdata[i].arousal>0 && serverdata[i].valence>0)
+	    			googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: red}']);
+	    		else if(serverdata[i].arousal>0 && serverdata[i].valence<0)
+	    			googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: blue}']);
+	    		else if(serverdata[i].arousal<0 && serverdata[i].valence>0)
+	    			googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: yellow}']);
+	    		else if(serverdata[i].arousal<0 && serverdata[i].valence<0)
+	    			googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: green}']);
 	    	}
 	    	
-	    	console.log(googlevalues);
+	    	//console.log(googlevalues);
 	    	
 	      /*var data = google.visualization.arrayToDataTable([
 	        [ 'Valence', 	'Arousal',	{'type': 'string', 'role': 'style'}],
