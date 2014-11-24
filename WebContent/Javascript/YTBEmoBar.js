@@ -32,7 +32,7 @@ function setVideoId(vid){
 }
 
 function setEmotionList(emotions){
-	
+	progress(emotions);
 }
 
 // 4. The API will call this function when the video player is ready.
@@ -46,7 +46,7 @@ function onPlayerStateChange(event) {
 
 	if (event.data == YT.PlayerState.PLAYING) {
 		$('#progressBar').show();
-		var playerTotalTime = player.getDuration();
+		/*var playerTotalTime = player.getDuration();
 	  
 	
 		mytimer = setInterval(function() {
@@ -55,7 +55,7 @@ function onPlayerStateChange(event) {
 			var playerTimeDifference = (playerCurrentTime / playerTotalTime) * 100;
 			
 			progress(playerTimeDifference, $('#progressBar'));
-		}, 1000);        
+		}, 1000);  */      
 	} 
     
     else if (event.data == YT.PlayerState.ENDED) {
@@ -69,6 +69,7 @@ function onPlayerStateChange(event) {
       clearTimeout(mytimer);
     }
 	
+	//display scumdiv
 	if(barcounter==0){
 		var scumtop = $('#progressBar').position().top-31;
 		var scumw = $('#progressBar').width();
@@ -87,43 +88,53 @@ function getprogbarw(){
 }
 
 
-function progress(percent, $element) {
+function progress(emotions) {
 	
 	clearBar();
 	
-	//define o tamanho na nova barra
-	var progressBarWidth =  $element.width() / player.getDuration();
-	// $element.find('div').animate({ width: progressBarWidth }, 500).html(percent + "%&nbsp;");
-  	$element.find('#newBar').animate({ width: progressBarWidth });		  	
-   
-   	//cores random, vai ser substituido pelas cores atribuidas aos calores V e A
-  	var list = ['red', 'blue','yellow','green'];
-   	Array.prototype.chooseRandom = function() {
-	   return this[Math.floor(Math.random() * this.length)];
-	 };
-	var co = list.chooseRandom(); // => 2
+	$.each(emotions, function(i, emo) {
+		//define o tamanho na nova barra
+		var progressBarWidth =  $('#progressBar').width() / emotions.length;//player.getDuration();
+		// $element.find('div').animate({ width: progressBarWidth }, 500).html(percent + "%&nbsp;");
+		$('#progressBar').find('#newBar').animate({ width: progressBarWidth });		  	
+	   
+	   	//cores random, vai ser substituido pelas cores atribuidas aos calores V e A
+	  	/*var list = ['red', 'blue','yellow','green'];
+	   	Array.prototype.chooseRandom = function() {
+		   return this[Math.floor(Math.random() * this.length)];
+		 };
+		 */
+		var co ;//= list.chooseRandom(); // => 2
+		
+		if(emo.arousal>0 && emo.valence>0)
+			co='red';
+		else if(emo.arousal>0 && emo.valence<0)
+			co='blue';
+		else if(emo.arousal<0 && emo.valence>0)
+			co='yellow';
+		else if(emo.arousal<0 && emo.valence<0)
+			co='green';
+		
+		
+		//renomeia a div newbar, cria nova newbar
+		$('#newBar').height(10);
 	
+		var emotionbartop = $('#progressBar').position().top-40;
+		var emotionbarleft = $('#progressBar').position().left;
 	
-	
-	//renomeia a div newbar, cria nova newbar
-	$('#newBar').height(10);
-
-	var emotionbartop = $('#progressBar').position().top-40;
-	var emotionbarleft = $('#progressBar').position().left;
-
-	if(barcounter==0)
-		$('#newBar').css({"position": 'absolute' , "top": emotionbartop});
-	else
-		$('#newBar').css({"position": 'absolute' , "top": emotionbartop , "left": barcounter*progressBarWidth+emotionbarleft});
-	barcounter++;
-	
-	
-	$('#newBar').addClass("legacydiv");
-	$('#newBar').attr("id","legacydiv");
-	$('#legacydiv').attr("class","legacydiv");
-	$('#progressBar').append("<div id='newBar'></div>");
-	$('#newBar').css('background-color',co);
-	
+		if(barcounter==0)
+			$('#newBar').css({"position": 'absolute' , "top": emotionbartop});
+		else
+			$('#newBar').css({"position": 'absolute' , "top": emotionbartop , "left": barcounter*progressBarWidth+emotionbarleft});
+		barcounter++;
+		
+		
+		$('#newBar').addClass("legacydiv");
+		$('#newBar').attr("id","legacydiv");
+		$('#legacydiv').attr("class","legacydiv");
+		$('#progressBar').append("<div id='newBar'></div>");
+		$('#newBar').css('background-color',co);
+	});
 	
 }
 

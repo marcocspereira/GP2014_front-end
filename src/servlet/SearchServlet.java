@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+
+import common.Emotion;
 import common.Test;
 
 /**
@@ -44,6 +46,16 @@ public class SearchServlet extends HttpServlet {
 	x.add(new Test("#6", -0.6, -0.6, null, null));
 	x.add(new Test("#7", -0.5, 0.5, null, null));
 	x.add(new Test("#7", 0.5, -0.5, null, null));
+	
+	List<Emotion> emo = new ArrayList<Emotion>();
+	emo.add(new Emotion( 0.5, 0.5, null, null));
+	emo.add(new Emotion( 0.2, 0.5, null, null));
+	emo.add(new Emotion( -0.8, -1, null, null));
+	emo.add(new Emotion( -0.8, 0.4, null, null));
+	emo.add(new Emotion( 0.1, 1, null, null));
+	emo.add(new Emotion( -0.6, -0.6, null, null));
+	emo.add(new Emotion( -0.5, 0.5, null, null));
+	emo.add(new Emotion( 0.5, -0.5, null, null));
 
 	if (!request.getParameterMap().isEmpty())
 	{
@@ -95,8 +107,8 @@ public class SearchServlet extends HttpServlet {
 					System.out.println("get music: "+art+" - "+title);
 					
 					//bean.getMusic(art, title);
-					
-					//out.write("success");
+					String json = new Gson().toJson(emo);
+					out.write(json);
 					
 				}
 			}
