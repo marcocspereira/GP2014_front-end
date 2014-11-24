@@ -56,6 +56,7 @@ public class SearchServlet extends HttpServlet {
 		HttpSession session = request.getSession(true);*/
 		PrintWriter out = response.getWriter();
 
+
 		if (op.equalsIgnoreCase("search_name"))
 		{
 		    String name = request.getParameter("searchname");
@@ -67,7 +68,22 @@ public class SearchServlet extends HttpServlet {
 		    String json = new Gson().toJson(x);
 		    out.write(json);
 		}
+		else if (op.equalsIgnoreCase("importfile")) {
+
+		    System.out.println("import file");
+		    List<String> urls = new Gson().fromJson(request.getParameter("text"), List.class);
+
+		    for (String z : urls) {
+			System.out.println(z);
+			//bean.importurl(z);
+		    }
+
+		    out.write("success");
+
+		}
 	    }
+
+
 	}
 
 
