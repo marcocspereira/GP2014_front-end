@@ -146,12 +146,12 @@
 								<div class="modal-dialog modal-lg">
 									<div class="modal-content import-things">
 										<h1 class="import_file_h1">IMPORT LINKS</h1>
-										<form>
-											<input type="url" class="form-control link_bar_input" placeholder="URL input">
+										<div class="import_url_div">
+											<input type="url" class="form-control link_bar_input" placeholder="URL input" id="url_input_id">
 											<br /><br />
 											<input type="submit" class="btn btn-success">
 											<br /><br />
-										</form>	
+										</div>
 									</div>
 								</div>
 							</div>
@@ -165,13 +165,14 @@
 								<div class="modal-dialog modal-lg">
 									<div class="modal-content import-things">
 										<h1 class="import_file_h1">IMPORT FILE</h1>
-										<form>
-											<input type="file" name="txt" accept="text/*" class="btn btn-primary search_file_button" id="file-input">
+
+										<div class="import_url_div">
+											<input type="file" name="txt" accept="text/*" class="btn btn-primary search_file_button">
 											<br /><br />
 											<input type="button" class="btn btn-success" onclick="importFile();" value="Submit">
 											<br /><br />
 											<small>You must upload a .txt file with the links separated by new lines or blank spaces</small>
-										</form>										
+										</div>										
 									</div>
 								</div>
 							</div>

@@ -292,14 +292,20 @@ body{
 }
 
 .link_bar_input{
+	position: absolute;
 	width: 96%;
+	margin-left: 2%;
+	float: left;
 }
 
 .search_file_button{
+	position: absolute;
 	width: 96%;
+	margin-left: 2%;
+	float: left;
 }
 
-.import-things form{
+.import_url_div{
 	position: absolute;
 	width: 100%;
 	margin-left: 0 auto;
