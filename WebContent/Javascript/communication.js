@@ -225,9 +225,31 @@ function getMusic(artist, title){
 	    		var lyric = '<p>'+music.lyric+'</p>';
 	    		$('#liryc_div').append(lyric);
 	    		
-	    		//play video
-	    		
+	    		//play video '9dgng_ekbV0'
 	    		//fill emotion bar
+	    		setVideoId(music.youtubeId);
+	    		setEmotionList(music.emotions)
+	    		var tag = document.createElement('script');
+	    		tag.src = "https://www.youtube.com/iframe_api";
+	    		var firstScriptTag = document.getElementsByTagName('script')[0];
+	    		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+	    		
+	    		/*SONG CLASS ATRIBUTTES:
+	    		   	int songId;
+				   	String title;
+					String youtubeId;
+				    String fileName;
+				    String lyric;
+				    Artist artist;
+	    		*/
+	    		
+	    		/*EMOTION CLASS ATRIBUTTES:
+    		   		TimeStamp init;
+			   		TimeStamp fin;
+					Double arousal;
+			    	Double valence;
+	    		*/
+	    		
 	    		//start chart points
 	    		
 	    	}
