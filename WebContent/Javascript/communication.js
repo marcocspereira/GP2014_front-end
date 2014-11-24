@@ -1,22 +1,43 @@
-function searchByName()
+
+function textualSearch()
 {
-	var dataString = {"searchname":input_search_field.value, "FLAG":"search_name"};
+	var textSearchIn = $("#textSearchInput").val();
 	
-	input_search_field.value="";
+	var dataString = {"FLAG":"textsearch", "text":textSearchIn};
+	var resultFromSearch;
+	
 	$.ajax({
 		type: "GET",
 	    data:dataString,
-	    url: "SearchServlet",
+	    url: "MarcoServlet",
 	    success: function(data)
 	    {
-	    	if (data == "name not found")
+	    	if (data != null)
 	    	{
-	    		console.log("cenascenas");
-	    	}
-	    	
+	    		console.log("encontramos essa musica, vamos listar isso na library");
+	    		resultFromSearch = JSON.parse(data);
+	    		alert(resultFromSearch);
+	    		
+	    		$.each(resultFromSearch, function(i, m) {
+	    			var emocolor;
+	    			/*determine emocolor from m.pemo*/
+	    			var code = 	'<div class="music_div" style="background-color: '+emocolor+';">' +
+									'<img alt="" src="'+m.thumb+'" class="thumbnail_img" />' +
+									'<div class="track_info_div">' +
+										m.artist+' <br /> ' +m.title+	
+									'</div>' +
+									'<div class="fa fa-play fa-3x play_div" onclick="getMusic(\''+m.artist+'\',\''+m.title+'\')"></div>' +
+								'</div>';
+	    			
+	    			$('#library_musics_div').empty();
+	    			
+	    			$('#library_musics_div').append(code);
+	    		});
+	    		
+	    	}	    	
 	    	else
 	    	{
-	    		console.log(data);
+	    		console.log(data + ": desculpe, nao encontramos nada com isso");
 	    	}
 	 	}
 	});
@@ -56,10 +77,27 @@ function importLinksByUrl(){
 		
 	if (matches)
 	{
-	    alert('valid');
+	    var dataString = {"FLAG":"importlink", "text":import_link};
+		
+		$.ajax({
+			type: "GET",
+		    data: dataString,
+		    url: "MarcoServlet",
+		    success: function(data)
+		    {
+		    	if (data != "ok")
+		    	{
+		    		$("#ModalInputLink").removeClass("in");
+		    		// TODO ver porque e q a modal nao aparece
+		    		$("#myModalInputFeedback").addClass("in");
+		    		console.log("falha a submeter urls de ficheiro");
+		    		
+		    	}
+		 	}
+		});
 	}
 	else{
-		alert('vai levar na peida');
+		alert("foste fodido")
 	}
 
 }
@@ -69,7 +107,7 @@ function importLinksByUrl(){
 
 function drawChart() {
 	
-	console.log(serverdata);
+	//console.log(serverdata);
 	
 	var googlevalues =  [[ '', 	'',	{'type': 'string', 'role': 'style'}]];
 	var i;

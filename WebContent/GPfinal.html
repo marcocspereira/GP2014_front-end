@@ -143,7 +143,7 @@
 								<span class="fa fa-link"></span> Import Links
 							</button>
 							<!-- JANELA PARA INSERIR LINKS -->
-							<div class="modal fade bs-example-modal-links" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+							<div id="ModalInputLink" class="modal fade bs-example-modal-links"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 								<div class="modal-dialog modal-lg">
 									<div class="modal-content import-things">
 										<h1 class="import_file_h1">IMPORT LINKS</h1>
@@ -189,14 +189,14 @@
 								<div id="text_search_div">
 									<form class="navbar-form navbar-left" role="search">
         								<div class="form-group">
-          									<input type="text" class="form-control" placeholder="Search music or artist...">
+          									<input id="textSearchInput" type="text" class="form-control" placeholder="Search music or artist...">
         								</div>
-        								<button type="submit" class="btn btn-default fa fa-search">Search</button>
+        								<input type="button" class="btn btn-default fa fa-search" value="Search" onclick="textualSearch();"">
 								      </form>
 								</div>
 								<div id="emotion_search_div">
-									<label for="instrumento"> Emotion</label>
-									<select name="instrumento" id="instrumento">
+									<label for="emotionChosen"> Emotion</label>
+									<select name="emotionChosen" id="emotionChosen">
   										<option value="all">All emotions</option>
   										<option value="hap">Happiness</option>
   										<option value="anx">Anxiety</option>
@@ -244,6 +244,8 @@
 								</div>
 							</div>
 							<!-- FIM DE PESQUISA -->
+
+
 							<!-- MUSICAS -->
 							<div id="library_musics_div">
 								<div class="music_div" style="background-color: pink;">
@@ -321,6 +323,24 @@
 					</li>
 				</ul>
 			</section>
+		</div>
+		
+		<!-- Modal -->
+		<div class="modal fade" id="myModalInputFeedback" tabindex="-1" role="dialog" aria-labelledby="myModalLabelInputFeedback" aria-hidden="true">
+  			<div class="modal-dialog">
+    			<div class="modal-content">
+      				<div class="modal-header">
+        				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        				<h4 class="modal-title" id="myModalLabelInputFeedback">Modal title</h4>
+      				</div>
+      				<div class="modal-body">
+        				...
+      				</div>
+      				<div class="modal-footer">
+        				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			     	 </div>
+    			</div>
+  			</div>
 		</div>
 			
 	</div>
