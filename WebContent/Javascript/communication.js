@@ -121,14 +121,14 @@ function importFile(){
 		    url: "SearchServlet",
 		    success: function(data)
 		    {
-		    	if (data == "name not found")
+		    	if (data == "fail")
 		    	{
-		    		console.log("cenascenas");
+		    		console.log("falha a submeter urls de ficheiro");
 		    	}
 		    	
 		    	else
 		    	{
-		    		console.log(data);
+		    		console.log(data+"a submeter urls de ficheiro");
 		    	}
 		 	}
 		});
@@ -136,7 +136,81 @@ function importFile(){
 	};
 	reader.readAsText(file);
 	  
-	  
+}
 
+//vai buscar todas as musicas para apresentar na library
+function getAllMusicsL(){
+		
+	var dataString = {"FLAG":"getall"};
+	
+	$.ajax({
+		type: "GET",
+	    data:dataString,
+	    url: "SearchServlet",
+	    success: function(data)
+	    {
+	    	if (data == "fail")	{console.log("fail on gettting all musics for library");}
+	    	
+	    	else
+	    	{
+	    		console.log(data+" get all musics for library");
+	    		
+	    		var musics = JSON.parse(data);
+	    		
+	    		$.each(musics, function(i, m) {
+	    			var emocolor;
+	    			/*determine emocolor from m.pemo*/
+	    			var code = 	'<div class="music_div" style="background-color: '+emocolor+';">' +
+									'<img alt="" src="'+m.thumb+'" class="thumbnail_img" />' +
+									'<div class="track_info_div">' +
+										m.artist+' <br /> ' +m.title+	
+									'</div>' +
+									'<div class="fa fa-play fa-3x play_div" onclick="getMusic(\''+m.artist+'\',\''+m.title+'\')"></div>' +
+								'</div>';
+	    			
+	    			$('#library_musics_div').empty();
+	    			
+	    			$('#library_musics_div').append(code);
+	    		});
+	    		
+	    		
+
+	    		
+	    	}
+	 	}
+	});
+	
+}
+
+//vai buscar uma musica referenciada pelo artista e titulo
+function getMusic(artist, title){
+	
+	var dataString = {"FLAG":"getmusic", "artist":artist, "title":title};
+	
+	$.ajax({
+		type: "GET",
+	    data:dataString,
+	    url: "SearchServlet",
+	    success: function(data)
+	    {
+	    	if (data == "fail")	{console.log("fail on getting music to play");}
+	    	
+	    	else{
+	    		
+	    		var music = JSON.parse(data);
+	    		
+	    		//fill lyric div	    		
+	    		$('#liryc_div').empty();
+	    		var lyric = '<p>'+music.lyric+'</p>';
+	    		$('#liryc_div').append(lyric);
+	    		
+	    		//play video
+	    		
+	    		//fill emotion bar
+	    		//start chart points
+	    		
+	    	}
+	    }
+	});
 	
 }

@@ -47,7 +47,7 @@ public class SearchServlet extends HttpServlet {
 		
 		if (!request.getParameterMap().isEmpty())
 		{
-			if (request.getParameter("FLAG") != null)
+				if (request.getParameter("FLAG") != null)
 			{
 				String op = request.getParameter("FLAG");
 				System.out.println("[SearchServlet] Executing Operation: "+op);
@@ -78,6 +78,25 @@ public class SearchServlet extends HttpServlet {
 					}
 					
 					out.write("success");
+					
+				}
+				else if (op.equalsIgnoreCase("getall")){
+					
+					System.out.println("get all musics");
+					
+					//bean.getAllMusics();
+					
+					//out.write("success");
+					
+				}
+				else if (op.equalsIgnoreCase("getmusic")){
+					String art = request.getParameter("artist");
+					String title = request.getParameter("title");
+					System.out.println("get music: "+art+" - "+title);
+					
+					//bean.getMusic(art, title);
+					
+					//out.write("success");
 					
 				}
 			}

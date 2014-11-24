@@ -167,11 +167,11 @@
 										<h1 class="import_file_h1">IMPORT FILE</h1>
 
 										<div class="import_url_div">
-											<input type="file" name="txt" accept="text/*" class="btn btn-primary search_file_button">
+											<input type="file" name="txt" accept="text/*" class="btn btn-primary search_file_button" id="file-input">
 											<br /><br />
 											<input type="button" class="btn btn-success" onclick="importFile();" value="Submit">
 											<br /><br />
-											<small>You must upload a .txt file with the links separated by new lines or blank spaces</small>
+											<small>You must upload a .txt file with the links separated by new lines</small>
 										</div>										
 									</div>
 								</div>
@@ -243,21 +243,23 @@
 							</div>
 							<!-- FIM DE PESQUISA -->
 							<!-- MUSICAS -->
-							<div class="music_div" style="background-color: pink;">
-								<img alt="" src="img/capa.png" class="thumbnail_img" />
-								<div class="track_info_div">
-									Katy Perry <br /> Roar
+							<div id="library_musics_div">
+								<div class="music_div" style="background-color: pink;">
+									<img alt="" src="img/capa.png" class="thumbnail_img" />
+									<div class="track_info_div">
+										Katy Perry <br /> Roar
+									</div>
+									<div class="fa fa-play fa-3x play_div"></div>
 								</div>
-								<div class="fa fa-play fa-3x play_div"></div>
-							</div>
-							<div class="music_div" style="background-color: red;">
-								musica a designar
-							</div>
-							<div class="music_div" style="background-color: blue;">
-								musica a designar
-							</div>
-							<div class="music_div" style="background-color: green;">
-								musica a designar
+								<div class="music_div" style="background-color: red;">
+									musica a designar
+								</div>
+								<div class="music_div" style="background-color: blue;">
+									musica a designar
+								</div>
+								<div class="music_div" style="background-color: green;">
+									musica a designar
+								</div>
 							</div>
 						</div>
 					</div>
@@ -305,7 +307,7 @@
 							<span class="fa fa-bars organized_3divs_ul_header_border_fas"></span>
 							LYRIC
 						</header>
-						<article>
+						<article id="liryc_div">
 							<p>
 								I used to bite my tongue and hold my breath <br /> Scared to
 								rock the boat and make a mess <br /> So I sat quietly, agree
