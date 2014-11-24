@@ -310,13 +310,7 @@
 							LYRIC
 						</header>
 						<article id="liryc_div">
-							<p>
-								I used to bite my tongue and hold my breath <br /> Scared to
-								rock the boat and make a mess <br /> So I sat quietly, agree
-								politely <br /> I guess that I forgot I had a choice <br />
-								I let you push me past the breaking point <br /> I stood for
-								nothing, so I fell for everything <br />
-							</p>
+							
 						</article>
 					</li>
 				</ul>
@@ -344,22 +338,22 @@
 	
 	<script type="text/javascript">
 	
-		var serverdata;
+		var serverdata = new Array();
 		$( document ).ready(function() {	
 			//document.cookie = "tourVerify=; expires=Thu, 01 Jan 1970 00:00:00 UTC";//delete cookie
 			checkCookie("tourVerify");
 			initTour();
 
-			serverdata = getChartData();
+			//serverdata = getChartData();
 			//console.log(serverdata);
-			google.setOnLoadCallback(drawChart);
+			//google.setOnLoadCallback(drawChart);
 
 		});
 		
 		$( window ).resize(function() {
 
 			updateBarsPos(0);
-			drawChart();
+			//drawChart();
 
 		});
 		
