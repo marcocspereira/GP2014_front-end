@@ -166,9 +166,9 @@
 									<div class="modal-content import-things">
 										<h1 class="import_file_h1">IMPORT FILE</h1>
 										<form>
-											<input type="file" name="txt" accept="text/*" class="btn btn-primary search_file_button">
+											<input type="file" name="txt" accept="text/*" class="btn btn-primary search_file_button" id="file-input">
 											<br /><br />
-											<input type="submit" class="btn btn-success">
+											<input type="button" class="btn btn-success" onclick="importFile();" value="Submit">
 											<br /><br />
 											<small>You must upload a .txt file with the links separated by new lines or blank spaces</small>
 										</form>										
@@ -354,62 +354,13 @@
 		$( window ).resize(function() {
 
 			updateBarsPos(0);
-			
 			drawChart();
 
 		});
 		
 		
 		
-	    function drawChart() {
-	    	
-	    	console.log(serverdata);
-	    	
-	    	var googlevalues =  [[ '', 	'',	{'type': 'string', 'role': 'style'}]];
-	    	var i;
-	    	
-	    	console.log(serverdata);
-	    	for(i=0;i<serverdata.length;i++){
-	    		if(serverdata[i].arousal>0 && serverdata[i].valence>0)
-	    			googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: red}']);
-	    		else if(serverdata[i].arousal>0 && serverdata[i].valence<0)
-	    			googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: blue}']);
-	    		else if(serverdata[i].arousal<0 && serverdata[i].valence>0)
-	    			googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: yellow}']);
-	    		else if(serverdata[i].arousal<0 && serverdata[i].valence<0)
-	    			googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: green}']);
-	    	}
-	    	
-	    	//console.log(googlevalues);
-	    	
-	      /*var data = google.visualization.arrayToDataTable([
-	        [ 'Valence', 	'Arousal',	{'type': 'string', 'role': 'style'}],
-	        [ 0.5,     		0.5, 		'point { fill-color: red}'],
-	        [ 0.2,     		0.5, 		'point { fill-color: blue}'],
-	        [ 0.7,     		-1, 		'point { fill-color: green}'],
-	        [ -0.8,    		-0.4,		'point { fill-color: black}'],
-	        [ 0.1,     		1,			'point { fill-color: pink}'],
-			[ -0.6,    		-0.6,		'point { fill-color: brown}']
-	      ]);*/
-	      
-	      var data = google.visualization.arrayToDataTable(googlevalues);
-	 
-	      var options = {
-	        /*title: 'Age vs. Weight comparison',*/
-	        hAxis: {title: 'Valence', minValue: -1, maxValue: 1},
-	        vAxis: {title: 'Arousal', minValue: -1, maxValue: 1},
-	        legend: 'none',
-	      };
-	      
-	     
-	
-	      var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
-	
-	      chart.draw(data, options);
-	      
-	
-	      
-	    }
+	    
 		
 		
 	</script>
