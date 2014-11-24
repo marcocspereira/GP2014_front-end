@@ -45,3 +45,23 @@ function getChartData()
 
 	return chartData;
 }
+
+
+function importLinksByUrl(){
+	var import_link = $('#url_input_id').val();
+	
+	var matches = import_link.match( /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/);
+	//celso: https?:\/\/)?(www\.)?(youtu\.be\/|youtube\.com\/)?((.+\/)?(watch(\?v=|.+&v=))?(v=)?)([\w_-]{11})(&.+)?(\?list=([\w_-]{13}))?(\?t=[0-9]*s)?(\\?.+)?(be\/|v=|\/v\/|\/embed\/|\/watch\/)([\w_-]{11}
+		
+	if (matches)
+	{
+	    alert('valid');
+	}
+	else{
+		alert('vai levar na peida');
+	}
+
+}
+
+
+
