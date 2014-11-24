@@ -339,15 +339,15 @@
 	
 	<script type="text/javascript">
 	
-		
+		var serverdata;
 		$( document ).ready(function() {	
 			//document.cookie = "tourVerify=; expires=Thu, 01 Jan 1970 00:00:00 UTC";//delete cookie
 			checkCookie("tourVerify");
 			initTour();
-			
-			//serverdata = getChartData();
-			getChartData();
-			//google.setOnLoadCallback(drawChart);
+
+			serverdata = getChartData();
+			console.log(serverdata);
+			google.setOnLoadCallback(drawChart);
 
 		});
 		
@@ -355,28 +355,15 @@
 
 			updateBarsPos(0);
 			
-			getChartData();
+			drawChart();
 
 		});
 		
 		
 		
-	    function drawChart(serverdata) {
-	    	console.log("entrando!!!!!!!");
+	    function drawChart() {
 	    	
 	    	console.log(serverdata);
-	    	/*$.each(serverdata, function(key,value){
-	    		console.log(key + ": " + value);
-	    	});*/
-	    	
-	    	/*var ocrvalues = [[ 0.5,    	    		return JSON.parse(data);
- 		0.5],
-					        [ 0.2,     		0.5],
-					        [ 0.7,     		-1],
-					        [ -0.8,    		-0.4],
-					        [ 0.1,     		1],
-							[ -0.6,    		-0.6],
-							[ -0.5,    		0.5]];*/
 	    	
 	    	var googlevalues =  [[ '', 	'',	{'type': 'string', 'role': 'style'}]];
 	    	var i;
