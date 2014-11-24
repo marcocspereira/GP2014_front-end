@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import common.Emotion;
+import common.Song;
 import common.Test;
 
 /**
@@ -56,6 +57,9 @@ public class SearchServlet extends HttpServlet {
 	emo.add(new Emotion( -0.6, -0.6, null, null));
 	emo.add(new Emotion( -0.5, 0.5, null, null));
 	emo.add(new Emotion( 0.5, -0.5, null, null));
+	
+	Song song = new Song("katy puta", "sou porca", "9dgng_ekbV0","o bacalhau quer alho \n é o melhor tempero!");
+	song.setEmotions(emo);
 
 	if (!request.getParameterMap().isEmpty())
 	{
@@ -107,7 +111,7 @@ public class SearchServlet extends HttpServlet {
 					System.out.println("get music: "+art+" - "+title);
 					
 					//bean.getMusic(art, title);
-					String json = new Gson().toJson(emo);
+					String json = new Gson().toJson(song);
 					out.write(json);
 					
 				}
