@@ -60,7 +60,7 @@ function onPlayerStateChange(event) {
 			var playerTimeDifference = (playerCurrentTime / playerTotalTime) * 100;
 			
 			chartPoints(playerTimeDifference);
-		}, 500);       
+		}, 500);	// redesenha o plot em x ms       
 	} 
     
     else if (event.data == YT.PlayerState.ENDED) {
