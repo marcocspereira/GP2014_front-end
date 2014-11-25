@@ -26,7 +26,7 @@
 
 
 </head>
-<body>
+<body onload="setArousal(); setValence();">
 	<!-- BANNER TOP -->
 	<header id="top_banner_div">
 		<div id="logo_div">
@@ -191,12 +191,12 @@
         								<div class="form-group">
           									<input id="textSearchInput" type="text" class="form-control" placeholder="Search music or artist...">
         								</div>
-        								<input type="button" class="btn btn-default fa fa-search" value="Search" onclick="textualSearch();"">
+        								<input type="button" class="btn btn-default fa fa-search" value="Search" onclick="textualSearch();">
 								      </form>
 								</div>
 								<div id="emotion_search_div">
 									<label for="emotionChosen"> Emotion</label>
-									<select name="emotionChosen" id="emotionChosen">
+									<select name="emotionChosen" id="emotionChosen" onchange="setValuesAV();">
   										<option value="all">All emotions</option>
   										<option value="hap">Happiness</option>
   										<option value="anx">Anxiety</option>
@@ -221,21 +221,21 @@
         										<!-- PESQUISA POR AROUSAL -->
   														<p>
   															<label for="amount_arousal">Arousal (Y):</label>
-  															<input type="text" id="amount_arousal" readonly style="border:0; color:#f6931f; font-weight:bold; ">
+  															<input type="text" id="amount_arousal" readonly style="border:0; color:#f6931f; font-weight:bold;">
 														</p>
 														<div id="slider-range-arousal" style="width: 80%; margin:auto;"></div>
 														<br />
 														<!-- PESQUISA POR VALENCE -->
 														<p>
   															<label for="amount_valence">Valence (X):</label>
-  															<input type="text" id="amount_valence" readonly style="border:0; color:#f6931f; font-weight:bold; ">
+  															<input type="text" id="amount_valence" readonly style="border:0; color:#f6931f; font-weight:bold;">
 														</p>
 														<div id="slider-range-valence" style="width: 80%; margin:auto;"></div>
 														<br />
       										</div>
       										<div class="modal-footer">
         										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        										<button type="button" class="btn btn-primary">Search</button>
+        										<input type="button" class="btn btn-primary" value="Search" onclick="searchByAV();">
       										</div>
     									</div>
   									</div>

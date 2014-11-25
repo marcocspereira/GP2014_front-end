@@ -1,16 +1,60 @@
-var minArousal;
-var maxArousal;
-var minValence;
-var maxValence;
+var minArousal = -1;	//	Y min
+var maxArousal = 1;		//  Y max
+var minValence = -1;	//	X min
+var maxValence = 1;		//	X max
 
 function setValuesAV(){
 	var emo = document.getElementById("emotionChosen");
 	
-	emotionChosen
+	var emotionChosen = emo.options[emo.selectedIndex].value;
+	
+	var buttonBackgroundColor = document.getElementById("search_button").style.backgroundColor;
+	
+	if(emotionChosen == "hap"){
+		minArousal = 0;
+		maxArousal = 1;
+		minValence = 0;
+		maxValence = 1;
+		buttonBackgroundColor = "red";
+	}
+	else if(emotionChosen == "anx"){
+		minArousal = 0;
+		maxArousal = 1;
+		minValence = -1;
+		maxValence = 0;
+		buttonBackgroundColor = "yellow";
+	}
+	else if(emotionChosen == "mel"){
+		minArousal = -1;
+		maxArousal = 0;
+		minValence = -1;
+		maxValence = 0;
+		buttonBackgroundColor = "green";
+	}
+	else if(emotionChosen == "con"){
+		minArousal = -1;
+		maxArousal = 0;
+		minValence = 0;
+		maxValence = 1;
+		buttonBackgroundColor = "blue";
+	}
+	else{
+		minArousal = -1;
+		maxArousal = 1;
+		minValence = -1;
+		maxValence = 1;
+		buttonBackgroundColor = "#E8E8E8";
+	}
+	setArousal();
+	setValence();
+	
+	document.getElementById("search_button").style.backgroundColor = buttonBackgroundColor;
+	document.getElementById("search_button").style.color = "white";
+	
 }
 
 // AROUSAL
-$(function() {
+function setArousal() {
 	$("#slider-range-arousal").slider({
 		range : true,
 		min : -1,
@@ -25,11 +69,11 @@ $(function() {
 			">=" + $("#slider-range-arousal").slider("values", 0) + " | <="
 					+ $("#slider-range-arousal").slider("values", 1));
 	
-});
+}
 
 
 // VALENCE
-$(function() {
+function setValence() {
 	$("#slider-range-valence").slider({
 		range : true,
 		min : -1,
@@ -44,4 +88,5 @@ $(function() {
 			">=" + $("#slider-range-valence").slider("values", 0) + " | <="
 					+ $("#slider-range-valence").slider("values", 1));
 	
-});
+}
+

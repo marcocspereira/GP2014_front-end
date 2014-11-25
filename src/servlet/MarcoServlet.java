@@ -111,6 +111,24 @@ public class MarcoServlet extends HttpServlet {
 		    String json = new Gson().toJson(musicas);
 		    out.write(json);
 		}
+		else if (op.equalsIgnoreCase("avsearch")) {
+
+		    int minArousal = Integer.parseInt(request.getParameter("minArousal"));
+		    int maxArousal = Integer.parseInt(request.getParameter("maxArousal"));
+		    int minValence = Integer.parseInt(request.getParameter("minValence"));
+		    int maxValence = Integer.parseInt(request.getParameter("maxValence"));
+
+		    // TODO enviar valores para o bean do backend
+		    System.out.println("minArousal: " + minArousal);
+		    System.out.println("maxArousal: " + maxArousal);
+		    System.out.println("minValence: " + minValence);
+		    System.out.println("maxValence: " + maxValence);
+
+		    List<Song> musicas = new ArrayList<Song>();
+		    musicas.add(song);
+		    String json = new Gson().toJson(musicas);
+		    out.write(json);
+		}
 		else if (op.equalsIgnoreCase("chartdata")) {
 
 		    System.out.println("Sending data...");

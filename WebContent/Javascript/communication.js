@@ -3,6 +3,7 @@ function textualSearch()
 {
 	var textSearchIn = $("#textSearchInput").val();
 	
+	if(textSearchIn != ""){
 	var dataString = {"FLAG":"textsearch", "text":textSearchIn};
 	var resultFromSearch;
 	
@@ -41,7 +42,58 @@ function textualSearch()
 	    	}
 	 	}
 	});
+	}
 }
+
+
+function searchByAV()
+{
+	var dataString = {"FLAG":"avsearch",
+					"minArousal":minArousal, "maxArousal":maxArousal,
+					"minValence":minValence, "maxValence":maxValence};
+
+	var resultFromSearch;
+	
+	$.ajax({
+		type: "GET",
+	    data:dataString,
+	    url: "MarcoServlet",
+	    success: function(data)
+	    {
+	    	if (data != null)
+	    	{
+	    		alert("vaginas, vaginas! temos muitas e vamos dar ao chefe-delas :D")
+	    		console.log("encontramos essa musica de acordo com AV! Vamos listar isso na library");
+	    		resultFromSearch = JSON.parse(data);
+	    		alert(resultFromSearch);
+	    		
+	    		$.each(resultFromSearch, function(i, m) {
+	    			var emocolor;
+	    			/*determine emocolor from m.pemo*/
+	    			var code = 	'<div class="music_div" style="background-color: '+emocolor+';">' +
+									'<img alt="" src="'+m.thumb+'" class="thumbnail_img" />' +
+									'<div class="track_info_div">' +
+										m.artist+' <br /> ' +m.title+	
+									'</div>' +
+									'<div class="fa fa-play fa-3x play_div" onclick="getMusic(\''+m.artist+'\',\''+m.title+'\')"></div>' +
+								'</div>';
+	    			
+	    			$('#library_musics_div').empty();
+	    			
+	    			$('#library_musics_div').append(code);
+	    		});
+	    		
+	    		// TODO esconder modal
+	    		
+	    	}	    	
+	    	else
+	    	{
+	    		console.log(data + ": desculpe, nao encontramos nada com isso");
+	    	}
+	 	}
+	});
+}
+
 
 
 function getChartData()
