@@ -6,9 +6,13 @@
 <title>YouTube2Lyrics - GP2014</title>
 
 <!-- J-QUERY import -->
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script> -->
+<!-- <script src="http://code.jquery.com/jquery-1.10.2.js"></script> -->
+<!-- <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script> -->
+<script type="text/javascript" src="library/jquery.min.js"></script>
+<script src="library/jquery-1.10.2.js"></script>
+<script src="library/jquery-ui.js"></script>
+
 
 
 <!-- CSS -->
@@ -20,7 +24,7 @@
 <link rel="stylesheet" type="text/css" href="CSS/font-awesome-4.2.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="CSS/bootstrap-3.2.0-dist/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="CSS/font-awesome-4.2.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="library/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="CSS/base.css">
 
 
@@ -278,15 +282,17 @@
 							<span class="fa fa-play organized_3divs_ul_header_border_fas"></span>
 							NOW PLAYING
 						</header>
-						<div id="scumDiv" style="display:none"></div> <!-- PLAYER YOUTUBE E BARRA DE EMOCOES -->
+						<!-- PLAYER YOUTUBE E BARRA DE EMOCOES -->
 						<div class="now_playing">
 							<div class="n_p_video_container">
 								<div class="n_p_video_play"></div>
 								<div id="ytplayer"></div>
 							</div>
 							<!-- onde aparece a barra de emocoes -->
+							
 							<div class="n_p_video_progressbar">
 								<div id="progressBar">
+									<div id="scumDiv" style="visibility:hidden"></div> 
 									<div id="newBar"></div>
 								</div>
 							</div>
@@ -340,6 +346,7 @@
 	
 		var serverdata = new Array();
 		$( document ).ready(function() {	
+			
 			//document.cookie = "tourVerify=; expires=Thu, 01 Jan 1970 00:00:00 UTC";//delete cookie
 			checkCookie("tourVerify");
 			initTour();

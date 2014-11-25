@@ -208,12 +208,17 @@ function getMusic(artist, title){
 	    		
 	    		//play video '9dgng_ekbV0'
 	    		//fill emotion bar
+	    		//start chart points
 	    		setVideoId(music.youtubeId);
 	    		setEmotionList(music.emotions)
 	    		var tag = document.createElement('script');
 	    		tag.src = "https://www.youtube.com/iframe_api";
 	    		var firstScriptTag = document.getElementsByTagName('script')[0];
 	    		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+	    		
+	    		$('#collapseLibrary').removeClass('in');
+	    		//sleep(1000);
+	    		setInterval(function(){updateBarsPos(0);}, 500);
 	    		
 	    		/*SONG CLASS ATRIBUTTES:
 	    		   	int songId;
@@ -230,8 +235,6 @@ function getMusic(artist, title){
 					Double arousal;
 			    	Double valence;
 	    		*/
-	    		
-	    		//start chart points
 	    		
 	    	}
 	    }

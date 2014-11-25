@@ -82,10 +82,11 @@ function updateBarsPos(ver){
 		console.log("update "+extraHeight);
 		var scumtop = $('#progressBar').position().top-31+extraHeight;
 		var scumw = $('#progressBar').width()+extraWidth;
-		
+		console.log(scumtop);
+		console.log(scumw);
 		/*altera a scumdiv*/
 		$('#scumDiv').css({"background-color": '#FFFFFF', "width": scumw, "height": '27px', "position": 'absolute', "top": scumtop});
-		
+		//$('#scumDiv').show();
 		/*altera barra de emocao*/
 		$(".legacydiv").each(function( index ) {
 			  var emotionbartop = $('#progressBar').position().top-40+extraHeight;
@@ -96,5 +97,7 @@ function updateBarsPos(ver){
 				$(this).css({"position": 'absolute' , "width" : progbarW, "top": emotionbartop});
 			  else
 			  	$(this).css({"position": 'absolute' , "width" : progbarW, "top": emotionbartop , "left": index*progbarW+emotionbarleft});
+			  
+			  //$(this).show();
 		});
 	}	

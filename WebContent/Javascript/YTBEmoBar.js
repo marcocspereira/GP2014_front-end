@@ -93,7 +93,7 @@ function getprogbarw(){
 }
 
 function chartPoints(playerTimeDifference){
-	console.log(playerTimeDifference);
+	//console.log(playerTimeDifference);
 	
 	//console.log(serverdata);
 	
@@ -133,12 +133,17 @@ function progress(emotions) {
 	//clearBar();
 	$('div[id|="legacydiv"]').remove();
 	
-	var scumtop = $('#progressBar').position().top-31;
-	var scumw = $('#progressBar').width();
-	//console.log("scum "+scumw);
+	
+	//var scumtop = $('#progressBar').position().top-31;
+	var scumtop = $('.n_p_video_progressbar').position().top;
+	var scumw = $('.n_p_video_progressbar').width();
+	//	var scumw = 30;
+	console.log("scum "+scumtop);
 	$('#scumDiv').show();
-	$('#scumDiv').css({"background-color": '#FFFFFF', "width": scumw, "height": '27px', "position": 'absolute', "top": scumtop});
+	$('#scumDiv').css({"background-color": '#FFFFFF', "width": scumw, "height": '27px', "position": 'absolute', "top": scumtop, "visibility":"visible"});
+	
 	$('#scumDiv').slideDown("slow") ;
+	
 	
 	$.each(emotions, function(i, emo) {
 		//define o tamanho na nova barra
@@ -184,7 +189,7 @@ function progress(emotions) {
 		$('#newBar').css('background-color',co);
 		
 	});
-	updateBarsPos(1);
+	//updateBarsPos(1);
 	
 }
 
