@@ -155,26 +155,7 @@ function importLinksByUrl(){
 }
 
 
-
-
-function drawChart() {
-	
-	//console.log(serverdata);
-	
-	var googlevalues =  [[ '', 	'',	{'type': 'string', 'role': 'style'}]];
-	var i;
-	
-	//console.log(serverdata);
-	for(i=0;i<serverdata.length;i++){
-		if(serverdata[i].arousal>0 && serverdata[i].valence>0)
-			googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: red}']);
-		else if(serverdata[i].arousal>0 && serverdata[i].valence<0)
-			googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: blue}']);
-		else if(serverdata[i].arousal<0 && serverdata[i].valence>0)
-			googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: yellow}']);
-		else if(serverdata[i].arousal<0 && serverdata[i].valence<0)
-			googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: green}']);
-	}
+function drawChart(googlevalues) {
 	
 	
   /*var data = google.visualization.arrayToDataTable([
@@ -269,13 +250,13 @@ function getAllMusicsL(){
 	    		var musics = JSON.parse(data);
 	    		
 	    		$.each(musics, function(i, m) {
-	    			var emocolor;
+	    			var emocolor= "blue";
 	    			/*determine emocolor from m.pemo*/
 	    			var code = 	'<div class="music_div" style="background-color: '+emocolor+';">' +
 									'<img alt="" src="'+m.thumb+'" class="thumbnail_img" />' +
 									'<div class="track_info_div">' +
 										m.artist+' <br /> ' +m.title+	
-									'</div>' +
+									'</div>' +												/*MUDAR PARA ID DA BD*/
 									'<div class="fa fa-play fa-3x play_div" onclick="getMusic(\''+m.artist+'\',\''+m.title+'\')"></div>' +
 								'</div>';
 	    			
@@ -284,9 +265,7 @@ function getAllMusicsL(){
 	    			$('#library_musics_div').append(code);
 	    		});
 	    		
-	    		
 
-	    		
 	    	}
 	 	}
 	});
@@ -317,12 +296,17 @@ function getMusic(artist, title){
 	    		
 	    		//play video '9dgng_ekbV0'
 	    		//fill emotion bar
+	    		//start chart points
 	    		setVideoId(music.youtubeId);
 	    		setEmotionList(music.emotions)
 	    		var tag = document.createElement('script');
 	    		tag.src = "https://www.youtube.com/iframe_api";
 	    		var firstScriptTag = document.getElementsByTagName('script')[0];
 	    		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+	    		
+	    		$('#collapseLibrary').removeClass('in');
+	    		//sleep(1000);
+	    		setInterval(function(){updateBarsPos(0);}, 500);
 	    		
 	    		/*SONG CLASS ATRIBUTTES:
 	    		   	int songId;
@@ -339,8 +323,6 @@ function getMusic(artist, title){
 					Double arousal;
 			    	Double valence;
 	    		*/
-	    		
-	    		//start chart points
 	    		
 	    	}
 	    }

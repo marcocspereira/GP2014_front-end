@@ -3,51 +3,51 @@ package common;
 import java.util.Date;
 
 public class Emotion {
-	private Date init;
-	private Date fin;
-	private Double arousal;
-	private Double valence;
+	private double init;
+	private double fin;
+	private double arousal;
+	private double valence;
 	
 	public Emotion() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Emotion(double arousal, double valence, Date t1, Date t2) {
+	public Emotion(double arousal, double valence, double t1, double t2) {
 		this.arousal = arousal;
 		this.valence = valence;
 		this.init = t1;
 		this.fin = t2;
 	}
 	
-	public Double getArousal() {
+	public double getArousal() {
 		return arousal;
 	}
 	
-	public Date getFin() {
+	public double getFin() {
 		return fin;
 	}
 	
-	public Date getInit() {
+	public double getInit() {
 		return init;
 	}
 	
-	public Double getValence() {
+	public double getValence() {
 		return valence;
 	}
 	
-	public void setArousal(Double arousal) {
+	public void setArousal(double arousal) {
 		this.arousal = arousal;
 	}
 	
-	public void setFin(Date fin) {
+	public void setFin(double fin) {
 		this.fin = fin;
 	}
 	
-	public void setInit(Date init) {
+	public void setInit(double init) {
 		this.init = init;
 	}
 	
-	public void setValence(Double valence) {
+	public void setValence(double valence) {
 		this.valence = valence;
 	}
 }

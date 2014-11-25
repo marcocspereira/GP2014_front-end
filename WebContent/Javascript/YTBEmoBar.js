@@ -2,6 +2,9 @@ var mytimer;
 var player;
 var barcounter=0;
 var videoid;
+var emotsize;
+var emot;
+var serverdata = new Array();
 
 // 3. This function creates an <iframe> (and YouTube player)  after the API code downloads.
 function onYouTubeIframeAPIReady() {
@@ -32,6 +35,8 @@ function setVideoId(vid){
 }
 
 function setEmotionList(emotions){
+	emotsize=emotions.length;
+	emot = emotions;
 	progress(emotions);
 }
 
@@ -46,51 +51,99 @@ function onPlayerStateChange(event) {
 
 	if (event.data == YT.PlayerState.PLAYING) {
 		$('#progressBar').show();
-		/*var playerTotalTime = player.getDuration();
-	  
+		
+		var playerTotalTime = player.getDuration();
 	
 		mytimer = setInterval(function() {
 			var playerCurrentTime = player.getCurrentTime();
 			
 			var playerTimeDifference = (playerCurrentTime / playerTotalTime) * 100;
 			
-			progress(playerTimeDifference, $('#progressBar'));
-		}, 1000);  */      
+			chartPoints(playerTimeDifference);
+		}, 500);       
 	} 
     
     else if (event.data == YT.PlayerState.ENDED) {
     	
-    	barcounter=0;
-    	checkstate=1;    	
+    	/*barcounter=0;
+    	checkstate=1;    	*/
     	
     }
     else {
       
-      clearTimeout(mytimer);
+      //clearTimeout(mytimer);
     }
 	
 	//display scumdiv
-	if(barcounter==0){
+	/*if(barcounter==0){
 		var scumtop = $('#progressBar').position().top-31;
 		var scumw = $('#progressBar').width();
 		//console.log("scum "+scumw);
 		$('#scumDiv').show();
 		$('#scumDiv').css({"background-color": '#FFFFFF', "width": scumw, "height": '27px', "position": 'absolute', "top": scumtop});
 		$('#scumDiv').slideDown("slow") ;
-	}
+	}*/
 		
 	
 }
 
 /*retorna tamanho de cada pedaco da emotion bar*/
 function getprogbarw(){
-	return $('#progressBar').width() / player.getDuration();
+	return $('#progressBar').width() / emotsize;
+}
+
+function chartPoints(playerTimeDifference){
+	//console.log(playerTimeDifference);
+	
+	//console.log(serverdata);
+	
+	var googlevalues =  [[ '', 	'',	{'type': 'string', 'role': 'style'}]];
+	var i;
+	
+	for(i=0;i<emot.length;i++){
+		if(playerTimeDifference>emot[i].init && playerTimeDifference<emot[i].fin)
+			serverdata.push(emot[i]);
+			
+	}
+	
+	
+	//console.log(serverdata);
+	for(i=0;i<serverdata.length-1;i++){
+		googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: grey}']);
+	}
+	
+	if(serverdata[serverdata.length-1].arousal>0 && serverdata[serverdata.length-1].valence>0)
+		googlevalues.push([serverdata[serverdata.length-1].arousal,serverdata[serverdata.length-1].valence,'point { fill-color: red}']);
+	else if(serverdata[serverdata.length-1].arousal>0 && serverdata[serverdata.length-1].valence<0)
+		googlevalues.push([serverdata[serverdata.length-1].arousal,serverdata[serverdata.length-1].valence,'point { fill-color: blue}']);
+	else if(serverdata[serverdata.length-1].arousal<0 && serverdata[serverdata.length-1].valence>0)
+		googlevalues.push([serverdata[serverdata.length-1].arousal,serverdata[serverdata.length-1].valence,'point { fill-color: yellow}']);
+	else if(serverdata[serverdata.length-1].arousal<0 && serverdata[serverdata.length-1].valence<0)
+		googlevalues.push([serverdata[serverdata.length-1].arousal,serverdata[serverdata.length-1].valence,'point { fill-color: green}']);
+	
+	
+	drawChart(googlevalues);
+	
+	
 }
 
 
 function progress(emotions) {
 	
-	clearBar();
+	//clearBar();
+	$('div[id|="legacydiv"]').remove();
+	
+	
+	//var scumtop = $('#progressBar').position().top-31;
+	var scumtop = $('.n_p_video_progressbar').position().top;
+	var scumw = $('.n_p_video_progressbar').width();
+	//	var scumw = 30;
+	console.log("scum "+scumtop);
+	$('#scumDiv').show();
+	$('#scumDiv').css({"background-color": '#FFFFFF', "width": scumw, "height": '27px', "position": 'absolute', "top": scumtop, "visibility":"visible"});
+	
+	$('#scumDiv').slideDown("slow") ;
+	
 	
 	$.each(emotions, function(i, emo) {
 		//define o tamanho na nova barra
@@ -134,7 +187,9 @@ function progress(emotions) {
 		$('#legacydiv').attr("class","legacydiv");
 		$('#progressBar').append("<div id='newBar'></div>");
 		$('#newBar').css('background-color',co);
+		
 	});
+	//updateBarsPos(1);
 	
 }
 

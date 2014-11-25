@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +49,35 @@ public class SearchServlet extends HttpServlet {
 	x.add(new Test("#7", -0.5, 0.5, null, null));
 	x.add(new Test("#7", 0.5, -0.5, null, null));
 	
+	Date date = new Date(0);
+	
+	
+	
 	List<Emotion> emo = new ArrayList<Emotion>();
+	emo.add(new Emotion( 0.5, 0.5, 1, 2));
+	emo.add(new Emotion( 0.2, 0.5, 2, 3));
+	emo.add(new Emotion( -0.8, -1, 3, 4));
+	emo.add(new Emotion( -0.8, 0.4, 4, 5));
+	emo.add(new Emotion( 0.1, 1, 5, 6));
+	emo.add(new Emotion( -0.6, -0.6, 6, 7));
+	emo.add(new Emotion( -0.5, 0.5, 7, 8));
+	emo.add(new Emotion( 0.5, -0.5, 8, 9));
+	emo.add(new Emotion( 0.5, 0.5, 9, 10));
+	emo.add(new Emotion( 0.2, 0.5, 10, 11));
+	emo.add(new Emotion( -0.8, -1, 11, 12));
+	emo.add(new Emotion( -0.8, 0.4, 12, 13));
+	emo.add(new Emotion( 0.1, 1, 13, 14));
+	emo.add(new Emotion( -0.6, -0.6, 14, 15));
+	emo.add(new Emotion( -0.5, 0.5, 15, 16));
+	emo.add(new Emotion( 0.5, -0.5, 16, 17));
+	emo.add(new Emotion( 0.5, 0.5, 17, 18));
+	/*emo.add(new Emotion( 0.2, 0.5, null, null));
+	emo.add(new Emotion( -0.8, -1, null, null));
+	emo.add(new Emotion( -0.8, 0.4, null, null));
+	emo.add(new Emotion( 0.1, 1, null, null));
+	emo.add(new Emotion( -0.6, -0.6, null, null));
+	emo.add(new Emotion( -0.5, 0.5, null, null));
+	emo.add(new Emotion( 0.5, -0.5, null, null));
 	emo.add(new Emotion( 0.5, 0.5, null, null));
 	emo.add(new Emotion( 0.2, 0.5, null, null));
 	emo.add(new Emotion( -0.8, -1, null, null));
@@ -56,7 +85,7 @@ public class SearchServlet extends HttpServlet {
 	emo.add(new Emotion( 0.1, 1, null, null));
 	emo.add(new Emotion( -0.6, -0.6, null, null));
 	emo.add(new Emotion( -0.5, 0.5, null, null));
-	emo.add(new Emotion( 0.5, -0.5, null, null));
+	emo.add(new Emotion( 0.5, -0.5, null, null));*/
 	
 	Song song = new Song("katy puta", "sou porca", "9dgng_ekbV0","o bacalhau quer alho \n é o melhor tempero!");
 	song.setEmotions(emo);
