@@ -137,13 +137,21 @@ function importLinksByUrl(){
 		    url: "MarcoServlet",
 		    success: function(data)
 		    {
+		    	
 		    	if (data != "ok")
 		    	{
-		    		$("#ModalInputLink").removeClass("in");
-		    		// TODO ver porque e q a modal nao aparece
-		    		$("#myModalInputFeedback").addClass("in");
-		    		console.log("falha a submeter urls de ficheiro");
+		    		// esconder a modal de input
+		    		$("#ModalInputLink").modal('hide');		    		
 		    		
+		    	}
+		    	else{
+		    		console.log("falha a submeter urls de ficheiro " + data);
+		    		// colocar resposta ao input
+		    		$("#importLinkTextFeedback").append(data);
+		    		// esconder a modal de input
+		    		$("#ModalInputLink").modal('hide');
+		    		// mostrar feedback dos videos submetidos
+		    		$("#myModalInputFeedback").modal('show');
 		    	}
 		 	}
 		});

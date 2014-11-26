@@ -156,6 +156,7 @@ public class MarcoServlet extends HttpServlet {
 		    System.out.println("[Single link import]: " + url);
 		    String link_feedback = "ta tudo fodido"; // TODO importar do  bean.importurl(url);
 
+		    System.out.println(link_feedback);
 		    if (link_feedback.equals("ta tudo fodido")) {
 			out.write(url);
 		    }
