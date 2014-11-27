@@ -138,7 +138,7 @@ function progress(emotions) {
 	var scumtop = $('.n_p_video_progressbar').position().top;
 	var scumw = $('.n_p_video_progressbar').width();
 	//	var scumw = 30;
-	console.log("scum "+scumtop);
+	//console.log("scum "+scumtop);
 	$('#scumDiv').show();
 	$('#scumDiv').css({"background-color": '#FFFFFF', "width": scumw, "height": '27px', "position": 'absolute', "top": scumtop, "visibility":"visible"});
 	

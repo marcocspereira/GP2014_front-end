@@ -79,11 +79,11 @@ function updateBarsPos(ver){
 				extraWidth = -4;
 			}
 		}
-		console.log("update "+extraHeight);
+		//console.log("update "+extraHeight);
 		var scumtop = $('#progressBar').position().top-31+extraHeight;
 		var scumw = $('#progressBar').width()+extraWidth;
-		console.log(scumtop);
-		console.log(scumw);
+		//console.log(scumtop);
+		//console.log(scumw);
 		/*altera a scumdiv*/
 		$('#scumDiv').css({"background-color": '#FFFFFF', "width": scumw, "height": '27px', "position": 'absolute', "top": scumtop});
 		//$('#scumDiv').show();

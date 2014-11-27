@@ -150,18 +150,19 @@ public class MarcoServlet extends HttpServlet {
 		}
 		else if (op.equalsIgnoreCase("importlink")) {
 
-		    System.out.println("import link");
+		    //System.out.println("import link");
 		    String url = request.getParameter("text");
 
 		    System.out.println("[Single link import]: " + url);
 		    String link_feedback = "ta tudo fodido"; // TODO importar do  bean.importurl(url);
 
-		    System.out.println(link_feedback);
+		    //System.out.println(link_feedback);
+		    
 		    if (link_feedback.equals("ta tudo fodido")) {
-			out.write(url);
+		    	out.write(url);
 		    }
 		    else {
-			out.write("ok");
+		    	out.write("ok");
 		    }
 		}
 		else if (op.equalsIgnoreCase("getall")) {

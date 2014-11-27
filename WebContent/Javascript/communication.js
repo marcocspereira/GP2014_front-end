@@ -138,8 +138,9 @@ function importLinksByUrl(){
 		    success: function(data)
 		    {
 		    	
-		    	if (data != "ok")
+		    	if (data == "ok")
 		    	{
+		    		console.log(data);
 		    		// esconder a modal de input
 		    		$("#ModalInputLink").modal('hide');		    		
 		    		
@@ -200,17 +201,17 @@ function importFile(){
 	var reader = new FileReader();
 	reader.onload = function(e) {
 		var contents = e.target.result;
-		console.log(contents);
+		//console.log(contents);
 		var urls = contents.split("\n");
 		var urlconf = new Array() ;
 		$.each(urls, function(index, value) {
 			var matches = value.match(/watch\?v=([a-zA-Z0-9\-_]+)/);
 			if (matches){
-				console.log('valido');
+				//console.log('valido');
 				urlconf.push(value);
 			}
-			else
-				console.log('invalido');
+//			else
+//				console.log('invalido');
 		});
 		
 		var dataString = {"FLAG":"importfile", "text":JSON.stringify(urlconf)};
@@ -228,7 +229,7 @@ function importFile(){
 		    	
 		    	else
 		    	{
-		    		console.log(data+"a submeter urls de ficheiro");
+		    		console.log(data+" a submeter urls de ficheiro");
 		    	}
 		 	}
 		});
