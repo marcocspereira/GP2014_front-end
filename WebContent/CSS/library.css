@@ -69,6 +69,14 @@
 	background-color: transparent;
 }
 
+.av_info_div{
+	height: 58px;
+	line-height: 29px;
+	float: left;
+	margin-left: 5px;
+	background-color: transparent;
+}
+
 .play_div, .play_div:HOVER{
 	height: 43px;
 	width: 46px;

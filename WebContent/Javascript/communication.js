@@ -1,4 +1,6 @@
 
+
+
 function textualSearch()
 {
 	var textSearchIn = $("#textSearchInput").val();
@@ -10,7 +12,7 @@ function textualSearch()
 	$.ajax({
 		type: "GET",
 	    data:dataString,
-	    url: "MarcoServlet",
+	    url: "InputServlet",	// TODO alterar para SearchServlet
 	    success: function(data)
 	    {
 	    	if (data != null)
@@ -57,12 +59,12 @@ function searchByAV()
 	$.ajax({
 		type: "GET",
 	    data:dataString,
-	    url: "MarcoServlet",
+	    url: "InputServlet",		// TODO alterar para SearchServlet
 	    success: function(data)
 	    {
 	    	if (data != null)
 	    	{
-	    		alert("vaginas, vaginas! temos muitas e vamos dar ao chefe-delas :D")
+	    		alert("chefe-delas!")
 	    		console.log("encontramos essa musica de acordo com AV! Vamos listar isso na library");
 	    		resultFromSearch = JSON.parse(data);
 	    		alert(resultFromSearch);
@@ -126,6 +128,9 @@ function importLinksByUrl(){
 	
 	var matches = import_link.match( /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/);
 	//celso: https?:\/\/)?(www\.)?(youtu\.be\/|youtube\.com\/)?((.+\/)?(watch(\?v=|.+&v=))?(v=)?)([\w_-]{11})(&.+)?(\?list=([\w_-]{13}))?(\?t=[0-9]*s)?(\\?.+)?(be\/|v=|\/v\/|\/embed\/|\/watch\/)([\w_-]{11}
+	
+	var link;
+	var feedback;
 		
 	if (matches)
 	{
@@ -134,31 +139,42 @@ function importLinksByUrl(){
 		$.ajax({
 			type: "GET",
 		    data: dataString,
-		    url: "MarcoServlet",
+		    url: "InputServlet",
 		    success: function(data)
 		    {
 		    	
-		    	if (data == "ok")
+		    	if (data != null)
 		    	{
-		    		console.log(data);
-		    		// esconder a modal de input
-		    		$("#ModalInputLink").modal('hide');		    		
 		    		
-		    	}
-		    	else{
-		    		console.log("falha a submeter urls de ficheiro " + data);
-		    		// colocar resposta ao input
-		    		$("#importLinkTextFeedback").append(data);
+		    		link = JSON.parse(data);
+		    		if(link.status == "Ok"){
+		    			feedback = '<div class="alert alert-success" role="alert">' +
+		    					'<strong>'+link.status+':</strong> ' + link.url +
+		    			'</div>'; 
+		    		}
+		    		// else NOK
+		    		else{
+		    			feedback = '<div class="alert alert-danger" role="alert">' +
+		    					'<strong>'+link.status+':</strong> ' + link.url +
+		    			'</div>'; 
+		    		}
+		    		// escrever resposta
+		    		$("#importLinkTextFeedback").append(feedback);
 		    		// esconder a modal de input
 		    		$("#ModalInputLink").modal('hide');
 		    		// mostrar feedback dos videos submetidos
 		    		$("#myModalInputFeedback").modal('show');
+		    		
+		    	}
+		    	else
+		    	{
+		    		console.log(data + ": desculpe, nao encontramos nada com isso");
 		    	}
 		 	}
 		});
 	}
 	else{
-		alert("foste fodido")
+		alert("foste fodido");
 	}
 
 }
@@ -219,7 +235,7 @@ function importFile(){
 		$.ajax({
 			type: "GET",
 		    data:dataString,
-		    url: "SearchServlet",
+		    url: "InputServlet",
 		    success: function(data)
 		    {
 		    	if (data == "fail")
