@@ -67,7 +67,9 @@ function searchByAV()
 	    		alert("chefe-delas!")
 	    		console.log("encontramos essa musica de acordo com AV! Vamos listar isso na library");
 	    		resultFromSearch = JSON.parse(data);
-	    		alert(resultFromSearch);
+	    		//alert(resultFromSearch);
+	    		
+	    		
 	    		
 	    		$.each(resultFromSearch, function(i, m) {
 	    			var emocolor;

@@ -18,7 +18,7 @@ import common.Song;
 import common.Test;
 
 import edu.dei.gp.containers.InsertionResponse;
-import edu.dei.gp.containers.SongLight;
+import edu.dei.gp.containers.SongPack;
 import edu.dei.gp.ejb.remotes.FrontEndBeanRemote;
 
 /**
@@ -132,8 +132,8 @@ public class InputServlet extends HttpServlet {
 		    // receber o valor textual a procrurar
 		    String toSearch = request.getParameter("text");
 
-		    // bean.search(toSearch);
-		    ArrayList<SongLight> textSongs = frontendBean.searchAuthorAndTitle(toSearch);
+		    // palavra a procurar e página
+		    SongPack textSongs = frontendBean.searchAuthorAndTitle(toSearch, 1);
 
 		    // enviar resposta para o javascript tratar de colocar no html
 		    String json = new Gson().toJson(textSongs);
@@ -148,9 +148,9 @@ public class InputServlet extends HttpServlet {
 		    float minValence = Float.parseFloat(request.getParameter("minValence"));
 		    float maxValence = Float.parseFloat(request.getParameter("maxValence"));
 
-		    // mandar para o frontendBean
-		    ArrayList<SongLight> avSongs = frontendBean.searchArousalAndValenceValues(minArousal, maxArousal,
-			    minValence, maxValence);
+		    // mandar para o frontendBean com os valores e a pagina
+		    SongPack avSongs = frontendBean.searchArousalAndValenceValues(minArousal, maxArousal,
+			    minValence, maxValence, 1);
 
 		    // enviar resposta para o javascript tratar de colocar no html
 		    String json = new Gson().toJson(avSongs);
