@@ -149,7 +149,8 @@ function importLinksByUrl(){
 		    	{
 		    		
 		    		link = JSON.parse(data);
-		    		if(link.status == "Ok"){
+		    		alert(link.status);
+		    		if(link.status == "OK"){
 		    			feedback = '<div class="alert alert-success" role="alert">' +
 		    					'<strong>'+link.status+':</strong> ' + link.url +
 		    			'</div>'; 
@@ -219,17 +220,29 @@ function importFile(){
 	var reader = new FileReader();
 	reader.onload = function(e) {
 		var contents = e.target.result;
-		//console.log(contents);
 		var urls = contents.split("\n");
-		var urlconf = new Array() ;
+		var urlconf = new Array();		// urls bons
+		var urlnaoconf = new Array();	// urls maus
+		
+		var infoMusics;
+		var htmlCodeToInsert = "";
+		
+		// primeira verificacao dos links antes de enviar para a servlet
 		$.each(urls, function(index, value) {
-			var matches = value.match(/watch\?v=([a-zA-Z0-9\-_]+)/);
+			var matches = value.match( /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/);
 			if (matches){
-				//console.log('valido');
 				urlconf.push(value);
 			}
-//			else
-//				console.log('invalido');
+			else{
+				urlnaoconf.push(value);
+				// apresentar os urls que nao sao youtube
+				$.each(urlnaoconf, function(i, l) {
+					htmlCodeToInsert += '<div class="alert alert-danger" role="alert">' +
+					'<strong>Not from YouTube:</strong> ' + l +
+					'</div>';
+				});				 
+				
+			}
 		});
 		
 		var dataString = {"FLAG":"importfile", "text":JSON.stringify(urlconf)};
@@ -240,14 +253,34 @@ function importFile(){
 		    url: "InputServlet",
 		    success: function(data)
 		    {
-		    	if (data == "fail")
+		    	if (data != null)
 		    	{
-		    		console.log("falha a submeter urls de ficheiro");
+		    		infoMusics = JSON.parse(data);
+		    		
+		    		// urls que seguem para a servlet
+		    		$.each(infoMusics, function(i, m) {
+		    			if(m.status=="OK"){
+		    				htmlCodeToInsert += '<div class="alert alert-success" role="alert">' +
+			    					'<strong>'+m.status+':</strong> ' + m.url +
+			    			'</div>'; 
+		    			}
+		    			else{
+		    				htmlCodeToInsert += '<div class="alert alert-danger" role="alert">' +
+	    							'<strong>'+link.status+':</strong> ' + link.url +
+	    					'</div>'; 
+		    			}
+		    		});
+		    		
+		    		// escrever resposta
+		    		$("#importLinkTextFeedback").append(htmlCodeToInsert);
+		    		// esconder a modal de input
+		    		$("#ModalInputLink").modal('hide');
+		    		// mostrar feedback dos videos submetidos
+		    		$("#myModalInputFeedback").modal('show');
 		    	}
-		    	
 		    	else
 		    	{
-		    		console.log(data+" a submeter urls de ficheiro");
+		    		console.log("falha a submeter urls de ficheiro");
 		    	}
 		 	}
 		});

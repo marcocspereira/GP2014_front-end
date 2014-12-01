@@ -18,8 +18,8 @@ import common.Song;
 import common.Test;
 
 import edu.dei.gp.containers.InsertionResponse;
-import edu.dei.gp.containers.SongPack;
 import edu.dei.gp.ejb.remotes.FrontEndBeanRemote;
+import edu.dei.gp.status.InsertionStatus;
 
 /**
  * Servlet implementation class SearchServlet
@@ -109,7 +109,11 @@ public class InputServlet extends HttpServlet {
 		    // receber os links e enviar para o frontendBean
 		    List<String> urlsGson = new Gson().fromJson(request.getParameter("text"), List.class);
 		    ArrayList<String> urls = (ArrayList<String>) urlsGson;
-		    ArrayList<InsertionResponse> insertionResponse = frontendBean.processLinks(urls);
+		    //ArrayList<InsertionResponse> insertionResponse = frontendBean.processLinks(urls);
+		    ArrayList<InsertionResponse> insertionResponse = new ArrayList<InsertionResponse>();
+		    for (int z = 0; z < urlsGson.size(); z++) {
+			insertionResponse.add(new InsertionResponse(urlsGson.get(z), InsertionStatus.OK));
+		    }
 
 		    // enviar resposta para o javascript tratar de colocar no html
 		    String json = new Gson().toJson(insertionResponse);
@@ -119,42 +123,14 @@ public class InputServlet extends HttpServlet {
 		else if (op.equalsIgnoreCase("importlink")) {
 		    // receber o link e enviar para o frontendBean
 		    String url = request.getParameter("text");
-		    InsertionResponse insertionResponse = frontendBean.processLink(url);
+		    System.out.println(url);
+		    //InsertionResponse insertionResponse = frontendBean.processLink(url);
+		    InsertionResponse insertionResponse = new InsertionResponse(url, InsertionStatus.OK);
 
 		    // enviar resposta para o javascript tratar de colocar no html
 		    String json = new Gson().toJson(insertionResponse);
 		    out.write(json);
 
-		}
-		// TODO colocar na SearchServlet
-		else if (op.equalsIgnoreCase("textsearch"))
-		{
-		    // receber o valor textual a procrurar
-		    String toSearch = request.getParameter("text");
-
-		    // palavra a procurar e página
-		    SongPack textSongs = frontendBean.searchAuthorAndTitle(toSearch, 1);
-
-		    // enviar resposta para o javascript tratar de colocar no html
-		    String json = new Gson().toJson(textSongs);
-		    out.write(json);
-		}
-		// TODO colocar na SearchServlet
-		else if (op.equalsIgnoreCase("avsearch")) {
-
-		    // receber o intervalo de valores para Arousal e Valence
-		    float minArousal = Float.parseFloat(request.getParameter("minArousal"));
-		    float maxArousal = Float.parseFloat(request.getParameter("maxArousal"));
-		    float minValence = Float.parseFloat(request.getParameter("minValence"));
-		    float maxValence = Float.parseFloat(request.getParameter("maxValence"));
-
-		    // mandar para o frontendBean com os valores e a pagina
-		    SongPack avSongs = frontendBean.searchArousalAndValenceValues(minArousal, maxArousal,
-			    minValence, maxValence, 1);
-
-		    // enviar resposta para o javascript tratar de colocar no html
-		    String json = new Gson().toJson(avSongs);
-		    out.write(json);
 		}
 		// TODO colocar na servlet do plot
 		else if (op.equalsIgnoreCase("chartdata")) {
