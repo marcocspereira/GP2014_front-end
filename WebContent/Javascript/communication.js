@@ -1,130 +1,13 @@
+/******************************************************************************************
+ ******************************************************************************************
+ 									INSERIR VIDEOS 
+ ******************************************************************************************
+ *******************************************************************************************
+ */
 
-
-
-function textualSearch()
-{
-	var textSearchIn = $("#textSearchInput").val();
-	
-	if(textSearchIn != ""){
-	var dataString = {"FLAG":"textsearch", "text":textSearchIn};
-	var resultFromSearch;
-	
-	$.ajax({
-		type: "GET",
-	    data:dataString,
-	    url: "InputServlet",	// TODO alterar para SearchServlet
-	    success: function(data)
-	    {
-	    	if (data != null)
-	    	{
-	    		console.log("encontramos essa musica, vamos listar isso na library");
-	    		resultFromSearch = JSON.parse(data);
-	    		alert(resultFromSearch);
-	    		
-	    		$.each(resultFromSearch, function(i, m) {
-	    			var emocolor;
-	    			/*determine emocolor from m.pemo*/
-	    			var code = 	'<div class="music_div" style="background-color: '+emocolor+';">' +
-									'<img alt="" src="'+m.thumb+'" class="thumbnail_img" />' +
-									'<div class="track_info_div">' +
-										m.artist+' <br /> ' +m.title+	
-									'</div>' +
-									'<div class="fa fa-play fa-3x play_div" onclick="getMusic(\''+m.artist+'\',\''+m.title+'\')"></div>' +
-								'</div>';
-	    			
-	    			$('#library_musics_div').empty();
-	    			
-	    			$('#library_musics_div').append(code);
-	    		});
-	    		
-	    	}	    	
-	    	else
-	    	{
-	    		console.log(data + ": desculpe, nao encontramos nada com isso");
-	    	}
-	 	}
-	});
-	}
-}
-
-
-function searchByAV()
-{
-	var dataString = {"FLAG":"avsearch",
-					"minArousal":minArousal, "maxArousal":maxArousal,
-					"minValence":minValence, "maxValence":maxValence};
-
-	var resultFromSearch;
-	
-	$.ajax({
-		type: "GET",
-	    data:dataString,
-	    url: "InputServlet",		// TODO alterar para SearchServlet
-	    success: function(data)
-	    {
-	    	if (data != null)
-	    	{
-	    		alert("chefe-delas!")
-	    		console.log("encontramos essa musica de acordo com AV! Vamos listar isso na library");
-	    		resultFromSearch = JSON.parse(data);
-	    		//alert(resultFromSearch);
-	    		
-	    		
-	    		
-	    		$.each(resultFromSearch, function(i, m) {
-	    			var emocolor;
-	    			/*determine emocolor from m.pemo*/
-	    			var code = 	'<div class="music_div" style="background-color: '+emocolor+';">' +
-									'<img alt="" src="'+m.thumb+'" class="thumbnail_img" />' +
-									'<div class="track_info_div">' +
-										m.artist+' <br /> ' +m.title+	
-									'</div>' +
-									'<div class="fa fa-play fa-3x play_div" onclick="getMusic(\''+m.artist+'\',\''+m.title+'\')"></div>' +
-								'</div>';
-	    			
-	    			$('#library_musics_div').empty();
-	    			
-	    			$('#library_musics_div').append(code);
-	    		});
-	    		
-	    		// TODO esconder modal
-	    		
-	    	}	    	
-	    	else
-	    	{
-	    		console.log(data + ": desculpe, nao encontramos nada com isso");
-	    	}
-	 	}
-	});
-}
-
-
-
-function getChartData()
-{
-	var dataString = {"FLAG":"chartdata"};
-	var chartData;
-	$.ajax({
-		type: "GET",
-	    data:dataString,
-	    url: "SearchServlet",
-	    success: function(data)
-	    {
-	    	if (data != null)
-	    	{
-	    		//console.log(data);
-	    		//console.log(JSON.parse(data));
-	    		chartData = JSON.parse(data);
-	    	}
-	    },
-	    async:false
-	});
-
-	return chartData;
-}
-
-
-
+/****************************
+ * INSERIR POR LINK
+ ****************************/
 function importLinksByUrl(){
 	var import_link = $('#url_input_id').val();
 	
@@ -183,32 +66,9 @@ function importLinksByUrl(){
 }
 
 
-function drawChart(googlevalues) {
-	
-	
-  /*var data = google.visualization.arrayToDataTable([
-    [ 'Valence', 	'Arousal',	{'type': 'string', 'role': 'style'}],
-    [ 0.5,     		0.5, 		'point { fill-color: red}'],
-    [ 0.2,     		0.5, 		'point { fill-color: blue}'],
-    [ 0.7,     		-1, 		'point { fill-color: green}'],
-    [ -0.8,    		-0.4,		'point { fill-color: black}'],
-    [ 0.1,     		1,			'point { fill-color: pink}'],
-	[ -0.6,    		-0.6,		'point { fill-color: brown}']
-  ]);*/
-  
-  var data = google.visualization.arrayToDataTable(googlevalues);
-
-  var options = {
-    /*title: 'Age vs. Weight comparison',*/
-    hAxis: {title: 'Valence', minValue: -1, maxValue: 1},
-    vAxis: {title: 'Arousal', minValue: -1, maxValue: 1},
-    legend: 'none',
-  };
-
-  var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
-  chart.draw(data, options);
-}
-
+/****************************
+ * INSERIR POR FICHEIRO
+ ****************************/
 function importFile(){
 	
 	var file = document.getElementById('file-input').files[0];
@@ -289,6 +149,206 @@ function importFile(){
 	reader.readAsText(file);
 	  
 }
+
+
+/******************************************************************************************
+ ******************************************************************************************
+ 									PESQUISAS 
+ ******************************************************************************************
+ *******************************************************************************************
+ */
+
+/****************************
+ * PESQUISA TEXTUAL
+ ****************************/
+function textualSearch()
+{
+	var textSearchIn = $("#textSearchInput").val();
+	
+	if(textSearchIn != ""){
+	var dataString = {"FLAG":"textsearch", "text":textSearchIn};
+	var resultFromSearch;
+	var htmlCodeToInput = "";
+	
+	$.ajax({
+		type: "GET",
+	    data:dataString,
+	    url: "SearchServlet",
+	    success: function(data)
+	    {
+	    	if (data != null)
+	    	{	    		
+	    		resultFromSearch = JSON.parse(data);
+	    		alert(resultFromSearch); // TODO remover esta merda
+	    		// apagar conteudo da library para conter o resultado da pesquisa
+	    		$('#library_musics_div').empty();
+	    		// para cada musica encontrada e devolvida pela servlet
+	    		$.each(resultFromSearch, function(i, m) {
+	    			// determinar a cor (vermelho, amarelo, verde ou azul) mediante a emocao predominante
+	    			var emocolor = setMainColor(m.dominantEmotion);
+	    			// Codigo a gerar para cada uma das musicas que foi encontrada
+	    			htmlCodeToInput += 	'<div class="music_div" style="background-color: '+emocolor+';">' +
+											'<img alt="" src="' + m.thumbnailPath + '" class="thumbnail_img" />' +
+											'<div class="track_info_div">' +
+												m.artist + ' <br /> ' + m.title +	
+											'</div>' +
+											'<div class="av_info_div">' +
+												'Arousal: '+ m.arousal +'<br /> Valence: ' + m.valence + 
+											'</div>' +
+											'<div class="av_info_div">' +
+												'<span class="label label-default">' + m.dominantEmotion + 
+												'</span> <br /> OCR Error: ' + m.ocrError +
+											'</div>' +
+											'<div class="fa fa-play fa-3x play_div" onclick="getMusic(\''+m.artist+'\',\''+m.title+'\')"></div>' +
+										'</div>';	    					
+	    		});
+	    		
+	    		// imprimir o codigo gerado para cada uma das musicas
+	    		$('#library_musics_div').append(htmlCodeToInput);
+	    		
+	    	}	    	
+	    	else
+	    	{
+	    		console.log(data + ": desculpe, nao encontramos nada com isso");
+	    	}
+	 	}
+	});
+	}
+}
+
+
+/****************************
+ * PESQUISA POR A&V
+ ****************************/
+function searchByAV()
+{
+	var dataString = {"FLAG":"avsearch",
+					"minArousal":minArousal, "maxArousal":maxArousal,
+					"minValence":minValence, "maxValence":maxValence};
+
+	var resultFromSearch;
+	 
+	$.ajax({
+		type: "GET",
+	    data:dataString,
+	    url: "InputServlet",		// TODO alterar para SearchServlet
+	    success: function(data)
+	    {
+	    	if (data != null)
+	    	{
+	    		alert("chefe-delas!")
+	    		console.log("encontramos essa musica de acordo com AV! Vamos listar isso na library");
+	    		resultFromSearch = JSON.parse(data);
+	    		//alert(resultFromSearch);
+	    		
+	    		
+	    		
+	    		$.each(resultFromSearch, function(i, m) {
+	    			var emocolor;
+	    			/*determine emocolor from m.pemo*/
+	    			var code = 	'<div class="music_div" style="background-color: '+emocolor+';">' +
+									'<img alt="" src="'+m.thumb+'" class="thumbnail_img" />' +
+									'<div class="track_info_div">' +
+										m.artist+' <br /> ' +m.title+	
+									'</div>' +
+									'<div class="fa fa-play fa-3x play_div" onclick="getMusic(\''+m.artist+'\',\''+m.title+'\')"></div>' +
+								'</div>';
+	    			
+	    			$('#library_musics_div').empty();
+	    			
+	    			$('#library_musics_div').append(code);
+	    		});
+	    		
+	    		// TODO esconder modal
+	    		
+	    	}	    	
+	    	else
+	    	{
+	    		console.log(data + ": desculpe, nao encontramos nada com isso");
+	    	}
+	 	}
+	});
+}
+
+/****************************
+ * funcao aux para determinar cor
+ ****************************/
+function setMainColor(emotion){
+	var happiness_color = "#FF3333";		// red
+	var anxiety_color = "#FFD633";			// yellow
+	var melancholy_color = "#46A13E";		// green
+	var contentment_color = "#5C7EFB";		// blue
+	var gray = "#BDBDBD";
+	
+	if(m.dominantEmotion == "Happiness"){
+		return happiness_color;
+	}
+	else if (m.dominantEmotion == "Anxiety"){
+		return anxiety_color;
+	}
+	else if (m.dominantEmotion == "Melancholy"){
+		return melancholy_color;
+	}
+	else if (m.dominantEmotion == "Contentment"){
+		return contentment_color;
+	}
+	else{
+		return gray;
+	}
+}
+
+
+function getChartData()
+{
+	var dataString = {"FLAG":"chartdata"};
+	var chartData;
+	$.ajax({
+		type: "GET",
+	    data:dataString,
+	    url: "SearchServlet",
+	    success: function(data)
+	    {
+	    	if (data != null)
+	    	{
+	    		//console.log(data);
+	    		//console.log(JSON.parse(data));
+	    		chartData = JSON.parse(data);
+	    	}
+	    },
+	    async:false
+	});
+
+	return chartData;
+}
+
+
+function drawChart(googlevalues) {
+	
+	
+  /*var data = google.visualization.arrayToDataTable([
+    [ 'Valence', 	'Arousal',	{'type': 'string', 'role': 'style'}],
+    [ 0.5,     		0.5, 		'point { fill-color: red}'],
+    [ 0.2,     		0.5, 		'point { fill-color: blue}'],
+    [ 0.7,     		-1, 		'point { fill-color: green}'],
+    [ -0.8,    		-0.4,		'point { fill-color: black}'],
+    [ 0.1,     		1,			'point { fill-color: pink}'],
+	[ -0.6,    		-0.6,		'point { fill-color: brown}']
+  ]);*/
+  
+  var data = google.visualization.arrayToDataTable(googlevalues);
+
+  var options = {
+    /*title: 'Age vs. Weight comparison',*/
+    hAxis: {title: 'Valence', minValue: -1, maxValue: 1},
+    vAxis: {title: 'Arousal', minValue: -1, maxValue: 1},
+    legend: 'none',
+  };
+
+  var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+  chart.draw(data, options);
+}
+
+
 
 //vai buscar todas as musicas para apresentar na library
 function getAllMusicsL(){
