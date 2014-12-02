@@ -397,6 +397,8 @@ function getMusic(artist, title){
 	
 	var dataString = {"FLAG":"getmusic", "artist":artist, "title":title};
 	
+	$('#seccaodas3janelas').css({'display':'block'});
+	
 	$.ajax({
 		type: "GET",
 	    data:dataString,
@@ -425,8 +427,15 @@ function getMusic(artist, title){
 	    		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 	    		
 	    		$('#collapseLibrary').removeClass('in');
-	    		//sleep(1000);
-	    		setInterval(function(){updateBarsPos(0);}, 500);
+	    		
+	    		updatetimer=setInterval(function(){
+	    			//console.log("mais uma vez");
+	    			updateBarsPos(0);
+	    			if($("#progressBar").position().top>0){
+	    				clearTimeout(updatetimer);
+	    				//console.log("acabou");
+	    			}
+	    		}, 500);
 	    		
 	    		/*SONG CLASS ATRIBUTTES:
 	    		   	int songId;
