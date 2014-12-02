@@ -3,8 +3,8 @@ var player;
 var barcounter=0;
 var videoid;
 var emotsize;
-var emot;
-var serverdata = new Array();
+var serverdata;
+var idrep;
 
 // 3. This function creates an <iframe> (and YouTube player)  after the API code downloads.
 function onYouTubeIframeAPIReady() {
@@ -16,6 +16,7 @@ function onYouTubeIframeAPIReady() {
         'autoplay' : 1,
         'controls' : 1,
         'modestbranding' : 0,
+        'color': 'white',
         'rel' : 0,
         'showinfo' : 0,
         'autohide' : 0,
@@ -36,7 +37,7 @@ function setVideoId(vid){
 
 function setEmotionList(emotions){
 	emotsize=emotions.length;
-	emot = emotions;
+	serverdata = emotions;
 	progress(emotions);
 }
 
@@ -53,36 +54,26 @@ function onPlayerStateChange(event) {
 		$('#progressBar').show();
 		
 		var playerTotalTime = player.getDuration();
-	
+		
+		chartPoints(player.getCurrentTime());
 		mytimer = setInterval(function() {
 			var playerCurrentTime = player.getCurrentTime();
 			
-			var playerTimeDifference = (playerCurrentTime / playerTotalTime) * 100;
+			//var playerTimeDifference = (playerCurrentTime / playerTotalTime) * 100*2;
 			
-			chartPoints(playerTimeDifference);
-		}, 500);	// redesenha o plot em x ms       
+			chartPoints(playerCurrentTime);
+		}, 1000/2);	// redesenha o plot em x ms       
 	} 
     
     else if (event.data == YT.PlayerState.ENDED) {
     	
     	/*barcounter=0;
     	checkstate=1;    	*/
-    	
     }
     else {
       
-      //clearTimeout(mytimer);
+    	clearTimeout(mytimer);
     }
-	
-	//display scumdiv
-	/*if(barcounter==0){
-		var scumtop = $('#progressBar').position().top-31;
-		var scumw = $('#progressBar').width();
-		//console.log("scum "+scumw);
-		$('#scumDiv').show();
-		$('#scumDiv').css({"background-color": '#FFFFFF', "width": scumw, "height": '27px', "position": 'absolute', "top": scumtop});
-		$('#scumDiv').slideDown("slow") ;
-	}*/
 		
 	
 }
@@ -95,36 +86,96 @@ function getprogbarw(){
 function chartPoints(playerTimeDifference){
 	//console.log(playerTimeDifference);
 	
-	//console.log(serverdata);
-	
 	var googlevalues =  [[ '', 	'',	{'type': 'string', 'role': 'style'}]];
 	var i;
 	
-	for(i=0;i<emot.length;i++){
-		if(playerTimeDifference>emot[i].init && playerTimeDifference<emot[i].fin)
-			serverdata.push(emot[i]);
-			
-	}
-	
-	
-	//console.log(serverdata);
+	//ISTO VAI VIRAR O TEXAS	
 	for(i=0;i<serverdata.length-1;i++){
-		googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: grey}']);
+		if(playerTimeDifference>=serverdata[i].fin ){
+			googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: grey}']);
+		}
+		else{
+			
+			if(serverdata[i].arousal>0 && serverdata[i].valence>0)
+				googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: red}']);
+			else if(serverdata[i].arousal>0 && serverdata[i].valence<0)
+				googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: blue}']);
+			else if(serverdata[i].arousal<0 && serverdata[i].valence>0)
+				googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: yellow}']);
+			else if(serverdata[i].arousal<0 && serverdata[i].valence<0)
+				googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: green}']);
+			
+			drawChart(googlevalues);
+			break;
+		}
 	}
 	
-	if(serverdata[serverdata.length-1].arousal>0 && serverdata[serverdata.length-1].valence>0)
-		googlevalues.push([serverdata[serverdata.length-1].arousal,serverdata[serverdata.length-1].valence,'point { fill-color: red}']);
-	else if(serverdata[serverdata.length-1].arousal>0 && serverdata[serverdata.length-1].valence<0)
-		googlevalues.push([serverdata[serverdata.length-1].arousal,serverdata[serverdata.length-1].valence,'point { fill-color: blue}']);
-	else if(serverdata[serverdata.length-1].arousal<0 && serverdata[serverdata.length-1].valence>0)
-		googlevalues.push([serverdata[serverdata.length-1].arousal,serverdata[serverdata.length-1].valence,'point { fill-color: yellow}']);
-	else if(serverdata[serverdata.length-1].arousal<0 && serverdata[serverdata.length-1].valence<0)
-		googlevalues.push([serverdata[serverdata.length-1].arousal,serverdata[serverdata.length-1].valence,'point { fill-color: green}']);
+
+	//se o tempo estiver dentro do intervalo de algum ponto do grafico
+	/*
+	 * var check;
+	 * if(playerTimeDifference>emot[0].init && playerTimeDifference<emot[0].fin){
+		check = containsObject(emot[0], serverdata);		//verifica ponto ja existe
+		//console.log(emot[0].arousal+"    "+emot[0].valence+"     "+check);
+		if(!check)//caso ponto nao exista, adiciona
+			serverdata.push(emot[0]);
+		emot.shift();//remove ponto já tratado
 	
+		
+			
+		
+		
+		if(!check){
+			for(i=0;i<serverdata.length-1;i++){
+				googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: grey}']);
+			}
+			
+			if(serverdata[serverdata.length-1].arousal>0 && serverdata[serverdata.length-1].valence>0)
+				googlevalues.push([serverdata[serverdata.length-1].arousal,serverdata[serverdata.length-1].valence,'point { fill-color: red}']);
+			else if(serverdata[serverdata.length-1].arousal>0 && serverdata[serverdata.length-1].valence<0)
+				googlevalues.push([serverdata[serverdata.length-1].arousal,serverdata[serverdata.length-1].valence,'point { fill-color: blue}']);
+			else if(serverdata[serverdata.length-1].arousal<0 && serverdata[serverdata.length-1].valence>0)
+				googlevalues.push([serverdata[serverdata.length-1].arousal,serverdata[serverdata.length-1].valence,'point { fill-color: yellow}']);
+			else if(serverdata[serverdata.length-1].arousal<0 && serverdata[serverdata.length-1].valence<0)
+				googlevalues.push([serverdata[serverdata.length-1].arousal,serverdata[serverdata.length-1].valence,'point { fill-color: green}']);
+		}
+		else{
+			for(i=0;i<serverdata.length;i++){
+				if(idrep!=i){
+					//console.log("for if  "+i+"   "+idrep);
+					googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: grey}']);
+				}
+				else{
+					//console.log("for else  "+i+"   "+idrep);
+					if(serverdata[idrep].arousal>0 && serverdata[idrep].valence>0)
+						googlevalues.push([serverdata[idrep].arousal,serverdata[idrep].valence,'point { fill-color: red}']);
+					else if(serverdata[idrep].arousal>0 && serverdata[idrep].valence<0)
+						googlevalues.push([serverdata[idrep].arousal,serverdata[idrep].valence,'point { fill-color: blue}']);
+					else if(serverdata[idrep].arousal<0 && serverdata[idrep].valence>0)
+						googlevalues.push([serverdata[idrep].arousal,serverdata[idrep].valence,'point { fill-color: yellow}']);
+					else if(serverdata[idrep].arousal<0 && serverdata[idrep].valence<0)
+						googlevalues.push([serverdata[idrep].arousal,serverdata[idrep].valence,'point { fill-color: green}']);
+				}
+		
+			}
+		}
+		
+		drawChart(googlevalues);
+	}*/
 	
-	drawChart(googlevalues);
-	
-	
+}
+
+function containsObject(obj, list) {
+    var i;
+    for (i = 0; i < list.length; i++) {
+        if (list[i].arousal == obj.arousal && list[i].valence == obj.valence) {
+        	//console.log("contains  "+i);
+        	idrep=i;
+            return true;
+        }
+    }
+
+    return false;
 }
 
 

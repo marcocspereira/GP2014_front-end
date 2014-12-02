@@ -89,7 +89,7 @@ function updateBarsPos(ver){
 		//$('#scumDiv').show();
 		/*altera barra de emocao*/
 		$(".legacydiv").each(function( index ) {
-			  var emotionbartop = $('#progressBar').position().top-40+extraHeight;
+			  var emotionbartop = $('#progressBar').position().top-40+extraHeight+8;
 			  var emotionbarleft = $('#progressBar').position().left;
 			  var progbarW = getprogbarw();
 			  
