@@ -63,6 +63,8 @@ function setArousal() {
 		values : [ minArousal, maxArousal ],
 		slide : function(event, ui) {
 			$("#amount_arousal").val(">=" + ui.values[0] + " | <=" + ui.values[1]);
+			minArousal = ui.values[0];
+			maxArousal = ui.values[1];
 		}
 	});
 	$("#amount_arousal").val(
@@ -82,6 +84,8 @@ function setValence() {
 		values : [ minValence, maxValence ],
 		slide : function(event, ui) {
 			$("#amount_valence").val(">=" + ui.values[0] + " | <=" + ui.values[1]);
+			minValence = ui.values[0];
+			maxValence = ui.values[1];
 		}
 	});
 	$("#amount_valence").val(

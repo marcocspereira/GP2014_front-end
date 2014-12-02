@@ -111,11 +111,15 @@ public class SearchServlet extends HttpServlet {
 		    String toSearch = request.getParameter("text");
 
 		    // palavra a procurar e página
-		    SongPack textSongs = frontendBean.searchAuthorAndTitle(toSearch, 1);
+		    SongPack textSongs = null;//frontendBean.searchAuthorAndTitle(toSearch, 1);
 
 		    // enviar resposta para o javascript tratar de colocar no html
-		    String json = new Gson().toJson(textSongs);
-		    out.write(json);
+		    if(textSongs != null){
+			    String json = new Gson().toJson(textSongs);
+			    out.write(json);
+		    } 
+		    else
+		    	out.write("null");
 		}
 		// TODO colocar na SearchServlet
 		else if (op.equalsIgnoreCase("avsearch")) {
@@ -127,12 +131,16 @@ public class SearchServlet extends HttpServlet {
 		    float maxValence = Float.parseFloat(request.getParameter("maxValence"));
 
 		    // mandar para o frontendBean com os valores e a pagina
-		    SongPack avSongs = frontendBean.searchArousalAndValenceValues(minArousal, maxArousal,
-			    minValence, maxValence, 1);
+		    SongPack avSongs = null;//frontendBean.searchArousalAndValenceValues(minArousal, maxArousal,
+			//    minValence, maxValence, 1);
 
-		    // enviar resposta para o javascript tratar de colocar no html
-		    String json = new Gson().toJson(avSongs);
-		    out.write(json);
+		    // enviar resposta para o javascript tratar de colocar no html		    
+		    if(avSongs != null){
+			    String json = new Gson().toJson(avSongs);
+			    out.write(json);
+		    } 
+		    else
+		    	out.write("null");
 		}
 		// TODO colocar na PlotServlet
 		else if (op.equalsIgnoreCase("chartdata")) {

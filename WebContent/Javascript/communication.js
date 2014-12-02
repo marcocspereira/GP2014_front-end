@@ -50,7 +50,7 @@ function importLinksByUrl(){
 		    		$("#ModalInputLink").modal('hide');
 		    		// mostrar feedback dos videos submetidos
 		    		$("#myModalInputFeedback").modal('show');
-		    		
+		    		direito
 		    	}
 		    	else
 		    	{
@@ -134,7 +134,7 @@ function importFile(){
 		    		// escrever resposta
 		    		$("#importLinkTextFeedback").append(htmlCodeToInsert);
 		    		// esconder a modal de input
-		    		$("#ModalInputLink").modal('hide');
+		    		$("#ModalInputLinkFile").modal('hide');
 		    		// mostrar feedback dos videos submetidos
 		    		$("#myModalInputFeedback").modal('show');
 		    	}
@@ -170,14 +170,16 @@ function textualSearch()
 	var resultFromSearch;
 	var htmlCodeToInput = "";
 	
+	$('#xesquerdo').css({"display":"inline"});
+	
 	$.ajax({
 		type: "GET",
 	    data:dataString,
 	    url: "SearchServlet",
 	    success: function(data)
 	    {
-	    	if (data != null)
-	    	{	    		
+	    	if (data != "null")
+	    	{
 	    		resultFromSearch = JSON.parse(data);
 	    		alert(resultFromSearch); // TODO remover esta merda
 	    		// apagar conteudo da library para conter o resultado da pesquisa
@@ -207,9 +209,12 @@ function textualSearch()
 	    		$('#library_musics_div').append(htmlCodeToInput);
 	    		
 	    	}	    	
-	    	else
+	    	else if(data == "null")
 	    	{
-	    		console.log(data + ": desculpe, nao encontramos nada com isso");
+	    		htmlCodeToInput='<h3 align = "center">There\'s no musics or artists with the key:<br><span style="color: blue">'+textSearchIn+'</span></h3>';
+	    		$('#library_musics_div').empty();
+	    		$('#library_musics_div').append(htmlCodeToInput);
+	    		console.log(textSearchIn + ": desculpe, nao encontramos nada com isso");
 	    	}
 	 	}
 	});
@@ -227,22 +232,19 @@ function searchByAV()
 					"minValence":minValence, "maxValence":maxValence};
 
 	var resultFromSearch;
-	 
+	$('#xdireito').css({"display":"inline"});
 	$.ajax({
 		type: "GET",
 	    data:dataString,
-	    url: "InputServlet",		// TODO alterar para SearchServlet
+	    url: "SearchServlet",
 	    success: function(data)
 	    {
-	    	if (data != null)
+	    	$('#myModal').modal('hide');
+	    	if (data != "null")
 	    	{
-	    		alert("chefe-delas!")
 	    		console.log("encontramos essa musica de acordo com AV! Vamos listar isso na library");
 	    		resultFromSearch = JSON.parse(data);
-	    		//alert(resultFromSearch);
-	    		
-	    		
-	    		
+
 	    		$.each(resultFromSearch, function(i, m) {
 	    			var emocolor;
 	    			/*determine emocolor from m.pemo*/
@@ -262,9 +264,15 @@ function searchByAV()
 	    		// TODO esconder modal
 	    		
 	    	}	    	
-	    	else
-	    	{
-	    		console.log(data + ": desculpe, nao encontramos nada com isso");
+	    	else if(data == "null")
+	    	{				
+	    		htmlCodeToInput='<h3 align = "center">There\'s no musics or artists with the emotion:<br><span style="color: blue"> '
+	    			+minArousal+' &lt; Arousal &lt; '+maxArousal+'<br>'
+	    			+minValence+' &lt; Valence &lt; '+maxValence
+	    			+' </span></h3>';
+	    		$('#library_musics_div').empty();
+	    		$('#library_musics_div').append(htmlCodeToInput);
+	    		console.log(" desculpe, nao encontramos nada com isso");
 	    	}
 	 	}
 	});

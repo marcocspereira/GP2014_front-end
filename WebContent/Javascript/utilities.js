@@ -101,3 +101,11 @@ function updateBarsPos(ver){
 			  //$(this).show();
 		});
 	}	
+
+function closeSearch(){
+	$('#textSearchInput').val('');
+	$('#xdireito').css({"display":"none"});
+	$('#xesquerdo').css({"display":"none"});
+	
+	getAllMusicsL();
+}

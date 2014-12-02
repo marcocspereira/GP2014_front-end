@@ -166,7 +166,7 @@
 								<span class="fa fa-file-text-o"></span> Import File
 							</button>
 							<!-- JANELA PARA INSERIR FICHEIRO -->
-							<div class="modal fade bs-example-modal-file" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+							<div id="ModalInputLinkFile" class="modal fade bs-example-modal-file" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 								<div class="modal-dialog modal-lg">
 									<div class="modal-content import-things">
 										<h1 class="import_file_h1">IMPORT FILE</h1>
@@ -196,6 +196,7 @@
           									<input id="textSearchInput" type="text" class="form-control" placeholder="Search music or artist...">
         								</div>
         								<input type="button" class="btn btn-default fa fa-search" value="Search" onclick="textualSearch();">
+        								<i id="xesquerdo" style="padding-left:5px;display:none;" class="fa fa-close" onclick="closeSearch();"></i>
 								      </form>
 								</div>
 								<div id="emotion_search_div">
@@ -244,7 +245,7 @@
     									</div>
   									</div>
 								</div>
-								
+								<i id="xdireito" style="padding-left:5px;display:none;" class="fa fa-close" onclick="closeSearch();"></i>
 								</div>
 							</div>
 							<!-- FIM DE PESQUISA -->
