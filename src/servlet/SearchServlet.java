@@ -16,7 +16,7 @@ import common.Emotion;
 import common.Song;
 import common.Test;
 
-import edu.dei.gp.containers.SongPack;
+import edu.dei.gp.containers.GenericSongPack;
 import edu.dei.gp.ejb.remotes.FrontEndBeanRemote;
 import edu.dei.gp.jpa.aux.DominantEmotion;
 
@@ -112,7 +112,7 @@ public class SearchServlet extends HttpServlet {
 		{
 		    // receber o valor textual a procrurar
 		    String toSearch = request.getParameter("text");
-
+		    boolean check = false;
 		    // palavra a procurar e página
 		    // TODO descomentar SongPack textSongs = frontendBean.searchAuthorAndTitle(toSearch, 1);
 
@@ -123,20 +123,21 @@ public class SearchServlet extends HttpServlet {
 		    // TODO apagar parte de teste
 		    List<Song> teste = new ArrayList<Song>();
 		    for (int j = 0; j < tempSongs.size(); j++) {
-			if (tempSongs.get(j).getTitle().contains(toSearch)
-				|| tempSongs.get(j).getArtist().contains(toSearch)) {
-			    teste.add(tempSongs.get(j));
-			}
+				if (tempSongs.get(j).getTitle().contains(toSearch)
+					|| tempSongs.get(j).getArtist().contains(toSearch)) {
+					check = true;
+				    teste.add(tempSongs.get(j));
+				}
 		    }
 		    //String json = new Gson().toJson(teste);
 		    //out.write(json);
 
-		    if (teste != null) {
-			String json = new Gson().toJson(teste);
-			out.write(json);
+		    if (check) {
+				String json = new Gson().toJson(teste);
+				out.write(json);
 		    }
 		    else {
-			out.write("null");
+		    	out.write("null");
 		    }
 		}
 		// TODO colocar na SearchServlet
@@ -149,7 +150,7 @@ public class SearchServlet extends HttpServlet {
 		    float maxValence = Float.parseFloat(request.getParameter("maxValence"));
 
 		    // mandar para o frontendBean com os valores e a pagina
-		    SongPack avSongs = null; // TODO alterar para: frontendBean.searchArousalAndValenceValues(minArousal, maxArousal, minValence, maxValence, 1);
+		    GenericSongPack avSongs = null; // TODO alterar para: frontendBean.searchArousalAndValenceValues(minArousal, maxArousal, minValence, maxValence, 1);
 
 		    // enviar resposta para o javascript tratar de colocar no html
 

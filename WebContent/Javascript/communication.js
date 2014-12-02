@@ -366,7 +366,7 @@ function drawChart(googlevalues) {
 function getAllMusicsL(){
 		
 	var dataString = {"FLAG":"getall"};
-	
+	var htmlCodeToInput="";
 	$.ajax({
 		type: "GET",
 	    data:dataString,
