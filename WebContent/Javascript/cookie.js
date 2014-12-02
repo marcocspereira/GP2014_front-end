@@ -23,6 +23,8 @@ function checkCookie(cookieName) {
         console.log("ja ca estiveste");
     } else {
         user = "primeira vez";
+        $('#collapseLibrary').addClass('in');
+        $('#seccaodas3janelas').css({'display':'none'});
         console.log(user);
         if (user != "" && user != null) {
             setCookie(cookieName, user, 365);//expira em 365 dias

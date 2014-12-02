@@ -50,7 +50,7 @@ function importLinksByUrl(){
 		    		$("#ModalInputLink").modal('hide');
 		    		// mostrar feedback dos videos submetidos
 		    		$("#myModalInputFeedback").modal('show');
-		    		
+		    		direito
 		    	}
 		    	else
 		    	{
@@ -134,7 +134,7 @@ function importFile(){
 		    		// escrever resposta
 		    		$("#importLinkTextFeedback").append(htmlCodeToInsert);
 		    		// esconder a modal de input
-		    		$("#ModalInputLink").modal('hide');
+		    		$("#ModalInputLinkFile").modal('hide');
 		    		// mostrar feedback dos videos submetidos
 		    		$("#myModalInputFeedback").modal('show');
 		    	}
@@ -169,6 +169,8 @@ function textualSearch()
 		var dataString = {"FLAG":"textsearch", "text":textSearchIn};
 		var resultFromSearch;
 		var htmlCodeToInput = "";
+		
+		$('#xesquerdo').css({"display":"inline"});
 	
 		$.ajax({
 			type: "GET",
@@ -176,7 +178,7 @@ function textualSearch()
 			url: "SearchServlet",
 			success: function(data)
 			{
-				if (data != null)
+				if (data != "null")
 				{	    		
 					resultFromSearch = JSON.parse(data);
 					console.log(resultFromSearch); // TODO remover esta merda
@@ -189,13 +191,15 @@ function textualSearch()
 						// Codigo a gerar para cada uma das musicas que foi encontrada
 						htmlCodeToInput += 	createMusicDiv(m, emocolor);	    					
 					});
-	    		
 					// imprimir o codigo gerado para cada uma das musicas
 					$('#library_musics_div').append(htmlCodeToInput);
-				}	    	
-				else
+				}
+				else if(data == "null")
 				{
-					console.log(data + ": desculpe, nao encontramos nada com isso");
+					htmlCodeToInput='<h3 align = "center">There\'s no musics or artists with the key:<br><span style="color: blue">'+textSearchIn+'</span></h3>';
+					$('#library_musics_div').empty();
+					$('#library_musics_div').append(htmlCodeToInput);
+					console.log(textSearchIn + ": desculpe, nao encontramos nada com isso");
 				}
 			}
 		});
@@ -213,19 +217,18 @@ function searchByAV()
 					"minValence":minValence, "maxValence":maxValence};
 
 	var resultFromSearch;
-	 
+	$('#xdireito').css({"display":"inline"});
 	$.ajax({
 		type: "GET",
 	    data:dataString,
-	    url: "InputServlet",		// TODO alterar para SearchServlet
+	    url: "SearchServlet",
 	    success: function(data)
 	    {
-	    	if (data != null)
+	    	$('#myModal').modal('hide');
+	    	if (data != "null")
 	    	{
-	    		alert("chefe-delas!")
 	    		console.log("encontramos essa musica de acordo com AV! Vamos listar isso na library");
 	    		resultFromSearch = JSON.parse(data);
-	    		//alert(resultFromSearch);
 	    		
 	    		// apagar conteudo da library para conter o resultado da pesquisa
 				$('#library_musics_div').empty();
@@ -240,12 +243,16 @@ function searchByAV()
 				// imprimir o codigo gerado para cada uma das musicas
 				$('#library_musics_div').append(htmlCodeToInput);
 	    		
-	    		// TODO esconder modal
-	    		
 	    	}	    	
-	    	else
-	    	{
-	    		console.log(data + ": desculpe, nao encontramos nada com isso");
+	    	else if(data == "null")
+	    	{				
+	    		htmlCodeToInput='<h3 align = "center">There\'s no musics or artists with the emotion:<br><span style="color: blue"> '
+	    			+minArousal+' &lt; Arousal &lt; '+maxArousal+'<br>'
+	    			+minValence+' &lt; Valence &lt; '+maxValence
+	    			+' </span></h3>';
+	    		$('#library_musics_div').empty();
+	    		$('#library_musics_div').append(htmlCodeToInput);
+	    		console.log(" desculpe, nao encontramos nada com isso");
 	    	}
 	 	}
 	});
@@ -400,6 +407,8 @@ function getMusic(songId){
 	//var dataString = {"FLAG":"getmusic", "artist":artist, "title":title};
 	var dataString = {"FLAG":"getmusic", "songId":songId};	// TODO rever no lado da servlet
 	
+	$('#seccaodas3janelas').css({'display':'block'});
+	
 	$.ajax({
 		type: "GET",
 	    data:dataString,
@@ -429,8 +438,15 @@ function getMusic(songId){
 	    		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 	    		
 	    		$('#collapseLibrary').removeClass('in');
-	    		//sleep(1000);
-	    		setInterval(function(){updateBarsPos(0);}, 500);
+	    		
+	    		updatetimer=setInterval(function(){
+	    			//console.log("mais uma vez");
+	    			updateBarsPos(0);
+	    			if($("#progressBar").position().top>0){
+	    				clearTimeout(updatetimer);
+	    				//console.log("acabou");
+	    			}
+	    		}, 500);
 	    		
 	    		/*SONG CLASS ATRIBUTTES:
 	    		   	int songId;

@@ -128,9 +128,16 @@ public class SearchServlet extends HttpServlet {
 			    teste.add(tempSongs.get(j));
 			}
 		    }
-		    String json = new Gson().toJson(teste);
-		    out.write(json);
+		    //String json = new Gson().toJson(teste);
+		    //out.write(json);
 
+		    if (teste != null) {
+			String json = new Gson().toJson(teste);
+			out.write(json);
+		    }
+		    else {
+			out.write("null");
+		    }
 		}
 		// TODO colocar na SearchServlet
 		else if (op.equalsIgnoreCase("avsearch")) {
@@ -142,13 +149,17 @@ public class SearchServlet extends HttpServlet {
 		    float maxValence = Float.parseFloat(request.getParameter("maxValence"));
 
 		    // mandar para o frontendBean com os valores e a pagina
-		    SongPack avSongs = frontendBean.searchArousalAndValenceValues(minArousal, maxArousal, minValence,
-			    maxValence, 1);
-
+		    SongPack avSongs = null; // TODO alterar para: frontendBean.searchArousalAndValenceValues(minArousal, maxArousal, minValence, maxValence, 1);
 
 		    // enviar resposta para o javascript tratar de colocar no html
-		    String json = new Gson().toJson(avSongs);
-		    out.write(json);
+
+		    if (avSongs != null) {
+			String json = new Gson().toJson(avSongs);
+			out.write(json);
+		    }
+		    else {
+			out.write("null");
+		    }
 		}
 		// TODO colocar na PlotServlet
 		else if (op.equalsIgnoreCase("chartdata")) {
@@ -157,23 +168,26 @@ public class SearchServlet extends HttpServlet {
 		    String json = new Gson().toJson(x);
 		    out.write(json);
 		}
-		// TODO colocar na PlotServlet
+		// TODO devolver todas as musicas sem filtros
 		else if (op.equalsIgnoreCase("getall")) {
 
 		    System.out.println("get all musics");
 
 		    //bean.getAllMusics();
+		    // Temp
+		    String json = new Gson().toJson(tempSongs);
+		    out.write(json);
 
 		    //out.write("success");
 
 		}
-		// TODO colocar na PlotServlet
+		// TODO devolver musica atraves de id
 		else if (op.equalsIgnoreCase("getmusic")) {
-		    String art = request.getParameter("artist");
-		    String title = request.getParameter("title");
-		    System.out.println("get music: " + art + " - " + title);
+		    String songId = request.getParameter("songId");
 
 		    //bean.getMusic(art, title);
+		    //Song theSong = frontendBean.getSongById(Integer.parseInt(songId));
+
 		    String json = new Gson().toJson(song);
 		    out.write(json);
 
