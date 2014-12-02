@@ -166,53 +166,39 @@ function textualSearch()
 	var textSearchIn = $("#textSearchInput").val();
 	
 	if(textSearchIn != ""){
-	var dataString = {"FLAG":"textsearch", "text":textSearchIn};
-	var resultFromSearch;
-	var htmlCodeToInput = "";
+		var dataString = {"FLAG":"textsearch", "text":textSearchIn};
+		var resultFromSearch;
+		var htmlCodeToInput = "";
 	
-	$.ajax({
-		type: "GET",
-	    data:dataString,
-	    url: "SearchServlet",
-	    success: function(data)
-	    {
-	    	if (data != null)
-	    	{	    		
-	    		resultFromSearch = JSON.parse(data);
-	    		alert(resultFromSearch); // TODO remover esta merda
-	    		// apagar conteudo da library para conter o resultado da pesquisa
-	    		$('#library_musics_div').empty();
-	    		// para cada musica encontrada e devolvida pela servlet
-	    		$.each(resultFromSearch, function(i, m) {
-	    			// determinar a cor (vermelho, amarelo, verde ou azul) mediante a emocao predominante
-	    			var emocolor = setMainColor(m.dominantEmotion);
-	    			// Codigo a gerar para cada uma das musicas que foi encontrada
-	    			htmlCodeToInput += 	'<div class="music_div" style="background-color: '+emocolor+';">' +
-											'<img alt="" src="' + m.thumbnailPath + '" class="thumbnail_img" />' +
-											'<div class="track_info_div">' +
-												m.artist + ' <br /> ' + m.title +	
-											'</div>' +
-											'<div class="av_info_div">' +
-												'Arousal: '+ m.arousal +'<br /> Valence: ' + m.valence + 
-											'</div>' +
-											'<div class="av_info_div">' +
-												'<span class="label label-default">' + m.dominantEmotion + 
-												'</span> <br /> OCR Error: ' + m.ocrError +
-											'</div>' +
-											'<div class="fa fa-play fa-3x play_div" onclick="getMusic(\''+m.artist+'\',\''+m.title+'\')"></div>' +
-										'</div>';	    					
-	    		});
+		$.ajax({
+			type: "GET",
+			data:dataString,
+			url: "SearchServlet",
+			success: function(data)
+			{
+				if (data != null)
+				{	    		
+					resultFromSearch = JSON.parse(data);
+					console.log(resultFromSearch); // TODO remover esta merda
+					// apagar conteudo da library para conter o resultado da pesquisa
+					$('#library_musics_div').empty();
+					// para cada musica encontrada e devolvida pela servlet
+					$.each(resultFromSearch, function(i, m) {
+						// determinar a cor (vermelho, amarelo, verde ou azul) mediante a emocao predominante
+						var emocolor = setMainColor(m.dominantEmotion);
+						// Codigo a gerar para cada uma das musicas que foi encontrada
+						htmlCodeToInput += 	createMusicDiv(m, emocolor);	    					
+					});
 	    		
-	    		// imprimir o codigo gerado para cada uma das musicas
-	    		$('#library_musics_div').append(htmlCodeToInput);
-	    		
-	    	}	    	
-	    	else
-	    	{
-	    		console.log(data + ": desculpe, nao encontramos nada com isso");
-	    	}
-	 	}
-	});
+					// imprimir o codigo gerado para cada uma das musicas
+					$('#library_musics_div').append(htmlCodeToInput);
+				}	    	
+				else
+				{
+					console.log(data + ": desculpe, nao encontramos nada com isso");
+				}
+			}
+		});
 	}
 }
 
@@ -241,23 +227,18 @@ function searchByAV()
 	    		resultFromSearch = JSON.parse(data);
 	    		//alert(resultFromSearch);
 	    		
-	    		
-	    		
-	    		$.each(resultFromSearch, function(i, m) {
-	    			var emocolor;
-	    			/*determine emocolor from m.pemo*/
-	    			var code = 	'<div class="music_div" style="background-color: '+emocolor+';">' +
-									'<img alt="" src="'+m.thumb+'" class="thumbnail_img" />' +
-									'<div class="track_info_div">' +
-										m.artist+' <br /> ' +m.title+	
-									'</div>' +
-									'<div class="fa fa-play fa-3x play_div" onclick="getMusic(\''+m.artist+'\',\''+m.title+'\')"></div>' +
-								'</div>';
-	    			
-	    			$('#library_musics_div').empty();
-	    			
-	    			$('#library_musics_div').append(code);
-	    		});
+	    		// apagar conteudo da library para conter o resultado da pesquisa
+				$('#library_musics_div').empty();
+				// para cada musica encontrada e devolvida pela servlet
+				$.each(resultFromSearch, function(i, m) {
+					// determinar a cor (vermelho, amarelo, verde ou azul) mediante a emocao predominante
+					var emocolor = setMainColor(m.dominantEmotion);
+					// Codigo a gerar para cada uma das musicas que foi encontrada
+					htmlCodeToInput += 	createMusicDiv(m, emocolor);	    					
+				});
+    		
+				// imprimir o codigo gerado para cada uma das musicas
+				$('#library_musics_div').append(htmlCodeToInput);
 	    		
 	    		// TODO esconder modal
 	    		
@@ -272,29 +253,53 @@ function searchByAV()
 
 /****************************
  * funcao aux para determinar cor
+ * recebe a emocao
  ****************************/
 function setMainColor(emotion){
+
 	var happiness_color = "#FF3333";		// red
 	var anxiety_color = "#FFD633";			// yellow
 	var melancholy_color = "#46A13E";		// green
 	var contentment_color = "#5C7EFB";		// blue
 	var gray = "#BDBDBD";
-	
-	if(m.dominantEmotion == "Happiness"){
+
+	if(emotion == "Hapiness"){
 		return happiness_color;
 	}
-	else if (m.dominantEmotion == "Anxiety"){
+	else if (emotion == "Anxiety"){
 		return anxiety_color;
 	}
-	else if (m.dominantEmotion == "Melancholy"){
+	else if (emotion == "Melancholy"){
 		return melancholy_color;
 	}
-	else if (m.dominantEmotion == "Contentment"){
+	else if (emotion == "Contentment"){
 		return contentment_color;
 	}
 	else{
 		return gray;
 	}
+}
+
+/****************************
+ * funcao aux para fazer o htmlcode para contentor de cada musica
+ * recebe musica
+ ****************************/
+function createMusicDiv(m, emocolor)
+{
+	return '<div class="music_div" style="background-color: '+emocolor+';">' +
+				'<img alt="" src="' + m.thumbnailPath + '" class="thumbnail_img" />' +
+				'<div class="track_info_div">' +
+					'<strong>' + m.artist + ' <br /> ' + m.title + '</strong>' +	
+				'</div>' +
+				'<div class="av_info_div">' +
+					'Arousal: '+ m.arousal +'<br /> Valence: ' + m.valence + 
+				'</div>' +
+				'<div class="av_info_div">' +
+					'<span class="label label-default">' + m.dominantEmotion + 
+					'</span> <br /> OCR Error: ' + m.ocrError +
+				'</div>' +
+				'<div class="fa fa-play fa-3x play_div" onclick="getMusic(' + m.songId + ')"></div>' +
+			'</div>';
 }
 
 
@@ -350,7 +355,7 @@ function drawChart(googlevalues) {
 
 
 
-//vai buscar todas as musicas para apresentar na library
+// vai buscar todas as musicas para apresentar na library
 function getAllMusicsL(){
 		
 	var dataString = {"FLAG":"getall"};
@@ -358,7 +363,7 @@ function getAllMusicsL(){
 	$.ajax({
 		type: "GET",
 	    data:dataString,
-	    url: "SearchServlet",
+	    url: "SearchServlet",	// TODO ver se fica nesta servlet ou se cria outra so para devolver musica(s)
 	    success: function(data)
 	    {
 	    	if (data == "fail")	{console.log("fail on gettting all musics for library");}
@@ -369,42 +374,41 @@ function getAllMusicsL(){
 	    		
 	    		var musics = JSON.parse(data);
 	    		
-	    		$.each(musics, function(i, m) {
-	    			var emocolor= "blue";
-	    			/*determine emocolor from m.pemo*/
-	    			var code = 	'<div class="music_div" style="background-color: '+emocolor+';">' +
-									'<img alt="" src="'+m.thumb+'" class="thumbnail_img" />' +
-									'<div class="track_info_div">' +
-										m.artist+' <br /> ' +m.title+	
-									'</div>' +												/*MUDAR PARA ID DA BD*/
-									'<div class="fa fa-play fa-3x play_div" onclick="getMusic(\''+m.artist+'\',\''+m.title+'\')"></div>' +
-								'</div>';
-	    			
-	    			$('#library_musics_div').empty();
-	    			
-	    			$('#library_musics_div').append(code);
-	    		});
+	    		// apagar conteudo da library para conter o resultado da pesquisa
+				$('#library_musics_div').empty();
+				// para cada musica encontrada e devolvida pela servlet
+				$.each(musics, function(i, m) {
+					// determinar a cor (vermelho, amarelo, verde ou azul) mediante a emocao predominante
+					var emocolor = setMainColor(m.dominantEmotion);
+					// Codigo a gerar para cada uma das musicas que foi encontrada
+					htmlCodeToInput += 	createMusicDiv(m, emocolor);	    					
+				});
+    		
+				// imprimir o codigo gerado para cada uma das musicas
+				$('#library_musics_div').append(htmlCodeToInput);
 	    		
-
 	    	}
 	 	}
 	});
 	
 }
 
-//vai buscar uma musica referenciada pelo artista e titulo
-function getMusic(artist, title){
+//vai buscar uma musica referenciada pelo id
+// TODO rever
+function getMusic(songId){
 	
-	var dataString = {"FLAG":"getmusic", "artist":artist, "title":title};
+	//var dataString = {"FLAG":"getmusic", "artist":artist, "title":title};
+	var dataString = {"FLAG":"getmusic", "songId":songId};	// TODO rever no lado da servlet
 	
 	$.ajax({
 		type: "GET",
 	    data:dataString,
-	    url: "SearchServlet",
+	    url: "SearchServlet",	// TODO ver se fica nesta servlet ou se cria outra so para devolver musica(s)
 	    success: function(data)
 	    {
-	    	if (data == "fail")	{console.log("fail on getting music to play");}
-	    	
+	    	if (data == "fail")	{
+	    		console.log("fail on getting music to play");
+	    	}
 	    	else{
 	    		
 	    		var music = JSON.parse(data);

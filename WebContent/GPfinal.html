@@ -191,12 +191,12 @@
 							<!-- PESQUISA -->
 							<div class="search_box_div">
 								<div id="text_search_div">
-									<form class="navbar-form navbar-left" role="search">
+									<div class="navbar-form navbar-left" role="search">
         								<div class="form-group">
           									<input id="textSearchInput" type="text" class="form-control" placeholder="Search music or artist...">
         								</div>
         								<input type="button" class="btn btn-default fa fa-search" value="Search" onclick="textualSearch();">
-								      </form>
+								      </div>
 								</div>
 								<div id="emotion_search_div">
 									<label for="emotionChosen"> Emotion</label>
@@ -380,6 +380,14 @@
 			//drawChart();
 
 		});
+
+		// evitar que o ENTER seja carregado (nomeadamente nos inputs)
+		$(window).keydown(function(event){
+		    if( (event.keyCode == 13) && (validationFunction() == false) ) {
+		      event.preventDefault();
+		      return false;
+		    }
+		  });
 		
 		
 		
