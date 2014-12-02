@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import common.Emotion;
-import common.Song;
 import common.Test;
 
 import edu.dei.gp.containers.InsertionResponse;
@@ -90,8 +89,6 @@ public class InputServlet extends HttpServlet {
 	emo.add(new Emotion( -0.5, 0.5, null, null));
 	emo.add(new Emotion( 0.5, -0.5, null, null));*/
 
-	Song song = new Song("katy puta", "sou porca", "9dgng_ekbV0", "o bacalhau quer alho \n é o melhor tempero!");
-	song.setEmotions(emo);
 
 	if (!request.getParameterMap().isEmpty())
 	{

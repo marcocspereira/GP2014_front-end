@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +18,7 @@ import common.Test;
 
 import edu.dei.gp.containers.SongPack;
 import edu.dei.gp.ejb.remotes.FrontEndBeanRemote;
+import edu.dei.gp.jpa.aux.DominantEmotion;
 
 /**
  * Servlet implementation class SearchServlet
@@ -53,9 +53,6 @@ public class SearchServlet extends HttpServlet {
 	x.add(new Test("#7", -0.5, 0.5, null, null));
 	x.add(new Test("#7", 0.5, -0.5, null, null));
 
-	Date date = new Date(0);
-
-
 	List<Emotion> emo = new ArrayList<Emotion>();
 	emo.add(new Emotion(0.5, 0.5, 1, 2));
 	emo.add(new Emotion(0.2, 0.5, 2, 3));
@@ -74,24 +71,28 @@ public class SearchServlet extends HttpServlet {
 	emo.add(new Emotion(-0.5, 0.5, 15, 16));
 	emo.add(new Emotion(0.5, -0.5, 16, 17));
 	emo.add(new Emotion(0.5, 0.5, 17, 18));
-	/*emo.add(new Emotion( 0.2, 0.5, null, null));
-	emo.add(new Emotion( -0.8, -1, null, null));
-	emo.add(new Emotion( -0.8, 0.4, null, null));
-	emo.add(new Emotion( 0.1, 1, null, null));
-	emo.add(new Emotion( -0.6, -0.6, null, null));
-	emo.add(new Emotion( -0.5, 0.5, null, null));
-	emo.add(new Emotion( 0.5, -0.5, null, null));
-	emo.add(new Emotion( 0.5, 0.5, null, null));
-	emo.add(new Emotion( 0.2, 0.5, null, null));
-	emo.add(new Emotion( -0.8, -1, null, null));
-	emo.add(new Emotion( -0.8, 0.4, null, null));
-	emo.add(new Emotion( 0.1, 1, null, null));
-	emo.add(new Emotion( -0.6, -0.6, null, null));
-	emo.add(new Emotion( -0.5, 0.5, null, null));
-	emo.add(new Emotion( 0.5, -0.5, null, null));*/
 
-	Song song = new Song("katy puta", "sou porca", "9dgng_ekbV0", "o bacalhau quer alho \n é o melhor tempero!");
+	// TODO retirar esta arraylist q serve de teste a pesquisa de musicas
+	List<Song> tempSongs = new ArrayList<Song>();
+	tempSongs.add(new Song("Sia", "Chandelier", "-KXPLT2Xk5k", "vai levar na rata", 1, (float) 0.4,
+		DominantEmotion.Contentment));
+
+	tempSongs.add(new Song("Katy Perry", "Roar", "9dgng_ekbV0", "berra que nem uma leoa", (float) -0.2, (float) 1.4,
+		DominantEmotion.Hapiness));
+
+	tempSongs.add(new Song("Sam Smith", "Stay with", "uTTXJM5woJ8", "fica comigo que tenho frio", 1, (float) -0.4,
+		DominantEmotion.Melancholy));
+
+	tempSongs.add(new Song("John Legend", "All Of Me", "Mk7-GRWq7wA", "tudo em mim\nentra em ti\nohohohoh",
+		(float) -0.4, (float) 0.4, DominantEmotion.Contentment));
+
+	tempSongs.add(new Song("James Arthur", "Impossible", "1lefGrqcC1A", "impossiveeeeeeel", 1, (float) 0.9,
+		DominantEmotion.Anxiety));
+
+	Song song = new Song("Sia", "Chandelier", "-KXPLT2Xk5k", "vai levar na rata", 1, (float) 0.4,
+		DominantEmotion.Contentment);
 	song.setEmotions(emo);
+
 
 	if (!request.getParameterMap().isEmpty())
 	{
@@ -104,6 +105,8 @@ public class SearchServlet extends HttpServlet {
 		HttpSession session = request.getSession(true);*/
 		PrintWriter out = response.getWriter();
 
+		System.out.println(op);
+
 		// TODO colocar na SearchServlet
 		if (op.equalsIgnoreCase("textsearch"))
 		{
@@ -111,15 +114,30 @@ public class SearchServlet extends HttpServlet {
 		    String toSearch = request.getParameter("text");
 
 		    // palavra a procurar e página
-		    SongPack textSongs = null;//frontendBean.searchAuthorAndTitle(toSearch, 1);
+		    // TODO descomentar SongPack textSongs = frontendBean.searchAuthorAndTitle(toSearch, 1);
 
 		    // enviar resposta para o javascript tratar de colocar no html
-		    if(textSongs != null){
-			    String json = new Gson().toJson(textSongs);
-			    out.write(json);
-		    } 
-		    else
-		    	out.write("null");
+		    // String json = new Gson().toJson(textSongs);
+		    // out.write(json);
+
+		    // TODO apagar parte de teste
+		    List<Song> teste = new ArrayList<Song>();
+		    for (int j = 0; j < tempSongs.size(); j++) {
+			if (tempSongs.get(j).getTitle().contains(toSearch)
+				|| tempSongs.get(j).getArtist().contains(toSearch)) {
+			    teste.add(tempSongs.get(j));
+			}
+		    }
+		    //String json = new Gson().toJson(teste);
+		    //out.write(json);
+
+		    if (teste != null) {
+			String json = new Gson().toJson(teste);
+			out.write(json);
+		    }
+		    else {
+			out.write("null");
+		    }
 		}
 		// TODO colocar na SearchServlet
 		else if (op.equalsIgnoreCase("avsearch")) {
@@ -131,16 +149,17 @@ public class SearchServlet extends HttpServlet {
 		    float maxValence = Float.parseFloat(request.getParameter("maxValence"));
 
 		    // mandar para o frontendBean com os valores e a pagina
-		    SongPack avSongs = null;//frontendBean.searchArousalAndValenceValues(minArousal, maxArousal,
-			//    minValence, maxValence, 1);
+		    SongPack avSongs = null; // TODO alterar para: frontendBean.searchArousalAndValenceValues(minArousal, maxArousal, minValence, maxValence, 1);
 
-		    // enviar resposta para o javascript tratar de colocar no html		    
-		    if(avSongs != null){
-			    String json = new Gson().toJson(avSongs);
-			    out.write(json);
-		    } 
-		    else
-		    	out.write("null");
+		    // enviar resposta para o javascript tratar de colocar no html
+
+		    if (avSongs != null) {
+			String json = new Gson().toJson(avSongs);
+			out.write(json);
+		    }
+		    else {
+			out.write("null");
+		    }
 		}
 		// TODO colocar na PlotServlet
 		else if (op.equalsIgnoreCase("chartdata")) {
@@ -149,23 +168,26 @@ public class SearchServlet extends HttpServlet {
 		    String json = new Gson().toJson(x);
 		    out.write(json);
 		}
-		// TODO colocar na PlotServlet
+		// TODO devolver todas as musicas sem filtros
 		else if (op.equalsIgnoreCase("getall")) {
 
 		    System.out.println("get all musics");
 
 		    //bean.getAllMusics();
+		    // Temp
+		    String json = new Gson().toJson(tempSongs);
+		    out.write(json);
 
 		    //out.write("success");
 
 		}
-		// TODO colocar na PlotServlet
+		// TODO devolver musica atraves de id
 		else if (op.equalsIgnoreCase("getmusic")) {
-		    String art = request.getParameter("artist");
-		    String title = request.getParameter("title");
-		    System.out.println("get music: " + art + " - " + title);
+		    String songId = request.getParameter("songId");
 
 		    //bean.getMusic(art, title);
+		    //Song theSong = frontendBean.getSongById(Integer.parseInt(songId));
+
 		    String json = new Gson().toJson(song);
 		    out.write(json);
 
