@@ -16,7 +16,7 @@ import common.Emotion;
 import common.Song;
 import common.Test;
 
-import edu.dei.gp.containers.SongPack;
+import edu.dei.gp.containers.GenericSongPack;
 import edu.dei.gp.ejb.remotes.FrontEndBeanRemote;
 import edu.dei.gp.jpa.aux.DominantEmotion;
 
@@ -114,7 +114,7 @@ public class SearchServlet extends HttpServlet {
 		    String toSearch = request.getParameter("text");
 
 		    // palavra a procurar e página
-		    // TODO descomentar SongPack textSongs = frontendBean.searchAuthorAndTitle(toSearch, 1);
+		    // TODO descomentar GenericSongPack<SongLight> textSongs = frontendBean.searchAuthorAndTitle(toSearch, 1);
 
 		    // enviar resposta para o javascript tratar de colocar no html
 		    // String json = new Gson().toJson(textSongs);
@@ -149,7 +149,7 @@ public class SearchServlet extends HttpServlet {
 		    float maxValence = Float.parseFloat(request.getParameter("maxValence"));
 
 		    // mandar para o frontendBean com os valores e a pagina
-		    SongPack avSongs = null; // TODO alterar para: frontendBean.searchArousalAndValenceValues(minArousal, maxArousal, minValence, maxValence, 1);
+		    GenericSongPack<Song> avSongs = null; // TODO alterar para: frontendBean.searchArousalAndValenceValues(minArousal, maxArousal, minValence, maxValence, 1);
 
 		    // enviar resposta para o javascript tratar de colocar no html
 
