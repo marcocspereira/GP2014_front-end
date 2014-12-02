@@ -17,17 +17,23 @@ import common.Emotion;
 import common.Song;
 import common.Test;
 
+import edu.dei.gp.containers.InsertionResponse;
+import edu.dei.gp.ejb.remotes.FrontEndBeanRemote;
+import edu.dei.gp.status.InsertionStatus;
+
 /**
  * Servlet implementation class SearchServlet
  */
-@WebServlet("/MarcoServlet")
-public class MarcoServlet extends HttpServlet {
+@WebServlet("/InputServlet")
+public class InputServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+
+    private FrontEndBeanRemote frontendBean;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MarcoServlet() {
+    public InputServlet() {
 	super();
 	// TODO Auto-generated constructor stub
     }
@@ -49,7 +55,6 @@ public class MarcoServlet extends HttpServlet {
 	x.add(new Test("#7", 0.5, -0.5, null, null));
 
 	Date date = new Date(0);
-
 
 	List<Emotion> emo = new ArrayList<Emotion>();
 	emo.add(new Emotion(0.5, 0.5, 1, 2));
@@ -99,90 +104,40 @@ public class MarcoServlet extends HttpServlet {
 		HttpSession session = request.getSession(true);*/
 		PrintWriter out = response.getWriter();
 
-		if (op.equalsIgnoreCase("textsearch"))
-		{
-		    // TODO procurar no bean e receber uma catrefada de musicas ou null se nao houver nada q sirva
-		    String toSearch = request.getParameter("text");
 
-		    // bean.search(toSearch);
+		if (op.equalsIgnoreCase("importfile")) {
+		    // receber os links e enviar para o frontendBean
+		    List<String> urlsGson = new Gson().fromJson(request.getParameter("text"), List.class);
+		    ArrayList<String> urls = (ArrayList<String>) urlsGson;
+		    //ArrayList<InsertionResponse> insertionResponse = frontendBean.processLinks(urls);
+		    ArrayList<InsertionResponse> insertionResponse = new ArrayList<InsertionResponse>();
+		    for (int z = 0; z < urlsGson.size(); z++) {
+			insertionResponse.add(new InsertionResponse(urlsGson.get(z), InsertionStatus.OK));
+		    }
 
-		    List<Song> musicas = new ArrayList<Song>();
-		    musicas.add(song);
-		    String json = new Gson().toJson(musicas);
+		    // enviar resposta para o javascript tratar de colocar no html
+		    String json = new Gson().toJson(insertionResponse);
 		    out.write(json);
+
 		}
-		else if (op.equalsIgnoreCase("avsearch")) {
+		else if (op.equalsIgnoreCase("importlink")) {
+		    // receber o link e enviar para o frontendBean
+		    String url = request.getParameter("text");
+		    System.out.println(url);
+		    //InsertionResponse insertionResponse = frontendBean.processLink(url);
+		    InsertionResponse insertionResponse = new InsertionResponse(url, InsertionStatus.OK);
 
-		    int minArousal = Integer.parseInt(request.getParameter("minArousal"));
-		    int maxArousal = Integer.parseInt(request.getParameter("maxArousal"));
-		    int minValence = Integer.parseInt(request.getParameter("minValence"));
-		    int maxValence = Integer.parseInt(request.getParameter("maxValence"));
-
-		    // TODO enviar valores para o bean do backend
-		    System.out.println("minArousal: " + minArousal);
-		    System.out.println("maxArousal: " + maxArousal);
-		    System.out.println("minValence: " + minValence);
-		    System.out.println("maxValence: " + maxValence);
-
-		    List<Song> musicas = new ArrayList<Song>();
-		    musicas.add(song);
-		    String json = new Gson().toJson(musicas);
+		    // enviar resposta para o javascript tratar de colocar no html
+		    String json = new Gson().toJson(insertionResponse);
 		    out.write(json);
+
 		}
+		// TODO colocar na servlet do plot
 		else if (op.equalsIgnoreCase("chartdata")) {
 
 		    System.out.println("Sending data...");
 		    String json = new Gson().toJson(x);
 		    out.write(json);
-		}
-		else if (op.equalsIgnoreCase("importfile")) {
-
-		    System.out.println("import file");
-		    List<String> urls = new Gson().fromJson(request.getParameter("text"), List.class);
-
-		    for (String z : urls) {
-			System.out.println(z);
-			// TODO bean.importurl(z);
-		    }
-
-		    out.write("success");
-
-		}
-		else if (op.equalsIgnoreCase("importlink")) {
-
-		    //System.out.println("import link");
-		    String url = request.getParameter("text");
-
-		    System.out.println("[Single link import]: " + url);
-		    String link_feedback = "ta tudo fodido"; // TODO importar do  bean.importurl(url);
-
-		    //System.out.println(link_feedback);
-		    
-		    if (link_feedback.equals("ta tudo fodido")) {
-		    	out.write(url);
-		    }
-		    else {
-		    	out.write("ok");
-		    }
-		}
-		else if (op.equalsIgnoreCase("getall")) {
-
-		    System.out.println("get all musics");
-
-		    //bean.getAllMusics();
-
-		    //out.write("success");
-
-		}
-		else if (op.equalsIgnoreCase("getmusic")) {
-		    String art = request.getParameter("artist");
-		    String title = request.getParameter("title");
-		    System.out.println("get music: " + art + " - " + title);
-
-		    //bean.getMusic(art, title);
-
-		    //out.write("success");
-
 		}
 	    }
 	}

@@ -1,4 +1,6 @@
 
+
+
 function textualSearch()
 {
 	var textSearchIn = $("#textSearchInput").val();
@@ -10,7 +12,7 @@ function textualSearch()
 	$.ajax({
 		type: "GET",
 	    data:dataString,
-	    url: "MarcoServlet",
+	    url: "InputServlet",	// TODO alterar para SearchServlet
 	    success: function(data)
 	    {
 	    	if (data != null)
@@ -57,15 +59,17 @@ function searchByAV()
 	$.ajax({
 		type: "GET",
 	    data:dataString,
-	    url: "MarcoServlet",
+	    url: "InputServlet",		// TODO alterar para SearchServlet
 	    success: function(data)
 	    {
 	    	if (data != null)
 	    	{
-	    		alert("vaginas, vaginas! temos muitas e vamos dar ao chefe-delas :D")
+	    		alert("chefe-delas!")
 	    		console.log("encontramos essa musica de acordo com AV! Vamos listar isso na library");
 	    		resultFromSearch = JSON.parse(data);
-	    		alert(resultFromSearch);
+	    		//alert(resultFromSearch);
+	    		
+	    		
 	    		
 	    		$.each(resultFromSearch, function(i, m) {
 	    			var emocolor;
@@ -126,6 +130,9 @@ function importLinksByUrl(){
 	
 	var matches = import_link.match( /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/);
 	//celso: https?:\/\/)?(www\.)?(youtu\.be\/|youtube\.com\/)?((.+\/)?(watch(\?v=|.+&v=))?(v=)?)([\w_-]{11})(&.+)?(\?list=([\w_-]{13}))?(\?t=[0-9]*s)?(\\?.+)?(be\/|v=|\/v\/|\/embed\/|\/watch\/)([\w_-]{11}
+	
+	var link;
+	var feedback;
 		
 	if (matches)
 	{
@@ -134,31 +141,43 @@ function importLinksByUrl(){
 		$.ajax({
 			type: "GET",
 		    data: dataString,
-		    url: "MarcoServlet",
+		    url: "InputServlet",
 		    success: function(data)
 		    {
 		    	
-		    	if (data == "ok")
+		    	if (data != null)
 		    	{
-		    		console.log(data);
-		    		// esconder a modal de input
-		    		$("#ModalInputLink").modal('hide');		    		
 		    		
-		    	}
-		    	else{
-		    		console.log("falha a submeter urls de ficheiro " + data);
-		    		// colocar resposta ao input
-		    		$("#importLinkTextFeedback").append(data);
+		    		link = JSON.parse(data);
+		    		alert(link.status);
+		    		if(link.status == "OK"){
+		    			feedback = '<div class="alert alert-success" role="alert">' +
+		    					'<strong>'+link.status+':</strong> ' + link.url +
+		    			'</div>'; 
+		    		}
+		    		// else NOK
+		    		else{
+		    			feedback = '<div class="alert alert-danger" role="alert">' +
+		    					'<strong>'+link.status+':</strong> ' + link.url +
+		    			'</div>'; 
+		    		}
+		    		// escrever resposta
+		    		$("#importLinkTextFeedback").append(feedback);
 		    		// esconder a modal de input
 		    		$("#ModalInputLink").modal('hide');
 		    		// mostrar feedback dos videos submetidos
 		    		$("#myModalInputFeedback").modal('show');
+		    		
+		    	}
+		    	else
+		    	{
+		    		console.log(data + ": desculpe, nao encontramos nada com isso");
 		    	}
 		 	}
 		});
 	}
 	else{
-		alert("foste fodido")
+		alert("foste fodido");
 	}
 
 }
@@ -201,17 +220,29 @@ function importFile(){
 	var reader = new FileReader();
 	reader.onload = function(e) {
 		var contents = e.target.result;
-		//console.log(contents);
 		var urls = contents.split("\n");
-		var urlconf = new Array() ;
+		var urlconf = new Array();		// urls bons
+		var urlnaoconf = new Array();	// urls maus
+		
+		var infoMusics;
+		var htmlCodeToInsert = "";
+		
+		// primeira verificacao dos links antes de enviar para a servlet
 		$.each(urls, function(index, value) {
-			var matches = value.match(/watch\?v=([a-zA-Z0-9\-_]+)/);
+			var matches = value.match( /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/);
 			if (matches){
-				//console.log('valido');
 				urlconf.push(value);
 			}
-//			else
-//				console.log('invalido');
+			else{
+				urlnaoconf.push(value);
+				// apresentar os urls que nao sao youtube
+				$.each(urlnaoconf, function(i, l) {
+					htmlCodeToInsert += '<div class="alert alert-danger" role="alert">' +
+					'<strong>Not from YouTube:</strong> ' + l +
+					'</div>';
+				});				 
+				
+			}
 		});
 		
 		var dataString = {"FLAG":"importfile", "text":JSON.stringify(urlconf)};
@@ -219,17 +250,37 @@ function importFile(){
 		$.ajax({
 			type: "GET",
 		    data:dataString,
-		    url: "SearchServlet",
+		    url: "InputServlet",
 		    success: function(data)
 		    {
-		    	if (data == "fail")
+		    	if (data != null)
 		    	{
-		    		console.log("falha a submeter urls de ficheiro");
+		    		infoMusics = JSON.parse(data);
+		    		
+		    		// urls que seguem para a servlet
+		    		$.each(infoMusics, function(i, m) {
+		    			if(m.status=="OK"){
+		    				htmlCodeToInsert += '<div class="alert alert-success" role="alert">' +
+			    					'<strong>'+m.status+':</strong> ' + m.url +
+			    			'</div>'; 
+		    			}
+		    			else{
+		    				htmlCodeToInsert += '<div class="alert alert-danger" role="alert">' +
+	    							'<strong>'+link.status+':</strong> ' + link.url +
+	    					'</div>'; 
+		    			}
+		    		});
+		    		
+		    		// escrever resposta
+		    		$("#importLinkTextFeedback").append(htmlCodeToInsert);
+		    		// esconder a modal de input
+		    		$("#ModalInputLink").modal('hide');
+		    		// mostrar feedback dos videos submetidos
+		    		$("#myModalInputFeedback").modal('show');
 		    	}
-		    	
 		    	else
 		    	{
-		    		console.log(data+" a submeter urls de ficheiro");
+		    		console.log("falha a submeter urls de ficheiro");
 		    	}
 		 	}
 		});
