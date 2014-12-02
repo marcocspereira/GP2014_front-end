@@ -208,7 +208,7 @@ function textualSearch()
 	    		// imprimir o codigo gerado para cada uma das musicas
 	    		$('#library_musics_div').append(htmlCodeToInput);
 	    		
-	    	}	    	
+	    	}
 	    	else if(data == "null")
 	    	{
 	    		htmlCodeToInput='<h3 align = "center">There\'s no musics or artists with the key:<br><span style="color: blue">'+textSearchIn+'</span></h3>';
