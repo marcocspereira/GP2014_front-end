@@ -9,6 +9,7 @@
  * INSERT BY LINK
  ****************************/
 function importLinksByUrl(){
+	console.log("importar links por url");
 	var import_link = $('#url_input_id').val();
 	
 	var matches = import_link.match( /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/);
@@ -49,7 +50,7 @@ function importLinksByUrl(){
 		    		$("#ModalInputLink").modal('hide');
 		    		// show feedback modal of submitted videos
 		    		$("#myModalInputFeedback").modal('show');
-		    		direito
+		    		//direito
 		    	}
 		    	else
 		    	{
@@ -66,7 +67,7 @@ function importLinksByUrl(){
  * INSERT BY FILE
  ****************************/
 function importFile(){
-	
+	console.log("importar links por ficheiro");
 	var file = document.getElementById('file-input').files[0];
 	if (!file) {
 		// does not have file
@@ -159,6 +160,7 @@ function importFile(){
  ****************************/
 function feedbackSongs()
 {
+	console.log("mostrar feedback");
 	var dataString = {"FLAG":"getfeedback"};
 	var htmlCodeToInput = "";
 	
@@ -248,6 +250,7 @@ function feedbackType(state,stateText)
  ****************************/
 function textualSearch()
 {
+	console.log("pesquisa por texto");
 	var textSearchIn = $("#textSearchInput").val();
 	
 	if(textSearchIn != ""){
@@ -296,6 +299,7 @@ function textualSearch()
  ****************************/
 function searchByAV()
 {
+	console.log("pesquisa por emocao");
 	var dataString = {"FLAG":"avsearch",
 					"minArousal":minArousal, "maxArousal":maxArousal,
 					"minValence":minValence, "maxValence":maxValence};
@@ -394,7 +398,7 @@ function createMusicDiv(m, emocolor)
 	musicCode+=		'</div>' +
 				'<div class="fa fa-play fa-3x play_div" onclick="getMusic(' + m.songId + ')"></div>' +
 			'</div>';
-				console.log("som " +m.songId);
+				//console.log("som " +m.songId);
 	return musicCode;
 }
 
@@ -403,7 +407,7 @@ function createMusicDiv(m, emocolor)
  * get all the musics in order to present in the library
  ****************************/
 function getAllMusicsL(){
-		
+	console.log("load de todas as musicas na BD para library");
 	var dataString = {"FLAG":"getall"};
 	var htmlCodeToInput="";
 	$.ajax({
@@ -444,6 +448,7 @@ var globalID;
  * function that returns a music identified by id
  ****************************/
 function getMusic(songId){
+	console.log("play numa musica");
 	globalID=songId;
 	var dataString = {"FLAG":"getmusic", "songId":songId};	// TODO rever no lado da servlet
 	
@@ -470,7 +475,7 @@ function getMusic(songId){
 	    		var lyric = '<p>'+music.lyric+'</p>';
 	    		$('#liryc_div').append(lyric);
 	    		
-	    		console.log(music.ocrError);
+	    		//console.log(music.ocrError);
 	    		if(music.ocrError > 0.5){
 	    			//console.log("pencil lyrics SHOW");
 	    			$('#pencillyric').css({'display':'inline'});
@@ -517,7 +522,7 @@ function getMusic(songId){
 
 
 function editLyric(){
-	console.log("editandoooo");
+	console.log("editar lyrics, de momento nada implementado em BACKEND");
 	$('#myModalInputLyricEdit').modal('show');
 	
 	$('textarea#textareaEdit').val($('#liryc_div').text());
@@ -525,11 +530,11 @@ function editLyric(){
 }
 
 function submitLyric(){
-	
+	console.log("para já nada será feito, backend nao preparado para receber ediçao de lyric");
 	var dataString = {"FLAG":"editLyric", "songId":globalID,"text":$('textarea#textareaEdit').val()};	// TODO rever no lado da servlet
 
 	
-	$.ajax({
+	/*$.ajax({
 		type: "GET",
 	    data:dataString,
 	    url: "SearchServlet",	// TODO ver se fica nesta servlet ou se cria outra so para devolver musica(s)
@@ -542,7 +547,7 @@ function submitLyric(){
 	    		
 	    	}
 	    }
-	});
+	});*/
 	
 	
 }
@@ -554,8 +559,9 @@ function submitLyric(){
  ******************************************************************************************
  ******************************************************************************************
  */
-function getChartData()
+/*function getChartData()
 {
+	
 	var dataString = {"FLAG":"chartdata"};
 	var chartData;
 	$.ajax({
@@ -575,11 +581,12 @@ function getChartData()
 	});
 
 	return chartData;
-}
+}*/
 
 
 function drawChart(googlevalues)
 {	
+	//console.log("desenho do grafico");
 	
   /*var data = google.visualization.arrayToDataTable([
     [ 'Valence', 	'Arousal',	{'type': 'string', 'role': 'style'}],

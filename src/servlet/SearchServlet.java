@@ -219,7 +219,7 @@ public class SearchServlet extends HttpServlet {
 		    Song match = null;
 
 		    for (int j = 0; j < tempSongs.size(); j++) {
-			System.out.println(tempSongs.get(j).getSongId());
+			//System.out.println(tempSongs.get(j).getSongId());
 			if (tempSongs.get(j).getSongId() == Integer.parseInt(songId)) {
 			    match = tempSongs.get(j);
 

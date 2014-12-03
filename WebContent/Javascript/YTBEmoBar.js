@@ -180,7 +180,7 @@ function containsObject(obj, list) {
 
 
 function progress(emotions) {
-	
+	console.log("construçao da emotionbar e aplicaçao da scumdiv");
 	if(checkVideoRep!=0)
 		player.loadVideoById(videoid);
 	checkVideoRep++;
