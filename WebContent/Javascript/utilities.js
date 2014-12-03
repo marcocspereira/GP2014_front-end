@@ -93,7 +93,7 @@ function updateBarsPos(ver){
 			  var emotionbarleft = $('#progressBar').position().left;
 			  var progbarW = getprogbarw();
 			  
-			  if(index == 0)
+			  if(index == 0 && checkVideoRep==0)
 				$(this).css({"position": 'absolute' , "width" : progbarW, "top": emotionbartop});
 			  else
 			  	$(this).css({"position": 'absolute' , "width" : progbarW, "top": emotionbartop , "left": index*progbarW+emotionbarleft});

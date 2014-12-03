@@ -75,24 +75,24 @@ public class SearchServlet extends HttpServlet {
 
 	// TODO retirar esta arraylist q serve de teste a pesquisa de musicas
 	List<Song> tempSongs = new ArrayList<Song>();
-	tempSongs.add(new Song("Sia", "Chandelier", "-KXPLT2Xk5k", "vai levar na rata", 1, (float) 0.4,
-		DominantEmotion.Contentment));
-
-	tempSongs.add(new Song("Katy Perry", "Roar", "9dgng_ekbV0", "berra que nem uma leoa", (float) -0.2, (float) 1.4,
-		DominantEmotion.Hapiness));
-
-	tempSongs.add(new Song("Sam Smith", "Stay with", "uTTXJM5woJ8", "fica comigo que tenho frio", 1, (float) -0.4,
-		DominantEmotion.Melancholy));
-
-	tempSongs.add(new Song("John Legend", "All Of Me", "Mk7-GRWq7wA", "tudo em mim\nentra em ti\nohohohoh",
-		(float) -0.4, (float) 0.4, DominantEmotion.Contentment));
-
-	tempSongs.add(new Song("James Arthur", "Impossible", "1lefGrqcC1A", "impossiveeeeeeel", 1, (float) 0.9,
-		DominantEmotion.Anxiety));
-
-	Song song = new Song("Sia", "Chandelier", "-KXPLT2Xk5k", "vai levar na rata", 1, (float) 0.4,
-		DominantEmotion.Contentment);
-	song.setEmotions(emo);
+	tempSongs.add(new Song(0,"Sia", "Chandelier", "-KXPLT2Xk5k", "vai levar na rata", 1, (float) 0.4,
+		DominantEmotion.Contentment, (float) 0.3));
+	tempSongs.get(tempSongs.size()-1).setEmotions(emo);
+	tempSongs.add(new Song(1,"Katy Perry", "Roar", "9dgng_ekbV0", "berra que nem uma leoa", (float) -0.2, (float) 1.4,
+		DominantEmotion.Hapiness, (float) 0.4));
+	tempSongs.get(tempSongs.size()-1).setEmotions(emo);
+	tempSongs.add(new Song(2,"Sam Smith", "Stay with", "uTTXJM5woJ8", "fica comigo que tenho frio", 1, (float) -0.4,
+		DominantEmotion.Melancholy, (float) 0.5));
+	tempSongs.get(tempSongs.size()-1).setEmotions(emo);
+	tempSongs.add(new Song(3,"John Legend", "All Of Me", "Mk7-GRWq7wA", "tudo em mim\nentra em ti\nohohohoh",
+		(float) -0.4, (float) 0.4, DominantEmotion.Contentment, (float) 0.6));
+	tempSongs.get(tempSongs.size()-1).setEmotions(emo);
+	tempSongs.add(new Song(4,"James Arthur", "Impossible", "1lefGrqcC1A", "impossiveeeeeeel", 1, (float) 0.9,
+		DominantEmotion.Anxiety, (float) 0.7));
+	tempSongs.get(tempSongs.size()-1).setEmotions(emo);
+	/*Song song = new Song("Sia", "Chandelier", "-KXPLT2Xk5k", "vai levar na rata", 1, (float) 0.4,
+		DominantEmotion.Contentment, (float) 0.3);*/
+	//song.setEmotions(emo);
 
 
 	if (!request.getParameterMap().isEmpty())
@@ -186,14 +186,33 @@ public class SearchServlet extends HttpServlet {
 		// TODO devolver musica atraves de id
 		else if (op.equalsIgnoreCase("getmusic")) {
 		    String songId = request.getParameter("songId");
-
 		    //bean.getMusic(art, title);
 		    //Song theSong = frontendBean.getSongById(Integer.parseInt(songId));
-
-		    String json = new Gson().toJson(song);
+		    Song match=null;
+		    
+		    for (int j = 0; j < tempSongs.size(); j++) {
+		    	System.out.println(tempSongs.get(j).getSongId());
+				if (tempSongs.get(j).getSongId()==Integer.parseInt(songId)) {
+				    match=tempSongs.get(j);
+				    
+				    break;
+				}
+		    }
+		    //String json = new Gson().toJson(teste);
+		    //out.write(json);
+		    
+		    String json = new Gson().toJson(match);
 		    out.write(json);
 
 		}
+		else if (op.equalsIgnoreCase("editLyric")) {
+		    String songId = request.getParameter("songId");
+		    String text = request.getParameter("text");
+
+		}
+		
+		
+		
 	    }
 	}
     }

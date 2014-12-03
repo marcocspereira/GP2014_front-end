@@ -181,8 +181,15 @@ function containsObject(obj, list) {
 
 function progress(emotions) {
 	
+	if(checkVideoRep!=0)
+		player.loadVideoById(videoid);
+	checkVideoRep++;
+	
+	
+	$('#progressBar').empty();
+	$('#progressBar').append('<div id="scumDiv" style="visibility:hidden"></div> <div id="newBar"></div>');
 	//clearBar();
-	$('div[id|="legacydiv"]').remove();
+	//$('div[id|="legacydiv"]').remove();
 	
 	
 	//var scumtop = $('#progressBar').position().top-31;
