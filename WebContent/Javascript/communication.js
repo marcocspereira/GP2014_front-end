@@ -314,60 +314,10 @@ function createMusicDiv(m, emocolor)
 	return musicCode;
 }
 
-
-function getChartData()
-{
-	var dataString = {"FLAG":"chartdata"};
-	var chartData;
-	$.ajax({
-		type: "GET",
-	    data:dataString,
-	    url: "SearchServlet",
-	    success: function(data)
-	    {
-	    	if (data != null)
-	    	{
-	    		//console.log(data);
-	    		//console.log(JSON.parse(data));
-	    		chartData = JSON.parse(data);
-	    	}
-	    },
-	    async:false
-	});
-
-	return chartData;
-}
-
-
-function drawChart(googlevalues) {
-	
-	
-  /*var data = google.visualization.arrayToDataTable([
-    [ 'Valence', 	'Arousal',	{'type': 'string', 'role': 'style'}],
-    [ 0.5,     		0.5, 		'point { fill-color: red}'],
-    [ 0.2,     		0.5, 		'point { fill-color: blue}'],
-    [ 0.7,     		-1, 		'point { fill-color: green}'],
-    [ -0.8,    		-0.4,		'point { fill-color: black}'],
-    [ 0.1,     		1,			'point { fill-color: pink}'],
-	[ -0.6,    		-0.6,		'point { fill-color: brown}']
-  ]);*/
-  
-  var data = google.visualization.arrayToDataTable(googlevalues);
-
-  var options = {
-    /*title: 'Age vs. Weight comparison',*/
-    hAxis: {title: 'Valence', minValue: -1, maxValue: 1},
-    vAxis: {title: 'Arousal', minValue: -1, maxValue: 1},
-    legend: 'none',
-  };
-
-  var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
-  chart.draw(data, options);
-}
-
-
-
-// vai buscar todas as musicas para apresentar na library
+/****************************
+ * funcao que deve devolver todas as musicas disponiveis
+ * vai buscar todas as musicas para apresentar na library
+ ****************************/
 function getAllMusicsL(){
 		
 	var dataString = {"FLAG":"getall"};
@@ -406,8 +356,10 @@ function getAllMusicsL(){
 }
 
 var globalID;
-//vai buscar uma musica referenciada pelo id
-// TODO rever
+
+/****************************
+ * funcao que devolve uma musica identificada pelo seu id
+ ****************************/
 function getMusic(songId){
 	globalID=songId;
 	//var dataString = {"FLAG":"getmusic", "artist":artist, "title":title};
@@ -512,3 +464,64 @@ function submitLyric(){
 	
 	
 }
+
+
+/******************************************************************************************
+ ******************************************************************************************
+ 								 PLOT
+ ******************************************************************************************
+ *******************************************************************************************
+ */
+function getChartData()
+{
+	var dataString = {"FLAG":"chartdata"};
+	var chartData;
+	$.ajax({
+		type: "GET",
+	    data:dataString,
+	    url: "SearchServlet",
+	    success: function(data)
+	    {
+	    	if (data != null)
+	    	{
+	    		//console.log(data);
+	    		//console.log(JSON.parse(data));
+	    		chartData = JSON.parse(data);
+	    	}
+	    },
+	    async:false
+	});
+
+	return chartData;
+}
+
+
+function drawChart(googlevalues) {
+	
+	
+  /*var data = google.visualization.arrayToDataTable([
+    [ 'Valence', 	'Arousal',	{'type': 'string', 'role': 'style'}],
+    [ 0.5,     		0.5, 		'point { fill-color: red}'],
+    [ 0.2,     		0.5, 		'point { fill-color: blue}'],
+    [ 0.7,     		-1, 		'point { fill-color: green}'],
+    [ -0.8,    		-0.4,		'point { fill-color: black}'],
+    [ 0.1,     		1,			'point { fill-color: pink}'],
+	[ -0.6,    		-0.6,		'point { fill-color: brown}']
+  ]);*/
+  
+  var data = google.visualization.arrayToDataTable(googlevalues);
+
+  var options = {
+    /*title: 'Age vs. Weight comparison',*/
+    hAxis: {title: 'Valence', minValue: -1, maxValue: 1},
+    vAxis: {title: 'Arousal', minValue: -1, maxValue: 1},
+    legend: 'none',
+  };
+
+  var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+  chart.draw(data, options);
+}
+
+
+
+
