@@ -15,18 +15,21 @@ public class Song {
     float arousal;
     float valence;
     DominantEmotion dominantEmotion;
+    float ocrError;
 
     List<Emotion> emotions = new ArrayList<Emotion>();
 
-    public Song(String artist, String title, String youtubeId, String lyric, float arousal, float valence,
-	    DominantEmotion dominantEmotion) {
-	setArtist(artist);
+    public Song(int songId,String artist, String title, String youtubeId, String lyric, float arousal, float valence,
+	    DominantEmotion dominantEmotion,float ocrError) {
+	this.songId = songId;
+    setArtist(artist);
 	setTitle(title);
 	setYoutubeId(youtubeId);
 	setLyric(lyric);
 	this.arousal = arousal;
 	this.valence = valence;
 	this.dominantEmotion = dominantEmotion;
+	this.ocrError = ocrError;
     }
 
     public void setEmotions(List<Emotion> emotions) {

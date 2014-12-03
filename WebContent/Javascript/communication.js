@@ -272,7 +272,7 @@ function textualSearch()
 				if (data != "null")
 				{	    		
 					resultFromSearch = JSON.parse(data);
-					console.log(resultFromSearch); // TODO remover esta merda
+					//console.log(resultFromSearch); // TODO remover esta merda
 					// apagar conteudo da library para conter o resultado da pesquisa
 					$('#library_musics_div').empty();
 					// para cada musica encontrada e devolvida pela servlet
@@ -384,7 +384,8 @@ function setMainColor(emotion){
  ****************************/
 function createMusicDiv(m, emocolor)
 {
-	return '<div class="music_div" style="background-color: '+emocolor+';">' +
+	var musicCode="";
+	musicCode +=  '<div class="music_div" style="background-color: '+emocolor+';">' +
 				'<img alt="" src="' + m.thumbnailPath + '" class="thumbnail_img" />' +
 				'<div class="track_info_div">' +
 					'<strong>' + m.artist + ' <br /> ' + m.title + '</strong>' +	
@@ -394,10 +395,14 @@ function createMusicDiv(m, emocolor)
 				'</div>' +
 				'<div class="av_info_div">' +
 					'<span class="label label-default">' + m.dominantEmotion + 
-					'</span> <br /> OCR Error: ' + m.ocrError +
-				'</div>' +
+					'</span> <br /> OCR Error: ' + m.ocrError;
+	if(m.ocrError>=0.6)
+		musicCode+= "<i class='fa fa-exclamation-triangle'></i>";
+	musicCode+=		'</div>' +
 				'<div class="fa fa-play fa-3x play_div" onclick="getMusic(' + m.songId + ')"></div>' +
 			'</div>';
+				console.log("som " +m.songId);
+	return musicCode;
 }
 
 /****************************
@@ -418,7 +423,7 @@ function getAllMusicsL(){
 	    	
 	    	else
 	    	{
-	    		console.log(data+" get all musics for library");
+	    		//console.log(data+" get all musics for library");
 	    		
 	    		var musics = JSON.parse(data);
 	    		
@@ -441,17 +446,18 @@ function getAllMusicsL(){
 	
 }
 
+var globalID;
+
 /****************************
  * funcao que devolve uma musica identificada pelo seu id
  ****************************/
-// TODO rever
 function getMusic(songId){
-	
+	globalID=songId;
 	//var dataString = {"FLAG":"getmusic", "artist":artist, "title":title};
 	var dataString = {"FLAG":"getmusic", "songId":songId};	// TODO rever no lado da servlet
 	
 	$('#seccaodas3janelas').css({'display':'block'});
-	
+	//location.reload(true);
 	$.ajax({
 		type: "GET",
 	    data:dataString,
@@ -465,21 +471,37 @@ function getMusic(songId){
 	    		
 	    		var music = JSON.parse(data);
 	    		
-	    		//fill lyric div	    		
+	    		$('#iframYT').remove();
+	    		//$('#chart_div').empty();
 	    		$('#liryc_div').empty();
+	    		
+	    		//fill lyric div	    		
 	    		var lyric = '<p>'+music.lyric+'</p>';
 	    		$('#liryc_div').append(lyric);
 	    		
+	    		console.log(music.ocrError);
+	    		if(music.ocrError > 0.5){
+	    			//console.log("pencil lyrics SHOW");
+	    			$('#pencillyric').css({'display':'inline'});
+	    		}
+	    		else{
+	    			//console.log("pencil lyrics HIDE");
+	    			$('#pencillyric').css({'display':'none'});
+	    		}
 	    		//play video '9dgng_ekbV0'
 	    		//fill emotion bar
 	    		//start chart points
+	    		//$('#newBar').empty();
+	    		//$('.legacyDiv').empty();
 	    		setVideoId(music.youtubeId);
 	    		setEmotionList(music.emotions)
 	    		var tag = document.createElement('script');
 	    		tag.src = "https://www.youtube.com/iframe_api";
+	    		tag.setAttribute("id", "iframYT");
 	    		var firstScriptTag = document.getElementsByTagName('script')[0];
 	    		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 	    		
+	    		//close library
 	    		$('#collapseLibrary').removeClass('in');
 	    		
 	    		updatetimer=setInterval(function(){
@@ -491,25 +513,46 @@ function getMusic(songId){
 	    			}
 	    		}, 500);
 	    		
-	    		/*SONG CLASS ATRIBUTTES:
-	    		   	int songId;
-				   	String title;
-					String youtubeId;
-				    String fileName;
-				    String lyric;
-				    Artist artist;
-	    		*/
-	    		
-	    		/*EMOTION CLASS ATRIBUTTES:
-    		   		TimeStamp init;
-			   		TimeStamp fin;
-					Double arousal;
-			    	Double valence;
-	    		*/
+	    		updatettimer=setInterval(function(){
+	    			updateBarsPos(0);
+	    			clearTimeout(updatettimer);
+	    		}, 1000);
+	    			    		
+	    	}
+	    }
+	});
+	
+}
+
+
+function editLyric(){
+	console.log("editandoooo");
+	$('#myModalInputLyricEdit').modal('show');
+	
+	$('textarea#textareaEdit').val($('#liryc_div').text());
+	
+}
+
+function submitLyric(){
+	
+	var dataString = {"FLAG":"editLyric", "songId":globalID,"text":$('textarea#textareaEdit').val()};	// TODO rever no lado da servlet
+
+	
+	$.ajax({
+		type: "GET",
+	    data:dataString,
+	    url: "SearchServlet",	// TODO ver se fica nesta servlet ou se cria outra so para devolver musica(s)
+	    success: function(data)
+	    {
+	    	if (data == "fail")	{
+	    		console.log("fail on getting music to play");
+	    	}
+	    	else{
 	    		
 	    	}
 	    }
 	});
+	
 	
 }
 
