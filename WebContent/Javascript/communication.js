@@ -178,8 +178,8 @@ function feedbackSongs()
 	    		$.each(feedbackMusics, function(i, m) {
 	    			htmlCodeToInput += '<div class="panel panel-default">' +
 	    									'<div class="panel-heading" role="tab" id="heading'+ m.songId +'">' +
-	    										'<h4 class="panel-title">' +
-	    											'<a data-toggle="collapse" data-parent="#accordion" href="#collapse'+ m.songId +'" aria-expanded="true" aria-controls="collapse'+ m.songId +'">' +
+	    										'<h4 style="width:100%" class="panel-title">' +
+	    											'<a  data-toggle="collapse" data-parent="#accordion" href="#collapse'+ m.songId +'" aria-expanded="true" aria-controls="collapse'+ m.songId +'">' +
 	    												m.title + " - " + m.artist +
 	    											'</a>' +
 	    										'</h4>' +
