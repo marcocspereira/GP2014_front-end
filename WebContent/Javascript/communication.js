@@ -153,6 +153,97 @@ function importFile(){
 
 /******************************************************************************************
  ******************************************************************************************
+ 										FEEDBACK 
+ ******************************************************************************************
+ *******************************************************************************************
+ */
+
+/****************************
+ * PEDIR FEEDGACK DOS VIDEOS QUE ESTAO EM ANALISE NO SISTEMA
+ ****************************/
+function feedbackSongs()
+{
+	var dataString = {"FLAG":"getfeedback"};
+	var htmlCodeToInput = "";
+	
+	$.ajax({
+		type: "GET",
+	    data:dataString,
+	    url: "SearchServlet",
+	    success: function(data)
+	    {
+	    	if (data != "null")
+	    	{
+	    		feedbackMusics = JSON.parse(data);
+	    		
+	    		$('#accordion').empty();
+	    		
+	    		// urls que seguem para a servlet
+	    		$.each(feedbackMusics, function(i, m) {
+	    			console.log(m.YoutubeCrawlerStatus);
+	    			console.log(m.YoutubeCrawlerStatus.statusName);
+	    			htmlCodeToInput += '<div class="panel panel-default">' +
+	    									'<div class="panel-heading" role="tab" id="heading'+ m.songId +'">' +
+	    										'<h4 class="panel-title">' +
+	    											'<a data-toggle="collapse" data-parent="#accordion" href="#collapse'+ m.songId +'" aria-expanded="true" aria-controls="collapse'+ m.songId +'">' +
+	    												m.title + " " + m.artist
+	    											'</a>' +
+	    										'</h4>' +
+	    									'</div>' +
+	    									'<div id="collapse'+ m.songId +'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading'+ m.songId +'">' +
+	    										'<div class="panel-body">' +
+	    											'<ul class="list-group">' +
+	    												feedbackType(m.YoutubeCrawlerStatus, "YoutubeCrawlerStatus")	+
+	    												feedbackType(m.LyricsCrawlerStatus, "LyricsCrawlerStatus")	+
+	    												feedbackType(m.OCRStatus, "OCRStatus")	+
+	    												feedbackType(m.JMERLibStatus, "JMERLibStatus")	+
+	    												/*
+	    												'<li class="list-group-item feedback_ok_li"><i class="fa fa-check"></i><strong>Validating Link YouTube</strong></li>' +
+	    												'<li class="list-group-item feedback_ok_li"><i class="fa fa-check"></i> Segmentation</li>' +
+	    												'<li class="list-group-item feedback_processing_li"><i class="fa fa-cog fa-spin"></i> OCR</li>' +
+	    												'<li class="list-group-item feedback_problem_li"><i class="fa fa-remove"></i> etc.</li>' +
+	    												*/
+	    											'</ul>' +
+	    										'</div>' +
+	    									'</div>' +
+	    								'</div>';
+	    		});
+	    		
+				
+				$('#accordion').append(htmlCodeToInput);
+	    	}
+	    	else
+	    	{
+	    		console.log("falha a submeter urls de ficheiro");
+	    	}
+	 	}
+	});
+}
+
+/****************************
+ * funcao aux para saber a cor e texto para cada step de feedback por musica
+ * 
+ ****************************/
+function feedbackType(state,stateText)
+{
+	var code = '<li class="list-group-item ';
+	if(state=='Unstarted'){
+		code += 'feedback_notstarted_li"><i class="fa fa-plug"></li><strong>' + stateText + '</strong>' + state + '</li>';
+	}
+	else if(state=='Queued' || state=='Segmenting' || state=='OCR_Working' || state=='Pre_Processing' || state=='Analysing'){
+		code += 'feedback_processing_li"><i class="fa fa-cog fa-spin"></li><strong>' + stateText + '</strong>' + state + '</li>';
+	}
+	else if(state=='Done'){
+		code += 'feedback_ok_li"><i class="fa fa-check"></li><strong>' + stateText + '</strong>' + state + '</li>';
+	}
+	else if(state=='Error'){
+		code += 'feedback_problem_li"><i class="fa fa-remove"></li><strong>' + stateText + '</strong>' + state + '</li>';
+	}
+	
+}
+
+/******************************************************************************************
+ ******************************************************************************************
  									PESQUISAS 
  ******************************************************************************************
  *******************************************************************************************
@@ -425,9 +516,9 @@ function getMusic(songId){
 
 /******************************************************************************************
  ******************************************************************************************
- 								 PLOT
+ 								 			PLOT
  ******************************************************************************************
- *******************************************************************************************
+ ******************************************************************************************
  */
 function getChartData()
 {
@@ -453,8 +544,8 @@ function getChartData()
 }
 
 
-function drawChart(googlevalues) {
-	
+function drawChart(googlevalues)
+{	
 	
   /*var data = google.visualization.arrayToDataTable([
     [ 'Valence', 	'Arousal',	{'type': 'string', 'role': 'style'}],
@@ -478,7 +569,5 @@ function drawChart(googlevalues) {
   var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
   chart.draw(data, options);
 }
-
-
 
 

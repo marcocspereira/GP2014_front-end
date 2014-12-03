@@ -210,6 +210,10 @@ body{
 	background-color: #A9F5BC;
 }
 
+.feedback_notstarted_li{
+	background-color: #CEC9CE;
+}
+
 .feedback_processing_li{
 	background-color: #F5F6CE;
 }

@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -18,7 +19,10 @@ import common.Test;
 
 import edu.dei.gp.containers.GenericSongPack;
 import edu.dei.gp.containers.SongLight;
+import edu.dei.gp.containers.SongStatus;
 import edu.dei.gp.ejb.remotes.FrontEndBeanRemote;
+import edu.dei.gp.jpa.AVMoodTrack;
+import edu.dei.gp.jpa.Artist;
 import edu.dei.gp.jpa.aux.DominantEmotion;
 
 /**
@@ -124,21 +128,21 @@ public class SearchServlet extends HttpServlet {
 		    // TODO apagar parte de teste
 		    List<Song> teste = new ArrayList<Song>();
 		    for (int j = 0; j < tempSongs.size(); j++) {
-				if (tempSongs.get(j).getTitle().contains(toSearch)
-					|| tempSongs.get(j).getArtist().contains(toSearch)) {
-					check = true;
-				    teste.add(tempSongs.get(j));
-				}
+			if (tempSongs.get(j).getTitle().contains(toSearch)
+				|| tempSongs.get(j).getArtist().contains(toSearch)) {
+			    check = true;
+			    teste.add(tempSongs.get(j));
+			}
 		    }
 		    //String json = new Gson().toJson(teste);
 		    //out.write(json);
 
 		    if (check) {
-				String json = new Gson().toJson(teste);
-				out.write(json);
+			String json = new Gson().toJson(teste);
+			out.write(json);
 		    }
 		    else {
-		    	out.write("null");
+			out.write("null");
 		    }
 		}
 		// TODO colocar na SearchServlet
@@ -157,6 +161,29 @@ public class SearchServlet extends HttpServlet {
 
 		    if (avSongs != null) {
 			String json = new Gson().toJson(avSongs);
+			out.write(json);
+		    }
+		    else {
+			out.write("null");
+		    }
+		}
+		// feedback das musicas q estao em analise no sistema
+		else if (op.equalsIgnoreCase("getfeedback")) {
+		    // GenericSongPack<SongStatus> songStatus = frontendBean.getSongsStatus(1);
+		    ArrayList<SongStatus> singthesong = new ArrayList<SongStatus>();
+		    AVMoodTrack lolo = new AVMoodTrack(1, 1, 1, 1);
+		    Collection<AVMoodTrack> caralho = new ArrayList<AVMoodTrack>();
+		    caralho.add(lolo);
+		    Artist artist = new Artist("pintelheiro");
+		    edu.dei.gp.jpa.Song s = new edu.dei.gp.jpa.Song("autor da pila", "4b95MCszOxY", "xupa.txt",
+			    "pelos pubicos", 1, "c:\\cona.png", artist, caralho, 1, 1, DominantEmotion.Anxiety);
+		    SongStatus ss = new SongStatus(s);
+		    singthesong.add(ss);
+		    GenericSongPack<SongStatus> songStatus = new GenericSongPack<SongStatus>(singthesong, 1, 1);
+		    List<SongStatus> vaginasio = new ArrayList<SongStatus>();
+		    vaginasio.add(ss);
+		    if (songStatus != null) {
+			String json = new Gson().toJson(vaginasio);
 			out.write(json);
 		    }
 		    else {
