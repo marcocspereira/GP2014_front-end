@@ -1,18 +1,17 @@
 /******************************************************************************************
  ******************************************************************************************
- 									INSERIR VIDEOS 
+ 									INSERT VIDEOS 
  ******************************************************************************************
  *******************************************************************************************
  */
 
 /****************************
- * INSERIR POR LINK
+ * INSERT BY LINK
  ****************************/
 function importLinksByUrl(){
 	var import_link = $('#url_input_id').val();
 	
 	var matches = import_link.match( /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/);
-	//celso: https?:\/\/)?(www\.)?(youtu\.be\/|youtube\.com\/)?((.+\/)?(watch(\?v=|.+&v=))?(v=)?)([\w_-]{11})(&.+)?(\?list=([\w_-]{13}))?(\?t=[0-9]*s)?(\\?.+)?(be\/|v=|\/v\/|\/embed\/|\/watch\/)([\w_-]{11}
 	
 	var link;
 	var feedback;
@@ -44,36 +43,33 @@ function importLinksByUrl(){
 		    					'<strong>'+link.status+':</strong> ' + link.url +
 		    			'</div>'; 
 		    		}
-		    		// escrever resposta
+		    		// write answer
 		    		$("#importLinkTextFeedback").append(feedback);
-		    		// esconder a modal de input
+		    		// hide input modal
 		    		$("#ModalInputLink").modal('hide');
-		    		// mostrar feedback dos videos submetidos
+		    		// show feedback modal of submitted videos
 		    		$("#myModalInputFeedback").modal('show');
 		    		direito
 		    	}
 		    	else
 		    	{
-		    		console.log(data + ": desculpe, nao encontramos nada com isso");
+		    		console.log(data + ": sorry, we didn't found nothing");
 		    	}
 		 	}
 		});
-	}
-	else{
-		alert("foste fodido");
 	}
 
 }
 
 
 /****************************
- * INSERIR POR FICHEIRO
+ * INSERT BY FILE
  ****************************/
 function importFile(){
 	
 	var file = document.getElementById('file-input').files[0];
 	if (!file) {
-		//nao tem ficheiro
+		// does not have file
 		return;
 	}
 
@@ -81,13 +77,13 @@ function importFile(){
 	reader.onload = function(e) {
 		var contents = e.target.result;
 		var urls = contents.split("\n");
-		var urlconf = new Array();		// urls bons
-		var urlnaoconf = new Array();	// urls maus
+		var urlconf = new Array();		// good URLs 
+		var urlnaoconf = new Array();	// bad URLs
 		
 		var infoMusics;
 		var htmlCodeToInsert = "";
 		
-		// primeira verificacao dos links antes de enviar para a servlet
+		// 1st link verification, before to send to the InputServlet
 		$.each(urls, function(index, value) {
 			var matches = value.match( /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/);
 			if (matches){
@@ -95,7 +91,7 @@ function importFile(){
 			}
 			else{
 				urlnaoconf.push(value);
-				// apresentar os urls que nao sao youtube
+				// show URLs that don't match with youtube
 				$.each(urlnaoconf, function(i, l) {
 					htmlCodeToInsert += '<div class="alert alert-danger" role="alert">' +
 					'<strong>Not from YouTube:</strong> ' + l +
@@ -117,7 +113,7 @@ function importFile(){
 		    	{
 		    		infoMusics = JSON.parse(data);
 		    		
-		    		// urls que seguem para a servlet
+		    		// URLs that go to the InputServlet
 		    		$.each(infoMusics, function(i, m) {
 		    			if(m.status=="OK"){
 		    				htmlCodeToInsert += '<div class="alert alert-success" role="alert">' +
@@ -131,16 +127,16 @@ function importFile(){
 		    			}
 		    		});
 		    		
-		    		// escrever resposta
+		    		// write the answer
 		    		$("#importLinkTextFeedback").append(htmlCodeToInsert);
-		    		// esconder a modal de input
+		    		// hide input modal
 		    		$("#ModalInputLinkFile").modal('hide');
-		    		// mostrar feedback dos videos submetidos
+		    		// show feedback modal of submitted videos
 		    		$("#myModalInputFeedback").modal('show');
 		    	}
 		    	else
 		    	{
-		    		console.log("falha a submeter urls de ficheiro");
+		    		console.log("Fail on URLs submit!");
 		    	}
 		 	}
 		});
@@ -159,7 +155,7 @@ function importFile(){
  */
 
 /****************************
- * PEDIR FEEDGACK DOS VIDEOS QUE ESTAO EM ANALISE NO SISTEMA
+ * ASK FOR FEEDBACK THAT ARE IN ANALYSIS IN THE SYSTEM
  ****************************/
 function feedbackSongs()
 {
@@ -244,13 +240,13 @@ function feedbackType(state,stateText)
 
 /******************************************************************************************
  ******************************************************************************************
- 									PESQUISAS 
+ 										SEARCHS 
  ******************************************************************************************
  *******************************************************************************************
  */
 
 /****************************
- * PESQUISA TEXTUAL
+ * TEXTUAL SEARCH
  ****************************/
 function textualSearch()
 {
@@ -272,17 +268,16 @@ function textualSearch()
 				if (data != "null")
 				{	    		
 					resultFromSearch = JSON.parse(data);
-					//console.log(resultFromSearch); // TODO remover esta merda
-					// apagar conteudo da library para conter o resultado da pesquisa
+					// delete library content to contain the search result
 					$('#library_musics_div').empty();
-					// para cada musica encontrada e devolvida pela servlet
+					// for each finded music, returned by the SearchServlet
 					$.each(resultFromSearch, function(i, m) {
-						// determinar a cor (vermelho, amarelo, verde ou azul) mediante a emocao predominante
+						// determine the color (red, yellow, green, blue) by predominant emotion
 						var emocolor = setMainColor(m.dominantEmotion);
-						// Codigo a gerar para cada uma das musicas que foi encontrada
+						// code to generate for each founded music
 						htmlCodeToInput += 	createMusicDiv(m, emocolor);	    					
 					});
-					// imprimir o codigo gerado para cada uma das musicas
+					// print generated code for each music
 					$('#library_musics_div').append(htmlCodeToInput);
 				}
 				else if(data == "null")
@@ -290,7 +285,7 @@ function textualSearch()
 					htmlCodeToInput='<h3 align = "center">There\'s no musics or artists with the key:<br><span style="color: blue">'+textSearchIn+'</span></h3>';
 					$('#library_musics_div').empty();
 					$('#library_musics_div').append(htmlCodeToInput);
-					console.log(textSearchIn + ": desculpe, nao encontramos nada com isso");
+					console.log(textSearchIn + ": sorry, we didn't found anything");
 				}
 			}
 		});
@@ -299,7 +294,7 @@ function textualSearch()
 
 
 /****************************
- * PESQUISA POR A&V
+ * A&V SEARCH
  ****************************/
 function searchByAV()
 {
@@ -321,17 +316,17 @@ function searchByAV()
 	    		console.log("encontramos essa musica de acordo com AV! Vamos listar isso na library");
 	    		resultFromSearch = JSON.parse(data);
 	    		
-	    		// apagar conteudo da library para conter o resultado da pesquisa
+	    		// delete library content to contain the search result
 				$('#library_musics_div').empty();
-				// para cada musica encontrada e devolvida pela servlet
+				// for each finded music, returned by the SearchServlet
 				$.each(resultFromSearch, function(i, m) {
-					// determinar a cor (vermelho, amarelo, verde ou azul) mediante a emocao predominante
+					// determine the color (red, yellow, green, blue) by predominant emotion
 					var emocolor = setMainColor(m.dominantEmotion);
-					// Codigo a gerar para cada uma das musicas que foi encontrada
+					// code to generate for each founded musics
 					htmlCodeToInput += 	createMusicDiv(m, emocolor);	    					
 				});
     		
-				// imprimir o codigo gerado para cada uma das musicas
+				// print generated code for each music
 				$('#library_musics_div').append(htmlCodeToInput);
 	    		
 	    	}	    	
@@ -343,15 +338,15 @@ function searchByAV()
 	    			+' </span></h3>';
 	    		$('#library_musics_div').empty();
 	    		$('#library_musics_div').append(htmlCodeToInput);
-	    		console.log(" desculpe, nao encontramos nada com isso");
+	    		console.log("sorry, we didn't found anything");
 	    	}
 	 	}
 	});
 }
 
 /****************************
- * funcao aux para determinar cor
- * recebe a emocao
+ * aux function to determine color
+ * receives emotion
  ****************************/
 function setMainColor(emotion){
 
@@ -379,8 +374,8 @@ function setMainColor(emotion){
 }
 
 /****************************
- * funcao aux para fazer o htmlcode para contentor de cada musica
- * recebe musica
+ * aux function to make htmlCode to the container of each music
+ * receives the music
  ****************************/
 function createMusicDiv(m, emocolor)
 {
@@ -396,7 +391,7 @@ function createMusicDiv(m, emocolor)
 				'<div class="av_info_div">' +
 					'<span class="label label-default">' + m.dominantEmotion + 
 					'</span> <br /> OCR Error: ' + m.ocrError;
-	if(m.ocrError>=0.6)
+	if(m.ocrError>=0.6)	// this value should be confirmed by OCR module!
 		musicCode+= "<i class='fa fa-exclamation-triangle'></i>";
 	musicCode+=		'</div>' +
 				'<div class="fa fa-play fa-3x play_div" onclick="getMusic(' + m.songId + ')"></div>' +
@@ -406,8 +401,8 @@ function createMusicDiv(m, emocolor)
 }
 
 /****************************
- * funcao que deve devolver todas as musicas disponiveis
- * vai buscar todas as musicas para apresentar na library
+ * function that returns all the available musics
+ * get all the musics in order to present in the library
  ****************************/
 function getAllMusicsL(){
 		
@@ -423,21 +418,20 @@ function getAllMusicsL(){
 	    	
 	    	else
 	    	{
-	    		//console.log(data+" get all musics for library");
 	    		
 	    		var musics = JSON.parse(data);
 	    		
-	    		// apagar conteudo da library para conter o resultado da pesquisa
+	    		// delete library content to contain the search result
 				$('#library_musics_div').empty();
-				// para cada musica encontrada e devolvida pela servlet
+				// for each finded music, returned by the SearchServlet
 				$.each(musics, function(i, m) {
-					// determinar a cor (vermelho, amarelo, verde ou azul) mediante a emocao predominante
+					// determine the color (red, yellow, green, blue) by predominant emotion
 					var emocolor = setMainColor(m.dominantEmotion);
-					// Codigo a gerar para cada uma das musicas que foi encontrada
+					// code to generate for each founded musics
 					htmlCodeToInput += 	createMusicDiv(m, emocolor);	    					
 				});
     		
-				// imprimir o codigo gerado para cada uma das musicas
+				// print generated code for each music
 				$('#library_musics_div').append(htmlCodeToInput);
 	    		
 	    	}
@@ -449,11 +443,10 @@ function getAllMusicsL(){
 var globalID;
 
 /****************************
- * funcao que devolve uma musica identificada pelo seu id
+ * function that returns a music identified by id
  ****************************/
 function getMusic(songId){
 	globalID=songId;
-	//var dataString = {"FLAG":"getmusic", "artist":artist, "title":title};
 	var dataString = {"FLAG":"getmusic", "songId":songId};	// TODO rever no lado da servlet
 	
 	$('#seccaodas3janelas').css({'display':'block'});
