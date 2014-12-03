@@ -79,21 +79,21 @@ public class SearchServlet extends HttpServlet {
 
 	// TODO retirar esta arraylist q serve de teste a pesquisa de musicas
 	List<Song> tempSongs = new ArrayList<Song>();
-	tempSongs.add(new Song(0,"Sia", "Chandelier", "-KXPLT2Xk5k", "vai levar na rata", 1, (float) 0.4,
+	tempSongs.add(new Song(0, "Sia", "Chandelier", "-KXPLT2Xk5k", "vai levar na rata", 1, (float) 0.4,
 		DominantEmotion.Contentment, (float) 0.3));
-	tempSongs.get(tempSongs.size()-1).setEmotions(emo);
-	tempSongs.add(new Song(1,"Katy Perry", "Roar", "9dgng_ekbV0", "berra que nem uma leoa", (float) -0.2, (float) 1.4,
+	tempSongs.get(tempSongs.size() - 1).setEmotions(emo);
+	tempSongs.add(new Song(1, "Katy Perry", "Roar", "9dgng_ekbV0", "berra que nem uma leoa", (float) -0.2, (float) 1.4,
 		DominantEmotion.Hapiness, (float) 0.4));
-	tempSongs.get(tempSongs.size()-1).setEmotions(emo);
-	tempSongs.add(new Song(2,"Sam Smith", "Stay with", "uTTXJM5woJ8", "fica comigo que tenho frio", 1, (float) -0.4,
+	tempSongs.get(tempSongs.size() - 1).setEmotions(emo);
+	tempSongs.add(new Song(2, "Sam Smith", "Stay with", "uTTXJM5woJ8", "fica comigo que tenho frio", 1, (float) -0.4,
 		DominantEmotion.Melancholy, (float) 0.5));
-	tempSongs.get(tempSongs.size()-1).setEmotions(emo);
-	tempSongs.add(new Song(3,"John Legend", "All Of Me", "Mk7-GRWq7wA", "tudo em mim\nentra em ti\nohohohoh",
+	tempSongs.get(tempSongs.size() - 1).setEmotions(emo);
+	tempSongs.add(new Song(3, "John Legend", "All Of Me", "Mk7-GRWq7wA", "tudo em mim\nentra em ti\nohohohoh",
 		(float) -0.4, (float) 0.4, DominantEmotion.Contentment, (float) 0.6));
-	tempSongs.get(tempSongs.size()-1).setEmotions(emo);
-	tempSongs.add(new Song(4,"James Arthur", "Impossible", "1lefGrqcC1A", "impossiveeeeeeel", 1, (float) 0.9,
+	tempSongs.get(tempSongs.size() - 1).setEmotions(emo);
+	tempSongs.add(new Song(4, "James Arthur", "Impossible", "1lefGrqcC1A", "impossiveeeeeeel", 1, (float) 0.9,
 		DominantEmotion.Anxiety, (float) 0.7));
-	tempSongs.get(tempSongs.size()-1).setEmotions(emo);
+	tempSongs.get(tempSongs.size() - 1).setEmotions(emo);
 	/*Song song = new Song("Sia", "Chandelier", "-KXPLT2Xk5k", "vai levar na rata", 1, (float) 0.4,
 		DominantEmotion.Contentment, (float) 0.3);*/
 	//song.setEmotions(emo);
@@ -170,12 +170,13 @@ public class SearchServlet extends HttpServlet {
 		// feedback das musicas q estao em analise no sistema
 		else if (op.equalsIgnoreCase("getfeedback")) {
 		    // GenericSongPack<SongStatus> songStatus = frontendBean.getSongsStatus(1);
+
 		    ArrayList<SongStatus> singthesong = new ArrayList<SongStatus>();
 		    AVMoodTrack lolo = new AVMoodTrack(1, 1, 1, 1);
 		    Collection<AVMoodTrack> caralho = new ArrayList<AVMoodTrack>();
 		    caralho.add(lolo);
-		    Artist artist = new Artist("pintelheiro");
-		    edu.dei.gp.jpa.Song s = new edu.dei.gp.jpa.Song("autor da pila", "4b95MCszOxY", "xupa.txt",
+		    Artist artist = new Artist("chief of them");
+		    edu.dei.gp.jpa.Song s = new edu.dei.gp.jpa.Song("does not push", "4b95MCszOxY", "xupa.txt",
 			    "pelos pubicos", 1, "c:\\cona.png", artist, caralho, 1, 1, DominantEmotion.Anxiety);
 		    SongStatus ss = new SongStatus(s);
 		    singthesong.add(ss);
@@ -215,19 +216,19 @@ public class SearchServlet extends HttpServlet {
 		    String songId = request.getParameter("songId");
 		    //bean.getMusic(art, title);
 		    //Song theSong = frontendBean.getSongById(Integer.parseInt(songId));
-		    Song match=null;
-		    
+		    Song match = null;
+
 		    for (int j = 0; j < tempSongs.size(); j++) {
-		    	System.out.println(tempSongs.get(j).getSongId());
-				if (tempSongs.get(j).getSongId()==Integer.parseInt(songId)) {
-				    match=tempSongs.get(j);
-				    
-				    break;
-				}
+			System.out.println(tempSongs.get(j).getSongId());
+			if (tempSongs.get(j).getSongId() == Integer.parseInt(songId)) {
+			    match = tempSongs.get(j);
+
+			    break;
+			}
 		    }
 		    //String json = new Gson().toJson(teste);
 		    //out.write(json);
-		    
+
 		    String json = new Gson().toJson(match);
 		    out.write(json);
 
@@ -237,9 +238,8 @@ public class SearchServlet extends HttpServlet {
 		    String text = request.getParameter("text");
 
 		}
-		
-		
-		
+
+
 	    }
 	}
     }
