@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.dei.gp.ejb.remotes.FrontEndBeanRemote;
 import edu.dei.gp.jpa.AVMoodTrack;
+import edu.dei.gp.jpa.OCRTrack;
 import edu.dei.gp.jpa.Song;
 
 /**
@@ -37,22 +38,25 @@ public class JoniServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	System.err.println("Hello from JoniServlet");
-
-	String b = request.getParameter("create");
-	if (request.getParameter("create") != null) {
-	    frontEndBean.addTestSong();
-	}
-	else if (request.getParameter("send") != null) {
-	    frontEndBean.processLink("https://www.youtube.com/watch?v=-xfKU31v3Hc");
-	}
-	else {
-	    Song s = frontEndBean.getSongById(1);
-	    if (s != null) {
-		Collection<AVMoodTrack> a = s.getAvMoodTrack();
-	    }
-	    System.err.println();
-	}
+		System.err.println("Hello from JoniServlet");
+	
+		String b = request.getParameter("create");
+		if (request.getParameter("create") != null) {
+		    frontEndBean.addTestSong();
+		}
+		else if (request.getParameter("send") != null) {
+		    frontEndBean.processLink("https://www.youtube.com/watch?v=-xfKU31v3Hc");
+		}
+		else {
+		    Song s = frontEndBean.getSongById(1);
+		    if (s != null) {
+		    	Collection<AVMoodTrack> a = s.getAvMoodTrack();
+		    	for(AVMoodTrack x:a){
+		    		System.out.println(x.getValence());
+		    	}
+		    }
+		    System.err.println();
+		}
     }
 
     /**

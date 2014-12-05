@@ -220,11 +220,11 @@ public class SearchServlet extends HttpServlet {
 
 		    for (int j = 0; j < tempSongs.size(); j++) {
 			//System.out.println(tempSongs.get(j).getSongId());
-			if (tempSongs.get(j).getSongId() == Integer.parseInt(songId)) {
-			    match = tempSongs.get(j);
-
-			    break;
-			}
+				if (tempSongs.get(j).getSongId() == Integer.parseInt(songId)) {
+				    match = tempSongs.get(j);
+	
+				    break;
+				}
 		    }
 		    //String json = new Gson().toJson(teste);
 		    //out.write(json);

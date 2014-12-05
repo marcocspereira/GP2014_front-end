@@ -609,6 +609,7 @@ function drawChart(googlevalues)
 
   var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
   chart.draw(data, options);
+
 }
 
 
