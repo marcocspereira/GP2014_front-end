@@ -52,7 +52,7 @@ public class JoniServlet extends HttpServlet {
 		    if (s != null) {
 		    	Collection<AVMoodTrack> a = s.getAvMoodTrack();
 		    	for(AVMoodTrack x:a){
-		    		System.out.println(x.getValence());
+		    		System.out.println(x);
 		    	}
 		    }
 		    System.err.println();
