@@ -163,10 +163,6 @@ public class SearchServlet extends HttpServlet {
 			out.write("null");
 		    }
 		}
-		else if (op.equalsIgnoreCase("emosearch")) {
-		    // TODO fazer aqui e no javascript
-
-		}
 		else if (op.equalsIgnoreCase("avsearch")) {
 
 		    // Receives value interval for Arousal and Valence

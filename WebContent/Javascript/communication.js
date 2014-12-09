@@ -460,7 +460,6 @@ function getAllMusicsL(){
     		
 				// print generated code for each music
 				$('#library_musics_div').append(htmlCodeToInput);
-	    		
 	    	}
 	 	}
 	});
