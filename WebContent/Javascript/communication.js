@@ -545,7 +545,7 @@ function getMusic(songId){
 	    		//$('#newBar').empty();
 	    		//$('.legacyDiv').empty();
 	    		setVideoId(music.youtubeId);
-	    		setEmotionList(music.emotions)
+	    		setEmotionList(music.avMoodTrack)
 	    		var tag = document.createElement('script');
 	    		tag.src = "https://www.youtube.com/iframe_api";
 	    		tag.setAttribute("id", "iframYT");
@@ -614,29 +614,6 @@ function submitLyric(){
  ******************************************************************************************
  ******************************************************************************************
  */
-/*function getChartData()
-{
-	
-	var dataString = {"FLAG":"chartdata"};
-	var chartData;
-	$.ajax({
-		type: "GET",
-	    data:dataString,
-	    url: "SearchServlet",
-	    success: function(data)
-	    {
-	    	if (data != null)
-	    	{
-	    		//console.log(data);
-	    		//console.log(JSON.parse(data));
-	    		chartData = JSON.parse(data);
-	    	}
-	    },
-	    async:false
-	});
-
-	return chartData;
-}*/
 
 
 function drawChart(googlevalues)

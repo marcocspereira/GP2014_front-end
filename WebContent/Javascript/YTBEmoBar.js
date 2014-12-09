@@ -89,12 +89,16 @@ function chartPoints(playerTimeDifference){
 	var googlevalues =  [[ '', 	'',	{'type': 'string', 'role': 'style'}]];
 	var i;
 	
-	//ISTO VAI VIRAR O TEXAS	
+	//distribuicao dos pontos no grafico	
 	for(i=0;i<serverdata.length-1;i++){
-		if(playerTimeDifference>=serverdata[i].fin ){
-			googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: grey}']);
+		var check=true;
+		if(playerTimeDifference>=serverdata[i].endTime){
+			if( contains(i))
+				googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: #C0C0C0}']);
+			else
+				check = false;
 		}
-		else{
+		else if(check){
 			
 			if(serverdata[i].arousal>0 && serverdata[i].valence>0)
 				googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: red}']);
@@ -110,72 +114,35 @@ function chartPoints(playerTimeDifference){
 		}
 	}
 	
-
-	//se o tempo estiver dentro do intervalo de algum ponto do grafico
-	/*
-	 * var check;
-	 * if(playerTimeDifference>emot[0].init && playerTimeDifference<emot[0].fin){
-		check = containsObject(emot[0], serverdata);		//verifica ponto ja existe
-		//console.log(emot[0].arousal+"    "+emot[0].valence+"     "+check);
-		if(!check)//caso ponto nao exista, adiciona
-			serverdata.push(emot[0]);
-		emot.shift();//remove ponto já tratado
-	
-		
-			
-		
-		
-		if(!check){
-			for(i=0;i<serverdata.length-1;i++){
-				googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: grey}']);
-			}
-			
-			if(serverdata[serverdata.length-1].arousal>0 && serverdata[serverdata.length-1].valence>0)
-				googlevalues.push([serverdata[serverdata.length-1].arousal,serverdata[serverdata.length-1].valence,'point { fill-color: red}']);
-			else if(serverdata[serverdata.length-1].arousal>0 && serverdata[serverdata.length-1].valence<0)
-				googlevalues.push([serverdata[serverdata.length-1].arousal,serverdata[serverdata.length-1].valence,'point { fill-color: blue}']);
-			else if(serverdata[serverdata.length-1].arousal<0 && serverdata[serverdata.length-1].valence>0)
-				googlevalues.push([serverdata[serverdata.length-1].arousal,serverdata[serverdata.length-1].valence,'point { fill-color: yellow}']);
-			else if(serverdata[serverdata.length-1].arousal<0 && serverdata[serverdata.length-1].valence<0)
-				googlevalues.push([serverdata[serverdata.length-1].arousal,serverdata[serverdata.length-1].valence,'point { fill-color: green}']);
-		}
-		else{
-			for(i=0;i<serverdata.length;i++){
-				if(idrep!=i){
-					//console.log("for if  "+i+"   "+idrep);
-					googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: grey}']);
-				}
-				else{
-					//console.log("for else  "+i+"   "+idrep);
-					if(serverdata[idrep].arousal>0 && serverdata[idrep].valence>0)
-						googlevalues.push([serverdata[idrep].arousal,serverdata[idrep].valence,'point { fill-color: red}']);
-					else if(serverdata[idrep].arousal>0 && serverdata[idrep].valence<0)
-						googlevalues.push([serverdata[idrep].arousal,serverdata[idrep].valence,'point { fill-color: blue}']);
-					else if(serverdata[idrep].arousal<0 && serverdata[idrep].valence>0)
-						googlevalues.push([serverdata[idrep].arousal,serverdata[idrep].valence,'point { fill-color: yellow}']);
-					else if(serverdata[idrep].arousal<0 && serverdata[idrep].valence<0)
-						googlevalues.push([serverdata[idrep].arousal,serverdata[idrep].valence,'point { fill-color: green}']);
-				}
-		
-			}
-		}
-		
-		drawChart(googlevalues);
-	}*/
 	
 }
 
-function containsObject(obj, list) {
+function contains(index) {
     var i;
-    for (i = 0; i < list.length; i++) {
-        if (list[i].arousal == obj.arousal && list[i].valence == obj.valence) {
-        	//console.log("contains  "+i);
-        	idrep=i;
-            return true;
-        }
+
+    for (i = index-1; i >= 0; i--) {
+    	
+    	if(serverdata[index].arousal>0 &&  serverdata[i].arousal>0 && serverdata[index].valence>0 && serverdata[i].valence>0 ||
+    			serverdata[index].arousal<0 &&  serverdata[i].arousal<0 && serverdata[index].valence<0 && serverdata[i].valence<0 ||
+    			serverdata[index].arousal>0 &&  serverdata[i].arousal>0 && serverdata[index].valence<0 && serverdata[i].valence<0 ||
+    			serverdata[index].arousal<0 &&  serverdata[i].arousal<0 && serverdata[index].valence>0 && serverdata[i].valence>0){
+    	
+    		var xs = serverdata[index].arousal - serverdata[i].arousal;
+    	  	xs = xs * xs;
+    	 
+    	  	var ys = serverdata[index].valence - serverdata[i].valence;
+    	  	ys = ys * ys;
+    	  	
+    	  	var distance = Math.sqrt( xs + ys );
+    	  	
+    	  	if(distance<0.05){
+    	  		//console.log("contains "+distance);
+    	  		return false;
+    	  	}
+    	}
     }
 
-    return false;
+    return true;
 }
 
 
@@ -209,14 +176,7 @@ function progress(emotions) {
 		// $element.find('div').animate({ width: progressBarWidth }, 500).html(percent + "%&nbsp;");
 		$('#progressBar').find('#newBar').animate({ width: progressBarWidth });		  	
 	   
-	   	//cores random, vai ser substituido pelas cores atribuidas aos calores V e A
-	  	/*var list = ['red', 'blue','yellow','green'];
-	   	Array.prototype.chooseRandom = function() {
-		   return this[Math.floor(Math.random() * this.length)];
-		 };
-		 */
-		var co ;//= list.chooseRandom(); // => 2
-		
+		var co ;
 		if(emo.arousal>0 && emo.valence>0)
 			co='red';
 		else if(emo.arousal>0 && emo.valence<0)
@@ -225,7 +185,6 @@ function progress(emotions) {
 			co='yellow';
 		else if(emo.arousal<0 && emo.valence<0)
 			co='green';
-		
 		
 		//renomeia a div newbar, cria nova newbar
 		$('#newBar').height(10);
