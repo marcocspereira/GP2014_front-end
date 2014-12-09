@@ -3,7 +3,7 @@ package common;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.dei.gp.jpa.aux.DominantEmotion;
+import edu.dei.gp.jpa.auxiliary.DominantEmotion;
 
 public class Song {
     int songId;

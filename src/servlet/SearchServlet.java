@@ -13,17 +13,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+
 import common.Emotion;
 import common.Song;
 import common.Test;
-
 import edu.dei.gp.containers.GenericSongPack;
 import edu.dei.gp.containers.SongLight;
 import edu.dei.gp.containers.SongStatus;
 import edu.dei.gp.ejb.remotes.FrontEndBeanRemote;
 import edu.dei.gp.jpa.AVMoodTrack;
 import edu.dei.gp.jpa.Artist;
-import edu.dei.gp.jpa.aux.DominantEmotion;
+import edu.dei.gp.jpa.auxiliary.DominantEmotion;
 
 /**
  * Servlet implementation class SearchServlet
