@@ -32,7 +32,7 @@ public class JoniServlet extends HttpServlet {
 	super();
     }
 
-    // chamar com "JoniServlet?create=true" para criar uma musica!
+    // Call with "JoniServlet?create=true" to create a music!
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */

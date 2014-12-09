@@ -81,22 +81,37 @@ public class SearchServlet extends HttpServlet {
 	emo.add(new Emotion(0.5, 0.5, 17, 18));
 
 	// TODO retirar esta arraylist q serve de teste a pesquisa de musicas
-	List<SongTest> tempSongs = new ArrayList<SongTest>();
-	tempSongs.add(new SongTest(0, "Sia", "Chandelier", "-KXPLT2Xk5k", "vai levar na rata", 1, (float) 0.4,
-		DominantEmotion.Contentment, (float) 0.3));
+
+	/*List<Song> tempSongs = new ArrayList<Song>();
+	tempSongs.add(new Song(0, "Sia", "Chandelier", "-KXPLT2Xk5k", "Lalalalala", 1, (float) 0.4,
 	tempSongs.get(tempSongs.size() - 1).setEmotions(emo);
+
 	tempSongs.add(new SongTest(1, "Katy Perry", "Roar", "9dgng_ekbV0", "berra que nem uma leoa", (float) -0.2, (float) 1.4,
+			
+	tempSongs
+	.add(new Song(
+		1,
+		"Katy Perry",
+		"Roar",
+		"9dgng_ekbV0",
+		"Come up to meet you, Tell you I'm sorry, You don't know how lovely you are. I had to find you, Tell you I need you, Tell you I set you apart. Tell me your secrets, And ask me your questions, Oh let's go back to the start. Runnin' in circles, Comin' up tails, Heads on a science apart. Nobody said it was easy, It's such a shame for us to part. Nobody said it was easy, No one ever said it would be this hard. Oh take me back to the start. I was just guessin', At numbers and figures, Pullin' the puzzles apart. Questions of science, Science and progress, Do not speak as loud as my heart. Tell me you love me, Come back and haunt me, Oh, what a rush to the start. Runnin' in circles, Chasin' our tails, Comin' back as we are. Nobody said it was easy, Oh it's such a shame for us to part. Nobody said it was easy, No one ever said it would be so hard. I'm goin' back to the start. Oh ooh ooh ooh ooh ohh, Ah ooh ooh ooh ooh ooh, Oh ooh ooh ooh ooh ohh, Oh ooh ooh ooh ooh ohh.",
+		(float) -0.2, (float) 1.4,
+>>>>>>> branch 'master' of https://github.com/macsp/GP2014_front-end.git
 		DominantEmotion.Hapiness, (float) 0.4));
 	tempSongs.get(tempSongs.size() - 1).setEmotions(emo);
 	tempSongs.add(new SongTest(2, "Sam Smith", "Stay with", "uTTXJM5woJ8", "fica comigo que tenho frio", 1, (float) -0.4,
 		DominantEmotion.Melancholy, (float) 0.5));
 	tempSongs.get(tempSongs.size() - 1).setEmotions(emo);
+<<<<<<< HEAD
 	tempSongs.add(new SongTest(3, "John Legend", "All Of Me", "Mk7-GRWq7wA", "tudo em mim\nentra em ti\nohohohoh",
+=======
+	tempSongs.add(new Song(3, "John Legend", "All Of Me", "Mk7-GRWq7wA", "tudo em mim\nBLABLABLA\nohohohoh",
+>>>>>>> branch 'master' of https://github.com/macsp/GP2014_front-end.git
 		(float) -0.4, (float) 0.4, DominantEmotion.Contentment, (float) 0.6));
 	tempSongs.get(tempSongs.size() - 1).setEmotions(emo);
 	tempSongs.add(new SongTest(4, "James Arthur", "Impossible", "1lefGrqcC1A", "impossiveeeeeeel", 1, (float) 0.9,
 		DominantEmotion.Anxiety, (float) 0.7));
-	tempSongs.get(tempSongs.size() - 1).setEmotions(emo);
+	tempSongs.get(tempSongs.size() - 1).setEmotions(emo);*/
 	/*Song song = new Song("Sia", "Chandelier", "-KXPLT2Xk5k", "vai levar na rata", 1, (float) 0.4,
 		DominantEmotion.Contentment, (float) 0.3);*/
 	//song.setEmotions(emo);
@@ -118,25 +133,25 @@ public class SearchServlet extends HttpServlet {
 		// TODO colocar na SearchServlet
 		if (op.equalsIgnoreCase("textsearch"))
 		{
-		    // receber o valor textual a procrurar
+		    // Receives text value to search for
 		    String toSearch = request.getParameter("text");
 		    boolean check = false;
-		    // palavra a procurar e página
+		    // Word to search and page
 		    // TODO descomentar GenericSongPack<SongLight> textSongs = frontendBean.searchAuthorAndTitle(toSearch, 1);
 
-		    // enviar resposta para o javascript tratar de colocar no html
+		    // Sends response to javascript so it can be displayed on html
 		    // String json = new Gson().toJson(textSongs);
 		    // out.write(json);
 
 		    // TODO apagar parte de teste
 		    List<SongTest> teste = new ArrayList<SongTest>();
-		    for (int j = 0; j < tempSongs.size(); j++) {
-			if (tempSongs.get(j).getTitle().contains(toSearch)
-				|| tempSongs.get(j).getArtist().contains(toSearch)) {
-			    check = true;
-			    teste.add(tempSongs.get(j));
-			}
-		    }
+		    /*for (int j = 0; j < tempSongs.size(); j++) {
+				if (tempSongs.get(j).getTitle().contains(toSearch)
+					|| tempSongs.get(j).getArtist().contains(toSearch)) {
+				    check = true;
+				    teste.add(tempSongs.get(j));
+				}
+		    }*/
 		    //String json = new Gson().toJson(teste);
 		    //out.write(json);
 
@@ -151,16 +166,16 @@ public class SearchServlet extends HttpServlet {
 		// TODO colocar na SearchServlet
 		else if (op.equalsIgnoreCase("avsearch")) {
 
-		    // receber o intervalo de valores para Arousal e Valence
+		    // Receives value interval for Arousal and Valence
 		    float minArousal = Float.parseFloat(request.getParameter("minArousal"));
 		    float maxArousal = Float.parseFloat(request.getParameter("maxArousal"));
 		    float minValence = Float.parseFloat(request.getParameter("minValence"));
 		    float maxValence = Float.parseFloat(request.getParameter("maxValence"));
 
-		    // mandar para o frontendBean com os valores e a pagina
+		    // Sends to FrontEndBean with values and page
 		    GenericSongPack<SongLight> avSongs = null; // TODO alterar para: frontendBean.searchArousalAndValenceValues(minArousal, maxArousal, minValence, maxValence, 1);
 
-		    // enviar resposta para o javascript tratar de colocar no html
+		    // Sends response to javascript so it can be displayed on html
 
 		    if (avSongs != null) {
 			String json = new Gson().toJson(avSongs);
@@ -176,11 +191,11 @@ public class SearchServlet extends HttpServlet {
 
 		    ArrayList<SongStatus> singthesong = new ArrayList<SongStatus>();
 		    AVMoodTrack lolo = new AVMoodTrack(1, 1, 1, 1);
-		    Collection<AVMoodTrack> caralho = new ArrayList<AVMoodTrack>();
-		    caralho.add(lolo);
+		    Collection<AVMoodTrack> caral = new ArrayList<AVMoodTrack>();
+		    caral.add(lolo);
 		    Artist artist = new Artist("chief of them");
 		    edu.dei.gp.jpa.Song s = new edu.dei.gp.jpa.Song("does not push", "4b95MCszOxY", "xupa.txt",
-			    "pelos pubicos", 1, "c:\\cona.png", artist, caralho, 1, 1, DominantEmotion.Anxiety);
+			    "sim eu sei", 1, "c:\\ficheiro.png", artist, caral, 1, 1, DominantEmotion.Anxiety);
 		    SongStatus ss = new SongStatus(s);
 		    singthesong.add(ss);
 		    GenericSongPack<SongStatus> songStatus = new GenericSongPack<SongStatus>(singthesong, 1, 1);
@@ -190,9 +205,7 @@ public class SearchServlet extends HttpServlet {
 			String json = new Gson().toJson(vaginasio);
 			out.write(json);
 		    }
-		    else {
-			out.write("null");
-		    }
+		   
 		}
 		// TODO colocar na PlotServlet
 		else if (op.equalsIgnoreCase("chartdata")) {
@@ -201,13 +214,14 @@ public class SearchServlet extends HttpServlet {
 		    String json = new Gson().toJson(x);
 		    out.write(json);
 		}
-		// TODO devolver todas as musicas sem filtros
+		// TODO Returns all musics unfiltered
 		else if (op.equalsIgnoreCase("getall")) {
 
 		    System.out.println("get all musics");
+
 		    GenericSongPack<SongLight> songs = frontendBean.getReadyLighSongs(1);
 		    //bean.getAllMusics();
-		    // Temp
+
 		    
 		    List<SongLight> songsList = songs.getListContents();
 		    
@@ -217,7 +231,7 @@ public class SearchServlet extends HttpServlet {
 		    //out.write("success");
 
 		}
-		// TODO devolver musica atraves de id
+		// TODO Returns music through it's id
 		else if (op.equalsIgnoreCase("getmusic")) {
 		    String songId = request.getParameter("songId");
 		    //bean.getMusic(art, title);
