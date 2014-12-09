@@ -115,13 +115,13 @@ public class SearchServlet extends HttpServlet {
 		// TODO colocar na SearchServlet
 		if (op.equalsIgnoreCase("textsearch"))
 		{
-		    // receber o valor textual a procrurar
+		    // Receives text value to search for
 		    String toSearch = request.getParameter("text");
 		    boolean check = false;
-		    // palavra a procurar e página
+		    // Word to search and page
 		    // TODO descomentar GenericSongPack<SongLight> textSongs = frontendBean.searchAuthorAndTitle(toSearch, 1);
 
-		    // enviar resposta para o javascript tratar de colocar no html
+		    // Sends response to javascript so it can be displayed on html
 		    // String json = new Gson().toJson(textSongs);
 		    // out.write(json);
 
@@ -148,16 +148,16 @@ public class SearchServlet extends HttpServlet {
 		// TODO colocar na SearchServlet
 		else if (op.equalsIgnoreCase("avsearch")) {
 
-		    // receber o intervalo de valores para Arousal e Valence
+		    // Receives value interval for Arousal and Valence
 		    float minArousal = Float.parseFloat(request.getParameter("minArousal"));
 		    float maxArousal = Float.parseFloat(request.getParameter("maxArousal"));
 		    float minValence = Float.parseFloat(request.getParameter("minValence"));
 		    float maxValence = Float.parseFloat(request.getParameter("maxValence"));
 
-		    // mandar para o frontendBean com os valores e a pagina
+		    // Sends to FrontEndBean with values and page
 		    GenericSongPack<SongLight> avSongs = null; // TODO alterar para: frontendBean.searchArousalAndValenceValues(minArousal, maxArousal, minValence, maxValence, 1);
 
-		    // enviar resposta para o javascript tratar de colocar no html
+		    // Sends response to javascript so it can be displayed on html
 
 		    if (avSongs != null) {
 			String json = new Gson().toJson(avSongs);
@@ -187,9 +187,7 @@ public class SearchServlet extends HttpServlet {
 			String json = new Gson().toJson(vaginasio);
 			out.write(json);
 		    }
-		    else {
-			out.write("null");
-		    }
+		   
 		}
 		// TODO colocar na PlotServlet
 		else if (op.equalsIgnoreCase("chartdata")) {
@@ -198,7 +196,7 @@ public class SearchServlet extends HttpServlet {
 		    String json = new Gson().toJson(x);
 		    out.write(json);
 		}
-		// TODO devolver todas as musicas sem filtros
+		// TODO Returns all musics unfiltered
 		else if (op.equalsIgnoreCase("getall")) {
 
 		    System.out.println("get all musics");
@@ -211,7 +209,7 @@ public class SearchServlet extends HttpServlet {
 		    //out.write("success");
 
 		}
-		// TODO devolver musica atraves de id
+		// TODO Returns music through it's id
 		else if (op.equalsIgnoreCase("getmusic")) {
 		    String songId = request.getParameter("songId");
 		    //bean.getMusic(art, title);
