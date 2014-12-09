@@ -116,6 +116,7 @@ public class SearchServlet extends HttpServlet {
 		DominantEmotion.Contentment, (float) 0.3);*/
 	//song.setEmotions(emo);
 
+	int pageToCheck = 1;
 
 	if (!request.getParameterMap().isEmpty())
 	{

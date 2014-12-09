@@ -345,18 +345,20 @@
 	
 	
 	<script type="text/javascript">
+		var pageSubject = null;
+		var pageNumber = 1;
+		var totaPages = 1;
+		var pageAll = false;
+		var pageText = null;
+		var pageAV = new Array();
+		
 		var checkVideoRep=0;
 		//var serverdata = new Array();
 		$( document ).ready(function() {	
-			
 			//document.cookie = "tourVerify=; expires=Thu, 01 Jan 1970 00:00:00 UTC";//delete cookie
 			checkCookie("tourVerify");
 			initTour();
 			getAllMusicsL();
-			//serverdata = getChartData();
-			//console.log(serverdata);
-			//google.setOnLoadCallback(drawChart);
-
 		});
 		
 		$( window ).resize(function() {
