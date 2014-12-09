@@ -103,7 +103,7 @@ public class InputServlet extends HttpServlet {
 
 
 		if (op.equalsIgnoreCase("importfile")) {
-		    // receber os links e enviar para o frontendBean
+		    // Receives links and sends to FrontEndBean
 		    List<String> urlsGson = new Gson().fromJson(request.getParameter("text"), List.class);
 		    ArrayList<String> urls = (ArrayList<String>) urlsGson;
 		    //ArrayList<InsertionResponse> insertionResponse = frontendBean.processLinks(urls);
@@ -112,19 +112,19 @@ public class InputServlet extends HttpServlet {
 			insertionResponse.add(new InsertionResponse(urlsGson.get(z), InsertionStatus.OK));
 		    }
 
-		    // enviar resposta para o javascript tratar de colocar no html
+		    // Sends response to javascript so it can be displayed on html
 		    String json = new Gson().toJson(insertionResponse);
 		    out.write(json);
 
 		}
 		else if (op.equalsIgnoreCase("importlink")) {
-		    // receber o link e enviar para o frontendBean
+		    // Receives links and sends to FrontEndBean
 		    String url = request.getParameter("text");
 		    System.out.println(url);
 		    //InsertionResponse insertionResponse = frontendBean.processLink(url);
 		    InsertionResponse insertionResponse = new InsertionResponse(url, InsertionStatus.OK);
 
-		    // enviar resposta para o javascript tratar de colocar no html
+		    // Sends response to javascript so it can be displayed on html
 		    String json = new Gson().toJson(insertionResponse);
 		    out.write(json);
 
