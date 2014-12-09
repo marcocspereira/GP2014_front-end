@@ -5,7 +5,7 @@ import java.util.List;
 
 import edu.dei.gp.jpa.auxiliary.DominantEmotion;
 
-public class Song {
+public class SongTest {
     int songId;
     String title;
     String youtubeId;
@@ -19,10 +19,10 @@ public class Song {
 
     List<Emotion> emotions = new ArrayList<Emotion>();
 
-    public Song(int songId,String artist, String title, String youtubeId, String lyric, float arousal, float valence,
-	    DominantEmotion dominantEmotion,float ocrError) {
+    public SongTest(int songId, String artist, String title, String youtubeId, String lyric, float arousal, float valence,
+	    DominantEmotion dominantEmotion, float ocrError) {
 	this.songId = songId;
-    setArtist(artist);
+	setArtist(artist);
 	setTitle(title);
 	setYoutubeId(youtubeId);
 	setLyric(lyric);
