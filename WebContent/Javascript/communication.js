@@ -583,29 +583,6 @@ function submitLyric(){
  ******************************************************************************************
  ******************************************************************************************
  */
-/*function getChartData()
-{
-	
-	var dataString = {"FLAG":"chartdata"};
-	var chartData;
-	$.ajax({
-		type: "GET",
-	    data:dataString,
-	    url: "SearchServlet",
-	    success: function(data)
-	    {
-	    	if (data != null)
-	    	{
-	    		//console.log(data);
-	    		//console.log(JSON.parse(data));
-	    		chartData = JSON.parse(data);
-	    	}
-	    },
-	    async:false
-	});
-
-	return chartData;
-}*/
 
 
 function drawChart(googlevalues)
