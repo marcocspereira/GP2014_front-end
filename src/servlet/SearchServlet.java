@@ -249,13 +249,19 @@ public class SearchServlet extends HttpServlet {
 		    //String json = new Gson().toJson(teste);
 		    //out.write(json);
 		    
-		    System.out.println("tentativa de load de AVMoodTrack");
+		    //System.out.println("tentativa de load de AVMoodTrack");
 		    Collection<AVMoodTrack> av = theSong.getAvMoodTrack();
+		   /* List<AVMoodTrack> listav = new ArrayList<AVMoodTrack>();
+		    System.out.println(av);*/
+		    System.out.println("ANTES DO JSON col");
 		    
-		    System.out.println(av);
-		    System.out.println("ANTES DO JSON");
-
-		    String json = new Gson().toJson(theSong);
+		    
+		    
+	    	//listav.add(avm);
+		    
+		    
+		    
+		    String json = new Gson().toJson(av);
 		    System.out.println("DEPOIS DO JSON");
 		    out.write(json);
 
