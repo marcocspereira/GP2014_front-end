@@ -29,7 +29,6 @@ import edu.dei.gp.jpa.Artist;
 import edu.dei.gp.jpa.Song;
 import edu.dei.gp.jpa.auxiliary.DominantEmotion;
 
-
 /**
  * Servlet implementation class SearchServlet
  */
@@ -166,7 +165,6 @@ public class SearchServlet extends HttpServlet {
 			out.write("null");
 		    }
 		}
-		// TODO colocar na SearchServlet
 		else if (op.equalsIgnoreCase("avsearch")) {
 
 		    // Receives value interval for Arousal and Valence

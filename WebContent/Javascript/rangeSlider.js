@@ -15,35 +15,35 @@ function setValuesAV(){
 		maxArousal = 1;
 		minValence = 0;
 		maxValence = 1;
-		buttonBackgroundColor = "red";
+		buttonBackgroundColor = "red";	// TODO remove
 	}
 	else if(emotionChosen == "anx"){
 		minArousal = 0;
 		maxArousal = 1;
 		minValence = -1;
 		maxValence = 0;
-		buttonBackgroundColor = "yellow";
+		buttonBackgroundColor = "yellow";	// TODO remove
 	}
 	else if(emotionChosen == "mel"){
 		minArousal = -1;
 		maxArousal = 0;
 		minValence = -1;
 		maxValence = 0;
-		buttonBackgroundColor = "green";
+		buttonBackgroundColor = "green";	// TODO remove
 	}
 	else if(emotionChosen == "con"){
 		minArousal = -1;
 		maxArousal = 0;
 		minValence = 0;
 		maxValence = 1;
-		buttonBackgroundColor = "blue";
+		buttonBackgroundColor = "blue";	// TODO remove
 	}
 	else{
 		minArousal = -1;
 		maxArousal = 1;
 		minValence = -1;
 		maxValence = 1;
-		buttonBackgroundColor = "#E8E8E8";
+		buttonBackgroundColor = "#E8E8E8";	// TODO remove
 	}
 	setArousal();
 	setValence();

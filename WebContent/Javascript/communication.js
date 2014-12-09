@@ -294,6 +294,31 @@ function textualSearch()
 }
 
 
+
+/****************************
+ * EMOTION SEARCH
+ ****************************/
+function searchByEmotion(){
+	var emo = document.getElementById("emotionChosen");
+	var emoToSearch;
+	
+	if(emotionChosen == "hap"){
+		emoToSearch = "";
+	}
+	else if(emotionChosen == "anx"){
+		emoToSearch = "";
+	}
+	else if(emotionChosen == "mel"){
+		emoToSearch = "";
+	}
+	else if(emotionChosen == "con"){
+		emoToSearch = "";
+	}
+	else{	// all emotions
+		emoToSearch = "";
+	}
+}
+
 /****************************
  * A&V SEARCH
  ****************************/
@@ -358,7 +383,7 @@ function setMainColor(emotion){
 	var contentment_color = "#5C7EFB";		// blue
 	var gray = "#BDBDBD";
 
-	if(emotion == "Hapiness"){
+	if(emotion == "Happiness"){
 		return happiness_color;
 	}
 	else if (emotion == "Anxiety"){
@@ -435,7 +460,6 @@ function getAllMusicsL(){
     		
 				// print generated code for each music
 				$('#library_musics_div').append(htmlCodeToInput);
-	    		
 	    	}
 	 	}
 	});
