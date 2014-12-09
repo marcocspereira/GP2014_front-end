@@ -490,7 +490,7 @@ function getMusic(songId){
 	    		//$('#newBar').empty();
 	    		//$('.legacyDiv').empty();
 	    		setVideoId(music.youtubeId);
-	    		setEmotionList(music.emotions)
+	    		setEmotionList(music.avMoodTrack)
 	    		var tag = document.createElement('script');
 	    		tag.src = "https://www.youtube.com/iframe_api";
 	    		tag.setAttribute("id", "iframYT");

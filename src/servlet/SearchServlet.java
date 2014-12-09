@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,10 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import common.Emotion;
 import common.SongTest;
 import common.Test;
-
 import edu.dei.gp.containers.GenericSongPack;
 import edu.dei.gp.containers.SongLight;
 import edu.dei.gp.containers.SongStatus;
@@ -254,13 +256,14 @@ public class SearchServlet extends HttpServlet {
 		    Collection<AVMoodTrack> av = theSong.getAvMoodTrack();
 		    /* List<AVMoodTrack> listav = new ArrayList<AVMoodTrack>();
 		     System.out.println(av);*/
-		    System.out.println("ANTES DO JSON col");
+		    System.out.println("ANTES DO JSON thesong");
 
 
 		    //listav.add(avm);
 
+		   //Gson gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.STATIC).create();
 
-		    String json = new Gson().toJson(av);
+		    String json = new Gson().toJson(theSong);
 		    System.out.println("DEPOIS DO JSON");
 		    out.write(json);
 
