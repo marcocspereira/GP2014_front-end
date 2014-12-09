@@ -24,7 +24,7 @@ import edu.dei.gp.containers.SongStatus;
 import edu.dei.gp.ejb.remotes.FrontEndBeanRemote;
 import edu.dei.gp.jpa.AVMoodTrack;
 import edu.dei.gp.jpa.Artist;
-import edu.dei.gp.jpa.aux.DominantEmotion;
+import edu.dei.gp.jpa.auxiliary.DominantEmotion;
 
 /**
  * Servlet implementation class SearchServlet
@@ -154,7 +154,10 @@ public class SearchServlet extends HttpServlet {
 			out.write("null");
 		    }
 		}
-		// TODO colocar na SearchServlet
+		else if (op.equalsIgnoreCase("emosearch")) {
+		    // TODO fazer aqui e no javascript
+
+		}
 		else if (op.equalsIgnoreCase("avsearch")) {
 
 		    // Receives value interval for Arousal and Valence
@@ -196,7 +199,7 @@ public class SearchServlet extends HttpServlet {
 			String json = new Gson().toJson(vaginasio);
 			out.write(json);
 		    }
-		   
+
 		}
 		// TODO colocar na PlotServlet
 		else if (op.equalsIgnoreCase("chartdata")) {
