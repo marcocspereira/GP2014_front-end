@@ -167,8 +167,17 @@ function importFile(){
 function feedbackSongs()
 {
 	console.log("mostrar feedback");
-	var dataString = {"FLAG":"getfeedback"};
+	var dataString = {"FLAG":"getfeedback","page":pageNumberFeed};
 	var htmlCodeToInput = "";
+	
+	if(pageFeed==false){
+		pageNumberFeed=1;
+		pageFeed=true;
+	}
+		
+	//pageText = null;
+	//pageAV = [];
+	//pageAll = false;
 	
 	$.ajax({
 		type: "GET",
@@ -178,9 +187,26 @@ function feedbackSongs()
 	    {
 	    	if (data != "null")
 	    	{
-	    		//fa-spin
-	    		//feedbackIcon
-	    		feedbackMusics = JSON.parse(data);
+	    		//paginacao(data);
+	    		var generic = JSON.parse(data);
+	    		var totalPages = generic.numberOfPages;
+	    		console.log(totalPages);
+	    		var page = generic.page;
+	    		console.log(page);
+	    		var feedbackMusics = generic.listContents;
+	    		
+	    		if(totalPages ==  page)
+	    			$('#nextButtonFeed').css({"display":"none"});
+	    		else
+	    			$('#nextButtonFeed').css({"display":"inline"});
+	    		
+	    		if(page ==  1)
+	    			$('#backButtonFeed').css({"display":"none"});
+	    		else
+	    			$('#backButtonFeed').css({"display":"inline"});
+	    		
+	    		
+	    		//feedbackMusics = JSON.parse(data);
 	    		
     			$('#feedbackIcon').addClass("fa-spin");
 	    		
@@ -275,6 +301,7 @@ function textualSearch()
 		
 	pageAll==false
 	pageAV = [];
+	pageFeed = false;
 	
 	
 	if(textSearchIn != ""){
@@ -494,6 +521,8 @@ function getAllMusicsL(){
 		
 	pageText = null;
 	pageAV = [];
+	pageFeed = false;
+	
 	var dataString = {"FLAG":"getall","page":pageNumber};
 	var htmlCodeToInput="";
 	
@@ -567,6 +596,26 @@ function clickPage(away){
 			pageNumber--;
 		textualSearch();
 	}
+	
+	else if(pageFeed != true){
+		if(away=='next')
+			pageNumber++;
+		else
+			pageNumber--;
+		feedbackSongs();
+	}	
+}
+
+function clickPageFeed(away){
+
+	if(pageFeed != true){
+		if(away=='next')
+			pageNumberFeed++;
+		else
+			pageNumberFeed--;
+		feedbackSongs();
+	}
+	
 	
 }
 

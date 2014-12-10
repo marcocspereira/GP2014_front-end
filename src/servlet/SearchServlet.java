@@ -64,7 +64,7 @@ public class SearchServlet extends HttpServlet {
 				    // Receives text value to search for
 				    String toSearch = request.getParameter("text");
 				    System.out.println("[SearchServlet] pesquisa pelo texto: "+toSearch);
-				    GenericSongPack<SongLight> textSongs = frontendBean.searchAuthorAndTitle(toSearch, page); //TODO CUIDADO, MUDAR PAGINA
+				    GenericSongPack<SongLight> textSongs = frontendBean.searchAuthorAndTitle(toSearch, page); 
 				    
 				    
 				    if (textSongs!=null) {
@@ -96,12 +96,13 @@ public class SearchServlet extends HttpServlet {
 				    	out.write("null");
 				}
 				else if (op.equalsIgnoreCase("getfeedback")) {		// feedback das musicas q estao em analise no sistema
-		
-				    GenericSongPack<SongStatus> songStatus = frontendBean.getSongsStatus(1);//TODO CUIDADO, MUDAR PAGINA
+					int page = Integer.parseInt(request.getParameter("page"));
+				    GenericSongPack<SongStatus> songStatus = frontendBean.getSongsStatus(page);
 
 				    if (songStatus!=null && songStatus.getListContents().size()>0 ) {
-				    	List<SongStatus> songsList = songStatus.getListContents();
-						String json = new Gson().toJson(songsList);
+				    	System.out.println("[SEARCHServlet] numero maximo de paginas!!   "+songStatus.getNumberOfPages());
+				    	//List<SongStatus> songsList = songStatus.getListContents();
+						String json = new Gson().toJson(songStatus);
 						out.write(json);
 				    }else
 				    	out.write("null");

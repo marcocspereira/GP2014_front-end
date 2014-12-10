@@ -41,7 +41,7 @@
 
 		<nav id="top_buttons_div">			
 			<!-- FEEDBACK DOS VIDEOS QUE ESTAO EM PROCESSAMENTO -->
-			<button id="feedback_button" data-toggle="modal" data-target=".bs-example-modal-feedback" onclick="feedbackSongs();">
+			<button id="feedback_button" data-toggle="modal" data-target=".bs-example-modal-feedback" onclick="pageFeed=false; feedbackSongs();">
 				<i class="fa fa-cog"></i>
 			</button>
 			<div class="modal fade bs-example-modal-feedback" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -303,6 +303,15 @@
         				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         				<h4 class="modal-title" id="myModalLabelInputFeedback">Input feedback</h4>
       				</div>
+      				
+      				<nav>
+						<ul class="pager">
+							<li onclick="clickPageFeed('back');" id="backButtonFeed" style="display:none" class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
+							<li onclick="clickPageFeed('next');" id="nextButtonFeed" style="display:none" class="next"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+						</ul>
+					</nav>
+      				
+      				
       				<div class="modal-body" id="importLinkTextFeedback">
       				<!-- feedback goes here -->
       				</div>
@@ -353,10 +362,12 @@
 	<script type="text/javascript">
 		var pageSubject = null;
 		var pageNumber = 1;
-		var totalPages = 1;
+		var pageNumberFeed = 1;
+		//var totalPages = 1;
 		var pageAll = false;
 		var pageText = null;
 		var pageAV = new Array();
+		var pageFeed = false;
 		
 		var checkVideoRep=0;
 		//var serverdata = new Array();
