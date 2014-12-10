@@ -20,7 +20,7 @@ function importLinksByUrl(){
 		
 	if (matches)
 	{
-	    var dataString = {"FLAG":"importlink", "text":import_link, "pages":nr};
+	    var dataString = {"FLAG":"importlink", "text":import_link};
 		
 		$.ajax({
 			type: "GET",
@@ -265,8 +265,20 @@ function textualSearch()
 	console.log("pesquisa por texto");
 	var textSearchIn = $("#textSearchInput").val();
 	
+	if(textSearchIn==pageText)
+		return;
+	
+	if(pageText == null || textSearchIn!=pageText){
+		pageNumber=1;
+		pageText=$("#textSearchInput").val();
+	}
+		
+	pageAll==false
+	pageAV = [];
+	
+	
 	if(textSearchIn != ""){
-		var dataString = {"FLAG":"textsearch", "text":textSearchIn};
+		var dataString = {"FLAG":"textsearch", "text":textSearchIn,"page":pageNumber};
 		var resultFromSearch;
 		var htmlCodeToInput = "";
 		
@@ -281,8 +293,22 @@ function textualSearch()
 				if (data != "null")
 				{	    		
 		    		//paginacao(data);
+					var generic = JSON.parse(data);
+		    		var totalPages = generic.numberOfPages;
+		    		var page = generic.page;
+		    		resultFromSearch = generic.listContents;
+		    		
+		    		if(totalPages ==  page)
+		    			$('#nextButton').css({"display":"none"});
+		    		else
+		    			$('#nextButton').css({"display":"inline"});
+		    		
+		    		if(page ==  1)
+		    			$('#backButton').css({"display":"none"});
+		    		else
+		    			$('#backButton').css({"display":"inline"});
 
-					resultFromSearch = JSON.parse(data);
+					//resultFromSearch = JSON.parse(data);
 					// delete library content to contain the search result
 					$('#library_musics_div').empty();
 					// for each finded music, returned by the SearchServlet
@@ -294,10 +320,10 @@ function textualSearch()
 						
 					});
 					// update pages information
-					pageNumber = data.page;
-					totalPages = data.numberOfPages;
+					//pageNumber = data.page;
+					//totalPages = data.numberOfPages;
 					// print the buttons for next and prev pages
-					htmlCodeToInput += createPageButtons();
+					//htmlCodeToInput += createPageButtons();
 					// print generated code for each music
 					$('#library_musics_div').append(htmlCodeToInput);
 				}
@@ -375,7 +401,7 @@ function searchByAV()
 					htmlCodeToInput += 	createMusicDiv(m, emocolor);	    					
 				});
 				// print the buttons for next and prev pages
-				htmlCodeToInput += createPageButtons();
+				//htmlCodeToInput += createPageButtons();
 				// print generated code for each music
 				$('#library_musics_div').append(htmlCodeToInput);
 	    		
@@ -451,25 +477,6 @@ function createMusicDiv(m, emocolor)
 }
 
 /****************************
- * function that output buttons to previous and next buttons
- ****************************/
-function createPageButtons(){
-	var olderPage = pageNumber + 1;
-	var newerPage = pageNumber - 1;
-	
-	return '<nav>' +
-			+ '<ul class="pager">'
-  				+ '<li class="previous" onclick="nextPageFunction('+newerPage+',"'+pageSubject+'")" id="prevButton">'
-  					+ '<span aria-hidden="true">&larr;</span> Newer'
-    			+ '</li>'
-    			+ '<li class="next" onclick="nextPageFunction('+olderPage+',"'+pageSubject+'")" id="nextButton">'
-    				+ 'Older <span aria-hidden="true">&rarr;</span>'
-    			+ '</li>'
-  			+ '</ul>'
-		+ '</nav>';
-}
-
-/****************************
  * function that should to next or previous page
  ****************************/
 
@@ -479,8 +486,23 @@ function createPageButtons(){
  ****************************/
 function getAllMusicsL(){
 	console.log("load de todas as musicas na BD para library");
-	var dataString = {"FLAG":"getall"};
+	
+	if(pageAll==false){
+		pageNumber=1;
+		pageAll=true;
+	}
+		
+	pageText = null;
+	pageAV = [];
+	var dataString = {"FLAG":"getall","page":pageNumber};
 	var htmlCodeToInput="";
+	
+	/*
+	var pageAll = false;
+	var pageText = null;
+	var pageAV = new Array();
+	*/
+	
 	$.ajax({
 		type: "GET",
 	    data:dataString,
@@ -492,8 +514,20 @@ function getAllMusicsL(){
 	    	else
 	    	{
 	    		//paginacao(data);
-
-	    		var musics = JSON.parse(data);
+	    		var generic = JSON.parse(data);
+	    		var totalPages = generic.numberOfPages;
+	    		var page = generic.page;
+	    		var musics = generic.listContents;
+	    		
+	    		if(totalPages ==  page)
+	    			$('#nextButton').css({"display":"none"});
+	    		else
+	    			$('#nextButton').css({"display":"inline"});
+	    		
+	    		if(page ==  1)
+	    			$('#backButton').css({"display":"none"});
+	    		else
+	    			$('#backButton').css({"display":"inline"});
 	    		
 	    		// delete library content to contain the search result
 				$('#library_musics_div').empty();
@@ -505,12 +539,34 @@ function getAllMusicsL(){
 					htmlCodeToInput += 	createMusicDiv(m, emocolor);	    					
 				});
 				// print the buttons for next and prev pages
-				htmlCodeToInput += createPageButtons();
+				//htmlCodeToInput += createPageButtons();
 				// print generated code for each music
 				$('#library_musics_div').append(htmlCodeToInput);
 	    	}
 	 	}
 	});
+	
+}
+
+function clickPage(away){
+
+	//var pageAV = new Array();
+	
+	if(pageAll==true){
+		if(away=='next')
+			pageNumber++;
+		else
+			pageNumber--;
+		getAllMusicsL();
+	}
+	
+	else if(pageText != null){
+		if(away=='next')
+			pageNumber++;
+		else
+			pageNumber--;
+		textualSearch();
+	}
 	
 }
 

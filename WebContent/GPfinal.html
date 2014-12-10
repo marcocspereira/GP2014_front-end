@@ -157,7 +157,7 @@
         								</div>
         								<input type="button" class="btn btn-default fa fa-search" value="Search" onclick="textualSearch();">
         								<i id="xesquerdo" style="padding-left:5px;display:none;" class="fa fa-close" onclick="closeSearch();"></i>
-								      </div>
+								    </div>
 								</div>
 								<div id="emotion_search_div">
 									<label for="emotionChosen"> Emotion</label>
@@ -206,6 +206,15 @@
   									</div>
 								</div>
 								<i id="xdireito" style="padding-left:5px;display:none;" class="fa fa-close" onclick="closeSearch();"></i>
+								</div>
+								
+								<div class="navbar-form navbar-left">
+									<nav>
+										<ul class="pager">
+											<li onclick="clickPage('back');" id="backButton" style="display:none" class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
+											<li onclick="clickPage('next');" id="nextButton" style="display:none" class="next"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+										</ul>
+									</nav>
 								</div>
 							</div>
 							<!-- FIM DE PESQUISA -->
@@ -344,7 +353,7 @@
 	<script type="text/javascript">
 		var pageSubject = null;
 		var pageNumber = 1;
-		var totaPages = 1;
+		var totalPages = 1;
 		var pageAll = false;
 		var pageText = null;
 		var pageAV = new Array();

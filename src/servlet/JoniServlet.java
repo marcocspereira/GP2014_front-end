@@ -42,7 +42,26 @@ public class JoniServlet extends HttpServlet {
 	    frontEndBean.addTestSong();
 	}
 	else if (request.getParameter("send") != null) {
-	    frontEndBean.processLink("https://www.youtube.com/watch?v=-xfKU31v3Hc");
+	    //frontEndBean.processLink("https://www.youtube.com/watch?v=-xfKU31v3Hc");
+		frontEndBean.processLink("https://www.youtube.com/watch?v=9dgng_ekbV0&spfreload=10");
+
+		frontEndBean.processLink("https://www.youtube.com/watch?v=s3P9fyJEu6E&spfreload=10");
+
+		frontEndBean.processLink("https://www.youtube.com/watch?v=Vf43LCtGrj4&spfreload=10");
+
+		frontEndBean.processLink("https://www.youtube.com/watch?v=VNmvwz_zseM&spfreload=10");
+
+		frontEndBean.processLink("https://www.youtube.com/watch?v=aS85AvLl9Ik&spfreload=10");
+
+		frontEndBean.processLink("https://www.youtube.com/watch?v=4cRzD42JITE&spfreload=10");
+
+		frontEndBean.processLink("https://www.youtube.com/watch?v=j9Zec7RORh4&spfreload=10");
+
+		frontEndBean.processLink("https://www.youtube.com/watch?v=EbB4PP4HknU&spfreload=10");
+
+		frontEndBean.processLink("https://www.youtube.com/watch?v=sbRPGGJQao4&spfreload=10");
+
+		frontEndBean.processLink("https://www.youtube.com/watch?v=GFQYaoiIFh8&spfreload=10");
 	}
 	/*else if (request.getParameter("queue") != null) {
 	    frontEndBean.addToWorkingQueue(frontEndBean.getSongById(1));

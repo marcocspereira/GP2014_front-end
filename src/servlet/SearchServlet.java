@@ -63,15 +63,16 @@ public class SearchServlet extends HttpServlet {
 		
 				if (op.equalsIgnoreCase("textsearch"))
 				{
+					int page = Integer.parseInt(request.getParameter("page"));
 				    // Receives text value to search for
 				    String toSearch = request.getParameter("text");
 				    System.out.println("[SearchServlet] pesquisa pelo texto: "+toSearch);
-				    GenericSongPack<SongLight> textSongs = frontendBean.searchAuthorAndTitle(toSearch, 1); //TODO CUIDADO, MUDAR PAGINA
+				    GenericSongPack<SongLight> textSongs = frontendBean.searchAuthorAndTitle(toSearch, page); //TODO CUIDADO, MUDAR PAGINA
 				    
 				    
 				    if (textSongs!=null) {
-				    	List<SongLight> songsList = textSongs.getListContents();
-				    	String json = new Gson().toJson(songsList);
+				    	//List<SongLight> songsList = textSongs.getListContents();
+				    	String json = new Gson().toJson(textSongs);
 						out.write(json);
 				    }
 				    else
@@ -111,11 +112,12 @@ public class SearchServlet extends HttpServlet {
 				}
 				// TODO Returns all musics unfiltered
 				else if (op.equalsIgnoreCase("getall")) {
-				    GenericSongPack<SongLight> songs = frontendBean.getReadyLighSongs(1);
+					int page = Integer.parseInt(request.getParameter("page"));
+				    GenericSongPack<SongLight> songs = frontendBean.getReadyLighSongs(page);
 		
-				    List<SongLight> songsList = songs.getListContents();
+				    //List<SongLight> songsList = songs.getListContents();
 		
-				    String json = new Gson().toJson(songsList);
+				    String json = new Gson().toJson(songs);
 				    out.write(json);
 				}
 				// TODO Returns music through it's id
