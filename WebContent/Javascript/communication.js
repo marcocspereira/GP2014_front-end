@@ -32,7 +32,7 @@ function importLinksByUrl(){
 		    	{
 		    		
 		    		link = JSON.parse(data);
-		    		alert(link.status);
+		    		//alert(link.status);
 		    		if(link.status == "OK"){
 		    			feedback = '<div class="alert alert-success" role="alert">' +
 		    					'<strong>'+link.status+':</strong> ' + link.url +
@@ -45,6 +45,7 @@ function importLinksByUrl(){
 		    			'</div>'; 
 		    		}
 		    		// write answer
+		    		$("#importLinkTextFeedback").empty();
 		    		$("#importLinkTextFeedback").append(feedback);
 		    		// hide input modal
 		    		$("#ModalInputLink").modal('hide');
@@ -58,6 +59,8 @@ function importLinksByUrl(){
 		    	}
 		 	}
 		});
+	}else{
+		$('#url_input_id').css({"background-color":"#f2dede"})
 	}
 
 }
@@ -78,6 +81,7 @@ function importFile(){
 	reader.onload = function(e) {
 		var contents = e.target.result;
 		var urls = contents.split("\n");
+		urls.pop(); // remove ultima linha criada pelo split
 		var urlconf = new Array();		// good URLs 
 		var urlnaoconf = new Array();	// bad URLs
 		
@@ -92,14 +96,15 @@ function importFile(){
 			}
 			else{
 				urlnaoconf.push(value);
-				// show URLs that don't match with youtube
-				$.each(urlnaoconf, function(i, l) {
-					htmlCodeToInsert += '<div class="alert alert-danger" role="alert">' +
-					'<strong>Not from YouTube:</strong> ' + l +
-					'</div>';
-				});				 
-				
+
 			}
+		});
+
+		// show URLs that don't match with youtube
+		$.each(urlnaoconf, function(i, l) {
+			htmlCodeToInsert += '<div class="alert alert-danger" role="alert">' +
+			'<strong>INVALID:</strong> ' + l +
+			'</div>';
 		});
 		
 		var dataString = {"FLAG":"importfile", "text":JSON.stringify(urlconf)};
@@ -123,12 +128,13 @@ function importFile(){
 		    			}
 		    			else{
 		    				htmlCodeToInsert += '<div class="alert alert-danger" role="alert">' +
-	    							'<strong>'+link.status+':</strong> ' + link.url +
+	    							'<strong>'+m.status+':</strong> ' + m.url +
 	    					'</div>'; 
 		    			}
 		    		});
 		    		
 		    		// write the answer
+		    		$("#importLinkTextFeedback").empty();
 		    		$("#importLinkTextFeedback").append(htmlCodeToInsert);
 		    		// hide input modal
 		    		$("#ModalInputLinkFile").modal('hide');
@@ -172,8 +178,13 @@ function feedbackSongs()
 	    {
 	    	if (data != "null")
 	    	{
+	    		//fa-spin
+	    		//feedbackIcon
 	    		feedbackMusics = JSON.parse(data);
 	    		
+    			$('#feedbackIcon').addClass("fa-spin");
+	    		
+	    			
 	    		$('#accordion').empty();
 	    		
 	    		// URLs that should go to the SearchServlet
@@ -209,7 +220,8 @@ function feedbackSongs()
 	    	}
 	    	else
 	    	{
-	    		console.log("falha a submeter urls de ficheiro");
+	    		$('#feedbackIcon').removeClass("fa-spin");
+	    		console.log("nada a receber [feedback]");
 	    	}
 	 	}
 	});
@@ -330,6 +342,7 @@ function searchByAV()
 					"minValence":minValence, "maxValence":maxValence};
 
 	var resultFromSearch;
+	var htmlCodeToInput = "";
 	$('#xdireito').css({"display":"inline"});
 	$.ajax({
 		type: "GET",
@@ -406,6 +419,7 @@ function setMainColor(emotion){
  ****************************/
 function createMusicDiv(m, emocolor)
 {
+	//Math.round(num * 100) / 100
 	var musicCode="";
 	musicCode +=  '<div class="music_div" style="background-color: '+emocolor+';">' +
 				'<img alt="" src="' + m.thumbnailPath + '" class="thumbnail_img" />' +
@@ -413,7 +427,7 @@ function createMusicDiv(m, emocolor)
 					'<strong>' + m.artist + ' <br /> ' + m.title + '</strong>' +	
 				'</div>' +
 				'<div class="av_info_div">' +
-					'Arousal: '+ m.arousal +'<br /> Valence: ' + m.valence + 
+					'Arousal: '+ Math.round(m.arousal*1000)/1000 +'<br /> Valence: ' + Math.round(m.valence*1000)/1000 + 
 				'</div>' +
 				'<div class="av_info_div">' +
 					'<span class="label label-default">' + m.dominantEmotion + 
@@ -475,7 +489,7 @@ function getMusic(songId){
 	console.log("play numa musica");
 	globalID=songId;
 	var dataString = {"FLAG":"getmusic", "songId":songId};	// TODO rever no lado da servlet
-	
+	var i;
 	$('#seccaodas3janelas').css({'display':'block'});
 	//location.reload(true);
 	$.ajax({
@@ -514,6 +528,13 @@ function getMusic(songId){
 	    		//$('#newBar').empty();
 	    		//$('.legacyDiv').empty();
 	    		setVideoId(music.youtubeId);
+	    		
+	    		for(i=0;i<music.avMoodTrack.length;i++){
+	    			music.avMoodTrack[i].arousal=Math.round(music.avMoodTrack[i].arousal*1000)/1000;
+	    			music.avMoodTrack[i].valence=Math.round(music.avMoodTrack[i].valence*1000)/1000;
+	    		}
+	    		
+	    		
 	    		setEmotionList(music.avMoodTrack)
 	    		var tag = document.createElement('script');
 	    		tag.src = "https://www.youtube.com/iframe_api";

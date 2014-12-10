@@ -98,26 +98,14 @@ public class SearchServlet extends HttpServlet {
 				}
 				else if (op.equalsIgnoreCase("getfeedback")) {		// feedback das musicas q estao em analise no sistema
 		
-				    //GenericSongPack<SongStatus> songStatus = frontendBean.getSongsStatus(1);//TODO CUIDADO, MUDAR PAGINA
-					
-					//CONTINUACAO DE CODIGO DE TESTO VISTO NAO EXISTIR AINDA INFORMACAO
-				    ArrayList<SongStatus> singthesong = new ArrayList<SongStatus>();
-				    AVMoodTrack lolo = new AVMoodTrack(1, 1, 1, 1);
-				    Collection<AVMoodTrack> caral = new ArrayList<AVMoodTrack>();
-				    caral.add(lolo);
-				    Artist artist = new Artist("chief of them");
-				    edu.dei.gp.jpa.Song s = new edu.dei.gp.jpa.Song("does not push", "4b95MCszOxY", "file.txt",
-					    "sim eu sei", 1, "c:\\ficheiro.png", artist, caral, 1, 1, DominantEmotion.Anxiety);
-				    SongStatus ss = new SongStatus(s);
-				    singthesong.add(ss);
-				    GenericSongPack<SongStatus> songStatus = new GenericSongPack<SongStatus>(singthesong, 1, 1);
-				    List<SongStatus> asio = new ArrayList<SongStatus>();
-				    asio.add(ss);
+				    GenericSongPack<SongStatus> songStatus = frontendBean.getSongsStatus(1);//TODO CUIDADO, MUDAR PAGINA
+				    List<SongStatus> songsList = songStatus.getListContents();
 				    
-				    if (songStatus != null) {
-						String json = new Gson().toJson(asio);
+				    if (songsList != null) {
+						String json = new Gson().toJson(songsList);
 						out.write(json);
-				    }
+				    }else
+				    	out.write("null");
 		
 				}
 				// TODO Returns all musics unfiltered
