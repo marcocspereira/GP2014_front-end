@@ -17,9 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import common.Emotion;
-import common.SongTest;
-import common.Test;
 import edu.dei.gp.containers.GenericSongPack;
 import edu.dei.gp.containers.SongLight;
 import edu.dei.gp.containers.SongStatus;
