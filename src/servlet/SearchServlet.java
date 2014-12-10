@@ -100,9 +100,9 @@ public class SearchServlet extends HttpServlet {
 				else if (op.equalsIgnoreCase("getfeedback")) {		// feedback das musicas q estao em analise no sistema
 		
 				    GenericSongPack<SongStatus> songStatus = frontendBean.getSongsStatus(1);//TODO CUIDADO, MUDAR PAGINA
-				    List<SongStatus> songsList = songStatus.getListContents();
-				    
-				    if (songsList != null) {
+
+				    if (songStatus!=null && songStatus.getListContents().size()>0 ) {
+				    	List<SongStatus> songsList = songStatus.getListContents();
 						String json = new Gson().toJson(songsList);
 						out.write(json);
 				    }else
