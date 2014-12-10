@@ -293,6 +293,9 @@ function textualSearch()
 						htmlCodeToInput += 	createMusicDiv(m, emocolor);
 						
 					});
+					// update pages information
+					pageNumber = data.page;
+					totalPages = data.numberOfPages;
 					// print the buttons for next and prev pages
 					htmlCodeToInput += createPageButtons();
 					// print generated code for each music
@@ -456,10 +459,10 @@ function createPageButtons(){
 	
 	return '<nav>' +
 			+ '<ul class="pager">'
-  				+ '<li class="previous" onclick="nextPageFunction('+newerPage+',"'+pageSubject+'")" id="">'
+  				+ '<li class="previous" onclick="nextPageFunction('+newerPage+',"'+pageSubject+'")" id="prevButton">'
   					+ '<span aria-hidden="true">&larr;</span> Newer'
     			+ '</li>'
-    			+ '<li class="next" onclick="nextPageFunction('+olderPage+',"'+pageSubject+'")">'
+    			+ '<li class="next" onclick="nextPageFunction('+olderPage+',"'+pageSubject+'")" id="nextButton">'
     				+ 'Older <span aria-hidden="true">&rarr;</span>'
     			+ '</li>'
   			+ '</ul>'
