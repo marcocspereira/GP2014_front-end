@@ -1,3 +1,4 @@
+
 /******************************************************************************************
  ******************************************************************************************
  									INSERT VIDEOS 
@@ -19,7 +20,7 @@ function importLinksByUrl(){
 		
 	if (matches)
 	{
-	    var dataString = {"FLAG":"importlink", "text":import_link};
+	    var dataString = {"FLAG":"importlink", "text":import_link, "pages":nr};
 		
 		$.ajax({
 			type: "GET",
@@ -62,7 +63,6 @@ function importLinksByUrl(){
 	}else{
 		$('#url_input_id').css({"background-color":"#f2dede"})
 	}
-
 }
 
 
@@ -280,6 +280,8 @@ function textualSearch()
 			{
 				if (data != "null")
 				{	    		
+		    		//paginacao(data);
+
 					resultFromSearch = JSON.parse(data);
 					// delete library content to contain the search result
 					$('#library_musics_div').empty();
@@ -288,8 +290,11 @@ function textualSearch()
 						// determine the color (red, yellow, green, blue) by predominant emotion
 						var emocolor = setMainColor(m.dominantEmotion);
 						// code to generate for each founded music
-						htmlCodeToInput += 	createMusicDiv(m, emocolor);	    					
+						htmlCodeToInput += 	createMusicDiv(m, emocolor);
+						
 					});
+					// print the buttons for next and prev pages
+					htmlCodeToInput += createPageButtons();
 					// print generated code for each music
 					$('#library_musics_div').append(htmlCodeToInput);
 				}
@@ -353,6 +358,7 @@ function searchByAV()
 	    	$('#myModal').modal('hide');
 	    	if (data != "null")
 	    	{
+	    		//paginacao(data);
 	    		console.log("encontramos essa musica de acordo com AV! Vamos listar isso na library");
 	    		resultFromSearch = JSON.parse(data);
 	    		
@@ -365,7 +371,8 @@ function searchByAV()
 					// code to generate for each founded musics
 					htmlCodeToInput += 	createMusicDiv(m, emocolor);	    					
 				});
-    		
+				// print the buttons for next and prev pages
+				htmlCodeToInput += createPageButtons();
 				// print generated code for each music
 				$('#library_musics_div').append(htmlCodeToInput);
 	    		
@@ -437,9 +444,31 @@ function createMusicDiv(m, emocolor)
 	musicCode+=		'</div>' +
 				'<div class="fa fa-play fa-3x play_div" onclick="getMusic(' + m.songId + ')"></div>' +
 			'</div>';
-				//console.log("som " +m.songId);
 	return musicCode;
 }
+
+/****************************
+ * function that output buttons to previous and next buttons
+ ****************************/
+function createPageButtons(){
+	var olderPage = pageNumber + 1;
+	var newerPage = pageNumber - 1;
+	
+	return '<nav>' +
+			+ '<ul class="pager">'
+  				+ '<li class="previous" onclick="nextPageFunction('+newerPage+',"'+pageSubject+'")" id="">'
+  					+ '<span aria-hidden="true">&larr;</span> Newer'
+    			+ '</li>'
+    			+ '<li class="next" onclick="nextPageFunction('+olderPage+',"'+pageSubject+'")">'
+    				+ 'Older <span aria-hidden="true">&rarr;</span>'
+    			+ '</li>'
+  			+ '</ul>'
+		+ '</nav>';
+}
+
+/****************************
+ * function that should to next or previous page
+ ****************************/
 
 /****************************
  * function that returns all the available musics
@@ -459,7 +488,8 @@ function getAllMusicsL(){
 	    	
 	    	else
 	    	{
-	    		
+	    		//paginacao(data);
+
 	    		var musics = JSON.parse(data);
 	    		
 	    		// delete library content to contain the search result
@@ -471,7 +501,8 @@ function getAllMusicsL(){
 					// code to generate for each founded musics
 					htmlCodeToInput += 	createMusicDiv(m, emocolor);	    					
 				});
-    		
+				// print the buttons for next and prev pages
+				htmlCodeToInput += createPageButtons();
 				// print generated code for each music
 				$('#library_musics_div').append(htmlCodeToInput);
 	    	}

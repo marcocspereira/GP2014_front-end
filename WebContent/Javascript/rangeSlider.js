@@ -15,42 +15,33 @@ function setValuesAV(){
 		maxArousal = 1;
 		minValence = 0;
 		maxValence = 1;
-		buttonBackgroundColor = "red";	// TODO remove
 	}
 	else if(emotionChosen == "anx"){
 		minArousal = 0;
 		maxArousal = 1;
 		minValence = -1;
 		maxValence = 0;
-		buttonBackgroundColor = "yellow";	// TODO remove
 	}
 	else if(emotionChosen == "mel"){
 		minArousal = -1;
 		maxArousal = 0;
 		minValence = -1;
 		maxValence = 0;
-		buttonBackgroundColor = "green";	// TODO remove
 	}
 	else if(emotionChosen == "con"){
 		minArousal = -1;
 		maxArousal = 0;
 		minValence = 0;
 		maxValence = 1;
-		buttonBackgroundColor = "blue";	// TODO remove
 	}
 	else{
 		minArousal = -1;
 		maxArousal = 1;
 		minValence = -1;
 		maxValence = 1;
-		buttonBackgroundColor = "#E8E8E8";	// TODO remove
 	}
 	setArousal();
-	setValence();
-	
-	document.getElementById("search_button").style.backgroundColor = buttonBackgroundColor;
-	document.getElementById("search_button").style.color = "white";
-	
+	setValence();	
 }
 
 // AROUSAL
