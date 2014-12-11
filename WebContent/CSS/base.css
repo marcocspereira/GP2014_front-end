@@ -22,6 +22,10 @@ body{
 	background-color:#5C7EFB;
 }
 
+#backButton:hover,#nextButton:hover,#backButtonFeed:hover,#nextButtonFeed:hover{
+	cursor: pointer;
+}
+
 .searchFilter{
 	background-image: url('../img/search_filter.png');
 	background-repeat: no-repeat;
