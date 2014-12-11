@@ -181,8 +181,6 @@ function feedbackSongs()
 	console.log("mostrar feedback "+pageFeed);
 	var dataString = {"FLAG":"getfeedback","page":pageNumberFeed};
 	var htmlCodeToInput = "";
-	
-	
 		
 	//pageText = null;
 	//pageAV = [];
@@ -261,16 +259,16 @@ function feedbackType(state,stateText)
 {
 	var code = "";
 	if(state=='UNSTARTED'){
-		code += '<li class="list-group-item feedback_notstarted_li"><i class="fa fa-plug"></i><strong>' + stateText + '</strong>' + state + '</li>';
+		code += '<li class="list-group-item feedback_notstarted_li"><i class="fa fa-plug"></i><strong>' + stateText + '</strong> ' + state.statusName + '</li>';
 	}
 	else if(state=='QUEUED' || state=='SEGMENTING' || state=='OCR_WORKING' || state=='PRE_PROCESSING' || state=='ANALYSING'){
-		code += '<li class="list-group-item feedback_processing_li"><i class="fa fa-cog fa-spin"></i><strong>' + stateText + '</strong>' + state + '</li>';
+		code += '<li class="list-group-item feedback_processing_li"><i class="fa fa-cog fa-spin"></i><strong>' + stateText + '</strong> ' + state.statusName + '</li>';
 	}
 	else if(state=='DONE'){
-		code += '<li class="list-group-item feedback_ok_li"><i class="fa fa-check"></i><strong>' + stateText + '</strong>' + state + '</li>';
+		code += '<li class="list-group-item feedback_ok_li"><i class="fa fa-check"></i><strong>' + stateText + '</strong> ' + state.statusName + '</li>';
 	}
 	else if(state=='ERROR'){
-		code += '<li class="list-group-item feedback_problem_li"><i class="fa fa-remove"></i><strong>' + stateText + '</strong>' + state + '</li>';
+		code += '<li class="list-group-item feedback_problem_li"><i class="fa fa-remove"></i><strong>' + stateText + '</strong> ' + state.statusName + '</li>';
 	}
 	
 	return code;
@@ -591,8 +589,6 @@ function getAllMusicsL(){
 }
 
 function clickPage(away){
-
-	
 	
 	if(pageAll==true){
 		console.log('mudança de pagina principal ALL');
@@ -610,8 +606,7 @@ function clickPage(away){
 		else
 			pageNumber--;
 		textualSearch();
-	}
-	
+	}	
 }
 
 function clickPageFeed(away){
@@ -624,7 +619,6 @@ function clickPageFeed(away){
 		pageNumberFeed--;
 	feedbackSongs();
 	//}
-	
 	
 }
 
