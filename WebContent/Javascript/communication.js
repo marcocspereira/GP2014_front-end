@@ -419,7 +419,23 @@ function searchByAV()
 	    	{
 	    		//paginacao(data);
 	    		console.log("encontramos essa musica de acordo com AV! Vamos listar isso na library");
-	    		resultFromSearch = JSON.parse(data);
+	    		//resultFromSearch = JSON.parse(data);
+	    		
+	    		var generic = JSON.parse(data);
+	    		var totalPages = generic.numberOfPages;
+	    		var page = generic.page;
+	    		resultFromSearch = generic.listContents;
+	    		
+	    		if(totalPages ==  page)
+	    			$('#nextButton').css({"display":"none"});
+	    		else
+	    			$('#nextButton').css({"display":"inline"});
+	    		
+	    		if(page ==  1)
+	    			$('#backButton').css({"display":"none"});
+	    		else
+	    			$('#backButton').css({"display":"inline"});
+	    		
 	    		
 	    		// delete library content to contain the search result
 				$('#library_musics_div').empty();
