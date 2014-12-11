@@ -232,7 +232,7 @@ function feedbackSongs()
 	    									'</div>' +
 	    									'<div id="collapse'+ m.songId +'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading'+ m.songId +'">' +
 	    										'<div class="panel-body">' +
-	    											'<ul class="list-group">' +
+	    											'<ul class="list-group" >' +
 	    												feedbackType(m.youtubeStatus, "YoutubeCrawlerStatus")	+
 	    												feedbackType(m.lyricsStatus, "LyricsCrawlerStatus")	+
 	    												feedbackType(m.ocrStatus, "OCRStatus")	+
@@ -259,18 +259,18 @@ function feedbackSongs()
  ****************************/
 function feedbackType(state,stateText)
 {
-	var code = '<li class="list-group-item ';
+	var code = "";
 	if(state=='UNSTARTED'){
-		code += 'feedback_notstarted_li"><i class="fa fa-plug"></i><strong>' + stateText + '</strong>' + state + '</li>';
+		code += '<li class="list-group-item feedback_notstarted_li"><i class="fa fa-plug"></i><strong>' + stateText + '</strong>' + state + '</li>';
 	}
 	else if(state=='QUEUED' || state=='SEGMENTING' || state=='OCR_WORKING' || state=='PRE_PROCESSING' || state=='ANALYSING'){
-		code += 'feedback_processing_li"><i class="fa fa-cog fa-spin"></i><strong>' + stateText + '</strong>' + state + '</li>';
+		code += '<li class="list-group-item feedback_processing_li"><i class="fa fa-cog fa-spin"></i><strong>' + stateText + '</strong>' + state + '</li>';
 	}
 	else if(state=='DONE'){
-		code += 'feedback_ok_li"><i class="fa fa-check"></i><strong>' + stateText + '</strong>' + state + '</li>';
+		code += '<li class="list-group-item feedback_ok_li"><i class="fa fa-check"></i><strong>' + stateText + '</strong>' + state + '</li>';
 	}
 	else if(state=='ERROR'){
-		code += 'feedback_problem_li"><i class="fa fa-remove"></i><strong>' + stateText + '</strong>' + state + '</li>';
+		code += '<li class="list-group-item feedback_problem_li"><i class="fa fa-remove"></i><strong>' + stateText + '</strong>' + state + '</li>';
 	}
 	
 	return code;

@@ -25,7 +25,7 @@ import edu.dei.gp.jpa.Song;
 @WebServlet("/SearchServlet")
 public class SearchServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static final boolean debug = false;
+    private static final boolean debug = true;
 
     @EJB
     FrontEndBeanRemote frontendBean;
