@@ -143,12 +143,12 @@
 								</div>
 								<div id="emotion_search_div">
 									<label for="emotionChosen"> Emotion</label>
-									<select name="emotionChosen" id="emotionChosen" onchange="setValuesAV(); searchByAV();">
-  										<option value="all" class="all">All emotions</option>
-  										<option value="hap" class="hap">Happiness</option>
-  										<option value="anx" class="anx">Anxiety</option>
-  										<option value="mel" class="mel">Melancholy</option>
-  										<option value="con" class="con">Contentment</option>
+									<select name="emotionChosen" id="emotionChosen" >
+  										<option class ="all" value="all">All emotions</option>
+  										<option class ="hap" value="hap"> Happiness</option>
+  										<option class ="anx" value="anx">Anxiety</option>
+  										<option class ="mel" value="mel">Melancholy</option>
+  										<option class ="con" value="con">Contentment</option>
 									</select>
 								
 								<!-- BUTTON TO SEARCH FOR AROUSAL AND VALENCE -->
@@ -360,7 +360,13 @@
 		      return false;
 		    }
 		  });
-
+		
+		var select = document.getElementById('emotionChosen');
+		select.onchange = function () {
+		    select.className = this.options[this.selectedIndex].className;
+		    setValuesAV(); 
+		    searchByAV();
+		}
 		  
 	</script>
 

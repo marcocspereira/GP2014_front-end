@@ -106,5 +106,10 @@ function closeSearch(){
 	$('#xdireito').css({"display":"none"});
 	$('#xesquerdo').css({"display":"none"});
 	
+	$('#emotionChosen option:contains("All emotions")').prop('selected', true);
+	$("#emotionChosen").removeClass();
+	$('#emotionChosen').addClass("all");
+	
+	
 	getAllMusicsL();
 }
