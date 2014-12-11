@@ -19,10 +19,12 @@ import edu.dei.gp.ejb.remotes.FrontEndBeanRemote;
 
 /**
  * Servlet implementation class SearchServlet
+ * debug variable should be changed to "true" in order to print debug feedback
  */
 @WebServlet("/InputServlet")
 public class InputServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private static final boolean debug = false;
 
     @EJB
     private FrontEndBeanRemote frontendBean;
@@ -32,55 +34,72 @@ public class InputServlet extends HttpServlet {
      */
     public InputServlet() {
 	super();
-	// TODO Auto-generated constructor stub
     }
 
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     *
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	// TODO Auto-generated method stub
 
-		if (!request.getParameterMap().isEmpty())
-		{
-		    if (request.getParameter("FLAG") != null)
-		    {
-				String op = request.getParameter("FLAG");
-				System.out.println("[SearchServlet] Executing Operation: " + op);
-		
-				/*RequestDispatcher dispatcher = null;
-				HttpSession session = request.getSession(true);*/
-				PrintWriter out = response.getWriter();
-		
-				if (op.equalsIgnoreCase("importfile")) {
-				    // Receives links and sends to FrontEndBean
-				    List<String> urlsGson = new Gson().fromJson(request.getParameter("text"), List.class);
-				    ArrayList<String> urls = new ArrayList<String>();
-				    for(String x : urlsGson){
-				    	urls.add(x);
-				    	//System.out.println(x);
-				    }
-				    ArrayList<InsertionResponse> insertionResponse = frontendBean.processLinks(urls);
-			
-				    // Sends response to javascript so it can be displayed on html
-				    String json = new Gson().toJson(insertionResponse);
-				    out.write(json);
-		
-				}
-				else if (op.equalsIgnoreCase("importlink")) {
-				    // Receives links and sends to FrontEndBean
-				    String url = request.getParameter("text");
-	
-				    InsertionResponse insertionResponse = frontendBean.processLink(url);
-				    
-				    // Sends response to javascript so it can be displayed on html
-				    String json = new Gson().toJson(insertionResponse);
-				    out.write(json);
-		
-				}
-		    }
+	if (!request.getParameterMap().isEmpty())
+	{
+	    if (request.getParameter("FLAG") != null)
+	    {
+		String op = request.getParameter("FLAG");
+
+		String json = null;
+
+		if (debug) {
+		    System.out.println("[SearchServlet] Executing Operation: " + op);
 		}
+
+		PrintWriter out = response.getWriter();
+
+		/**
+		 * IMPORT LINKS FROM A .TXT FILE
+		 * receives a list in JSON and converts to a ArrayList
+		 * communicates with frontendBean
+		 * for each URL sent, receives a feedback
+		 * sends the response via JSON to AJAX
+		 */
+		if (op.equalsIgnoreCase("importfile")) {
+		    // Receives links and sends to FrontEndBean
+		    List<String> urlsGson = new Gson().fromJson(request.getParameter("text"), List.class);
+		    ArrayList<String> urls = new ArrayList<String>();
+		    for (String x : urlsGson) {
+			urls.add(x);
+			if (debug) {
+			    System.out.println(x);
+			}
+		    }
+		    ArrayList<InsertionResponse> insertionResponse = frontendBean.processLinks(urls);
+
+		    // Sends response to JavaScript so it can be displayed on HTML
+		    json = new Gson().toJson(insertionResponse);
+
+		}
+		/**
+		 * IMPORT LINKS FROM A SINGLE URL
+		 * receives a single URL
+		 * communicates with frontendBean
+		 * receives a feedback
+		 * sends the response via JSON to AJAX
+		 */
+		else if (op.equalsIgnoreCase("importlink")) {
+		    // Receives a single link and sends to FrontEndBean
+		    String url = request.getParameter("text");
+		    InsertionResponse insertionResponse = frontendBean.processLink(url);
+
+		    // Sends response to JavaScript so it can be displayed on HTML
+		    json = new Gson().toJson(insertionResponse);
+
+		}
+
+		out.write(json);
+	    }
+	}
     }
 
     /**
@@ -88,7 +107,6 @@ public class InputServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	// TODO Auto-generated method stub
     }
 
 }

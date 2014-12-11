@@ -63,12 +63,15 @@ function initTour(){
 }
 
 
-/*faz update a emotion e scum bar para redimensionarem com o redimensionamento da janela. tb é usada para as mudar de sitio com o colapse da library*/
+/*
+ * updates a emotion and "scum bar" to resize with window resize.
+ * it is also used to change with library's  collapse
+ */
 function updateBarsPos(ver){
 		var extraHeight = 0;
 		var extraWidth = 0;
 		
-		/*caso seja clicada a library*/
+		/* if library is clicked */
 		if(ver == 1){
 			if ($('#collapseLibrary').hasClass('in')){//($('#library_button').hasClass('collapsed'))
 				extraHeight= -230	;
@@ -82,12 +85,9 @@ function updateBarsPos(ver){
 		//console.log("update "+extraHeight);
 		var scumtop = $('#progressBar').position().top-31+extraHeight;
 		var scumw = $('#progressBar').width()+extraWidth;
-		//console.log(scumtop);
-		//console.log(scumw);
-		/*altera a scumdiv*/
+		/* change scumdiv */
 		$('#scumDiv').css({"background-color": '#FFFFFF', "width": scumw, "height": '27px', "position": 'absolute', "top": scumtop});
-		//$('#scumDiv').show();
-		/*altera barra de emocao*/
+		/* it changes emotion bar */
 		$(".legacydiv").each(function( index ) {
 			  var emotionbartop = $('#progressBar').position().top-40+extraHeight+8;
 			  var emotionbarleft = $('#progressBar').position().left;
@@ -97,8 +97,7 @@ function updateBarsPos(ver){
 				$(this).css({"position": 'absolute' , "width" : progbarW, "top": emotionbartop});
 			  else
 			  	$(this).css({"position": 'absolute' , "width" : progbarW, "top": emotionbartop , "left": index*progbarW+emotionbarleft});
-			  
-			  //$(this).show();
+
 		});
 	}	
 

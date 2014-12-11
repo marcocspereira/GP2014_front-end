@@ -39,8 +39,8 @@
 			</div>
 		</div>
 
-		<nav id="top_buttons_div">			
-			<!-- FEEDBACK DOS VIDEOS QUE ESTAO EM PROCESSAMENTO -->
+		<nav id="top_buttons_div">
+			<!-- FEEDBACK FOR PROCESSING VIDEOS -->
 			<button id="feedback_button" data-toggle="modal" data-target=".bs-example-modal-feedback" onclick="pageFeed=false; feedbackSongs();">
 				<i class="fa fa-cog"></i>
 			</button>
@@ -49,28 +49,10 @@
     				<div class="modal-content">
       					<h1><i class="fa fa-cog" id="feedbackIcon"></i> FEEDBACK</h1>
       					<br /> <br />
-      					<!-- ACCORDION COM AS MUSICAS EM ANALISE NO SISTEMA -->
+      					<!-- BOOTSTRAP ACCORDION WITH PROCESSING VIDEOS IN THE SYSTEM -->
       					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">      					
   							
-  							<!-- <div class="panel panel-default">
-    							<div class="panel-heading" role="tab" id="headingThree">
-      								<h4 class="panel-title">
-        								<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          									MUSICA N
-        								</a>
-      								</h4>
-    							</div>
-    							<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-      								<div class="panel-body">
-        								<ul class="list-group">
-  											<li class="list-group-item feedback_ok_li"><i class="fa fa-check"></i> Validating Link YouTube</li>
-  											<li class="list-group-item feedback_ok_li"><i class="fa fa-check"></i> Segmentation</li>
-  											<li class="list-group-item feedback_processing_li"><i class="fa fa-cog fa-spin"></i> OCR</li>
-  											<li class="list-group-item feedback_processing_li"><i class="fa fa-cog fa-spin"></i> etc.</li>
-										</ul>
-      								</div>
-    							</div>
-  							</div> -->
+  							<!-- THIS IS WHERE EACH FEEDBACK APPEARS -->
   							
 						</div>
     				</div>
@@ -88,7 +70,7 @@
 	<div id="main_content_div">
 
 		<div class="content">
-			<!-- ACCORDION QUE CONTEM LIBRARY (COLAPSAVEL) E, MAIS EM BAIXO, AS 3 JANELAS -->
+			<!-- BOOTSTRAP ACCORDION THAT CONTAINS THE LIBRARY (COLAPSE). BELOW, THE 3 WINDOWS -->
 			<div class="panel-group" id="accordion">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -101,12 +83,12 @@
 						</div>
 						<div class="imports_div">
 							<!-- IMPORT LINKS -->
-							<!-- BOTAO -->
+							<!-- BUTTON -->
 							<button id="importLink" type="button" data-toggle="modal"
 								data-target=".bs-example-modal-links" style="float: right;">
 								<span class="fa fa-link"></span> Import Links
 							</button>
-							<!-- JANELA PARA INSERIR LINKS -->
+							<!-- WINDOW TO INSERT LINKS -->
 							<div id="ModalInputLink" class="modal fade bs-example-modal-links"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 								<div class="modal-dialog modal-lg">
 									<div class="modal-content import-things">
@@ -121,11 +103,11 @@
 								</div>
 							</div>
 							<!-- IMPORT FILE -->
-							<!-- BOTAO -->
+							<!-- BUTTON -->
 							<button id="importFile" type="button" data-toggle="modal" data-target=".bs-example-modal-file" style="float: right;">
 								<span class="fa fa-file-text-o"></span> Import File
 							</button>
-							<!-- JANELA PARA INSERIR FICHEIRO -->
+							<!-- WINDOW TO INSERT FILE -->
 							<div id="ModalInputLinkFile" class="modal fade bs-example-modal-file" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 								<div class="modal-dialog modal-lg">
 									<div class="modal-content import-things">
@@ -162,19 +144,17 @@
 								<div id="emotion_search_div">
 									<label for="emotionChosen"> Emotion</label>
 									<select name="emotionChosen" id="emotionChosen" onchange="setValuesAV(); searchByAV();">
-  										<option value="all">All emotions</option>
-  										<option value="hap">Happiness</option>
-  										<option value="anx">Anxiety</option>
-  										<option value="mel">Melancholy</option>
-  										<option value="con">Contentment</option>
+  										<option value="all" class="all">All emotions</option>
+  										<option value="hap" class="hap">Happiness</option>
+  										<option value="anx" class="anx">Anxiety</option>
+  										<option value="mel" class="mel">Melancholy</option>
+  										<option value="con" class="con">Contentment</option>
 									</select>
 								
-								<!-- BOTAO PARA PESQUISA POR AROUSAL E VALENCE -->
-								<button id="search_button" type="button" data-toggle="modal" data-target="#myModal">
-									<i class="fa fa-search"></i>
-								</button>
+								<!-- BUTTON TO SEARCH FOR AROUSAL AND VALENCE -->
+								<button id="search_button" type="button" data-toggle="modal" data-target="#myModal" class="searchFilter" ></button>
 
-								<!-- PESQUISA POR AROUSAL E VALENCE -->
+								<!-- SEARCH FOR AROUSAL AND VALENCE -->
 								<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   									<div class="modal-dialog">
     									<div class="modal-content">
@@ -183,20 +163,20 @@
         										<h4 class="modal-title" id="myModalLabel">Search by Arousal and Valence</h4>
       										</div>
       										<div class="modal-body">
-        										<!-- PESQUISA POR AROUSAL -->
-  														<p>
-  															<label for="amount_arousal">Arousal (Y):</label>
-  															<input type="text" id="amount_arousal" readonly style="border:0; color:#f6931f; font-weight:bold;">
-														</p>
-														<div id="slider-range-arousal" style="width: 80%; margin:auto;"></div>
-														<br />
-														<!-- PESQUISA POR VALENCE -->
-														<p>
-  															<label for="amount_valence">Valence (X):</label>
-  															<input type="text" id="amount_valence" readonly style="border:0; color:#f6931f; font-weight:bold;">
-														</p>
-														<div id="slider-range-valence" style="width: 80%; margin:auto;"></div>
-														<br />
+        										<!-- SEARCH FOR AROUSAL -->
+  												<p>
+  													<label for="amount_arousal">Arousal (Y):</label>
+  													<input type="text" id="amount_arousal" readonly style="border:0; color:#f6931f; font-weight:bold;">
+												</p>
+												<div id="slider-range-arousal" style="width: 80%; margin:auto;"></div>
+												<br />
+												<!-- SEARCH FOR VALENCE -->
+												<p>
+  													<label for="amount_valence">Valence (X):</label>
+  													<input type="text" id="amount_valence" readonly style="border:0; color:#f6931f; font-weight:bold;">
+												</p>
+												<div id="slider-range-valence" style="width: 80%; margin:auto;"></div>
+												<br />
       										</div>
       										<div class="modal-footer">
         										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -217,24 +197,11 @@
 									</nav>
 								</div>
 							</div>
-							<!-- FIM DE PESQUISA -->
+							<!-- END OF SEARCH -->
 
-							<!-- MUSICAS -->
+							<!-- MUSICS -->
 							<div id="library_musics_div">
-								<!-- sitio onde devem aparecer as musicas -->
-<!-- 								<div class="music_div" style="background-color: pink;"> -->
-<!-- 									<img alt="" src="img/capa.png" class="thumbnail_img" /> -->
-<!-- 									<div class="track_info_div"> -->
-<!-- 										<strong>Katy Perry <br /> Roar</strong> -->
-<!-- 									</div> -->
-<!-- 									<div class="av_info_div"> -->
-<!-- 										Arousal: <br /> Valence: -->
-<!-- 									</div> -->
-<!-- 									<div class="av_info_div"> -->
-<!-- 										<span class="label label-default">DominantEmotion</span> <br /> OCR Error: -->
-<!-- 									</div> -->
-<!-- 									<div class="fa fa-play fa-3x play_div" onclick="getMusic('oi','oi')"></div> -->
-<!-- 								</div> -->
+								<!-- WHERE THE MUSICS SHOULD APPEAR -->
 							</div>
 						</div>
 					</div>
@@ -257,7 +224,8 @@
 								<div class="n_p_video_play"></div>
 								<div id="ytplayer"></div>
 							</div>
-							<!-- onde aparece a barra de emocoes -->
+							
+							<!-- where should appears emotions bar -->
 							
 							<div class="n_p_video_progressbar">
 								<div id="progressBar">
@@ -278,8 +246,7 @@
 						 <div id="chart_div" style="width:100%;height:85%">
 						 	<div style="width:30%;height:30%;backgroundColor:red" ></div>
 						 </div>
-						 
-					
+						 				
 					</li>
 					<!-- LYRICS -->
 					<li id="lyrics_li">
@@ -363,14 +330,14 @@
 		var pageSubject = null;
 		var pageNumber = 1;
 		var pageNumberFeed = 1;
-		//var totalPages = 1;
+
 		var pageAll = false;
 		var pageText = null;
 		var pageAV = new Array();
 		var pageFeed = false;
 		
 		var checkVideoRep=0;
-		//var serverdata = new Array();
+
 		$( document ).ready(function() {	
 			//document.cookie = "tourVerify=; expires=Thu, 01 Jan 1970 00:00:00 UTC";//delete cookie
 			checkCookie("tourVerify");
@@ -381,11 +348,10 @@
 		$( window ).resize(function() {
 
 			updateBarsPos(0);
-			//drawChart();
 
 		});
 
-		// evitar que o ENTER seja carregado (nomeadamente nos inputs)
+		// avoid ENTER to be pressed
 		$(window).keydown(function(event){
 		    if( (event.keyCode == 13)) {
 		      event.preventDefault();
@@ -394,6 +360,7 @@
 		      return false;
 		    }
 		  });
+
 		  
 	</script>
 

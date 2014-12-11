@@ -20,14 +20,14 @@ function checkCookie(cookieName) {
 	console.log("verificar cookie");
     var user = getCookie(cookieName);
     if (user != "") {
-        ;//console.log("ja ca estiveste");
+        ;//console.log("you were here before");
     } else {
         user = "primeira vez";
         $('#collapseLibrary').addClass('in');
         $('#seccaodas3janelas').css({'display':'none'});
         //console.log(user);
         if (user != "" && user != null) {
-            setCookie(cookieName, user, 365);//expira em 365 dias
+            setCookie(cookieName, user, 365); //expires in 365 days
         }
     }
 }

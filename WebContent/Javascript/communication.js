@@ -33,7 +33,7 @@ function importLinksByUrl(){
 		    	{
 		    		
 		    		link = JSON.parse(data);
-		    		//alert(link.status);
+
 		    		if(link.status == "OK"){
 		    			feedback = '<div class="alert alert-success" role="alert">' +
 		    					'<strong>'+link.status+':</strong> ' + link.url +
@@ -205,11 +205,9 @@ function feedbackSongs()
 	    		else
 	    			$('#backButtonFeed').css({"display":"inline"});
 	    		
-	    		
 	    		//feedbackMusics = JSON.parse(data);
 	    		
     			$('#feedbackIcon').addClass("fa-spin");
-	    		
 	    			
 	    		$('#accordion').empty();
 	    		
@@ -230,12 +228,6 @@ function feedbackSongs()
 	    												feedbackType(m.lyricsStatus, "LyricsCrawlerStatus")	+
 	    												feedbackType(m.ocrStatus, "OCRStatus")	+
 	    												feedbackType(m.jmerlibStatus, "JMERLibStatus")	+
-	    												/*
-	    												'<li class="list-group-item feedback_ok_li"><i class="fa fa-check"></i><strong>Validating Link YouTube</strong></li>' +
-	    												'<li class="list-group-item feedback_ok_li"><i class="fa fa-check"></i> Segmentation</li>' +
-	    												'<li class="list-group-item feedback_processing_li"><i class="fa fa-cog fa-spin"></i> OCR</li>' +
-	    												'<li class="list-group-item feedback_problem_li"><i class="fa fa-remove"></i> etc.</li>' +
-	    												*/
 	    											'</ul>' +
 	    										'</div>' +
 	    									'</div>' +
@@ -254,8 +246,7 @@ function feedbackSongs()
 }
 
 /****************************
- * funcao aux para saber a cor e texto para cada step de feedback por musica
- * 
+ * aux function to know which color and text for each step of feedback/music
  ****************************/
 function feedbackType(state,stateText)
 {
@@ -288,7 +279,7 @@ function feedbackType(state,stateText)
  ****************************/
 function textualSearch()
 {
-	console.log("pesquisa por texto");
+	console.log("search by text");
 	var textSearchIn = $("#textSearchInput").val();
 	
 	if(textSearchIn==pageText)
@@ -299,10 +290,8 @@ function textualSearch()
 		pageText=$("#textSearchInput").val();
 	}
 		
-	pageAll==false
+	pageAll = false;
 	pageAV = [];
-	pageFeed = false;
-	
 	
 	if(textSearchIn != ""){
 		var dataString = {"FLAG":"textsearch", "text":textSearchIn,"page":pageNumber};
@@ -319,7 +308,6 @@ function textualSearch()
 			{
 				if (data != "null")
 				{	    		
-		    		//paginacao(data);
 					var generic = JSON.parse(data);
 		    		var totalPages = generic.numberOfPages;
 		    		var page = generic.page;
@@ -346,11 +334,6 @@ function textualSearch()
 						htmlCodeToInput += 	createMusicDiv(m, emocolor);
 						
 					});
-					// update pages information
-					//pageNumber = data.page;
-					//totalPages = data.numberOfPages;
-					// print the buttons for next and prev pages
-					//htmlCodeToInput += createPageButtons();
 					// print generated code for each music
 					$('#library_musics_div').append(htmlCodeToInput);
 				}
@@ -397,14 +380,34 @@ function searchByEmotion(){
  ****************************/
 function searchByAV()
 {
+	var textSearchIn = $("#textSearchInput").val();
+	
+	if(pageAV[0]==minArousal && pageAV[1]==maxArousal && pageAV[2]==minValence && pageAV[3]==maxValence)
+		return;
+	
+	if(pageAV.length == 0  || (pageAV[0]!=minArousal && pageAV[1]!=maxArousal && pageAV[2]!=minValence && pageAV[3]!=maxValence)){
+		pageNumber=1;
+		pageAV = [minArousal, maxArousal, minValence, maxValence];
+	}
+		
+	pageAll = false;
+	pageText = null;
+	
 	console.log("pesquisa por emocao");
 	var dataString = {"FLAG":"avsearch",
 					"minArousal":minArousal, "maxArousal":maxArousal,
-					"minValence":minValence, "maxValence":maxValence};
+					"minValence":minValence, "maxValence":maxValence,
+					"page":pageNumber};
 
 	var resultFromSearch;
 	var htmlCodeToInput = "";
-	$('#xdireito').css({"display":"inline"});
+	
+	// to not have the 'x' button when we choose "all emotions"
+	if(minArousal!=-1 || minValence!=-1 || maxArousal!=1 || maxValence!=1)
+		$('#xdireito').css({"display":"inline"});
+	else
+		$('#xdireito').css({"display":"none"});	
+
 	$.ajax({
 		type: "GET",
 	    data:dataString,
@@ -427,8 +430,6 @@ function searchByAV()
 					// code to generate for each founded musics
 					htmlCodeToInput += 	createMusicDiv(m, emocolor);	    					
 				});
-				// print the buttons for next and prev pages
-				//htmlCodeToInput += createPageButtons();
 				// print generated code for each music
 				$('#library_musics_div').append(htmlCodeToInput);
 	    		
@@ -495,7 +496,7 @@ function createMusicDiv(m, emocolor)
 				'<div class="av_info_div">' +
 					'<span class="label label-default">' + m.dominantEmotion + 
 					'</span> <br /> OCR Error: ' + m.ocrError;
-	if(m.ocrError>=0.6)	// this value should be confirmed by OCR module!
+	if(m.ocrError>=0.6)	// TODO this value should be confirmed by OCR module!
 		musicCode+= "<i class='fa fa-exclamation-triangle'></i>";
 	musicCode+=		'</div>' +
 				'<div class="fa fa-play fa-3x play_div" onclick="getMusic(' + m.songId + ')"></div>' +
@@ -503,9 +504,6 @@ function createMusicDiv(m, emocolor)
 	return musicCode;
 }
 
-/****************************
- * function that should to next or previous page
- ****************************/
 
 /****************************
  * function that returns all the available musics
@@ -521,16 +519,9 @@ function getAllMusicsL(){
 		
 	pageText = null;
 	pageAV = [];
-	pageFeed = false;
 	
 	var dataString = {"FLAG":"getall","page":pageNumber};
 	var htmlCodeToInput="";
-	
-	/*
-	var pageAll = false;
-	var pageText = null;
-	var pageAV = new Array();
-	*/
 	
 	$.ajax({
 		type: "GET",
@@ -542,7 +533,6 @@ function getAllMusicsL(){
 	    	
 	    	else
 	    	{
-	    		//paginacao(data);
 	    		var generic = JSON.parse(data);
 	    		var totalPages = generic.numberOfPages;
 	    		var page = generic.page;
@@ -567,8 +557,6 @@ function getAllMusicsL(){
 					// code to generate for each founded musics
 					htmlCodeToInput += 	createMusicDiv(m, emocolor);	    					
 				});
-				// print the buttons for next and prev pages
-				//htmlCodeToInput += createPageButtons();
 				// print generated code for each music
 				$('#library_musics_div').append(htmlCodeToInput);
 	    	}
@@ -718,22 +706,6 @@ function submitLyric(){
 	var dataString = {"FLAG":"editLyric", "songId":globalID,"text":$('textarea#textareaEdit').val()};	// TODO rever no lado da servlet
 
 	
-	/*$.ajax({
-		type: "GET",
-	    data:dataString,
-	    url: "SearchServlet",	// TODO ver se fica nesta servlet ou se cria outra so para devolver musica(s)
-	    success: function(data)
-	    {
-	    	if (data == "fail")	{
-	    		console.log("fail on getting music to play");
-	    	}
-	    	else{
-	    		
-	    	}
-	    }
-	});*/
-	
-	
 }
 
 
@@ -747,18 +719,7 @@ function submitLyric(){
 
 function drawChart(googlevalues)
 {	
-	//console.log("desenho do grafico");
-	
-  /*var data = google.visualization.arrayToDataTable([
-    [ 'Valence', 	'Arousal',	{'type': 'string', 'role': 'style'}],
-    [ 0.5,     		0.5, 		'point { fill-color: red}'],
-    [ 0.2,     		0.5, 		'point { fill-color: blue}'],
-    [ 0.7,     		-1, 		'point { fill-color: green}'],
-    [ -0.8,    		-0.4,		'point { fill-color: black}'],
-    [ 0.1,     		1,			'point { fill-color: pink}'],
-	[ -0.6,    		-0.6,		'point { fill-color: brown}']
-  ]);*/
-  
+
   var data = google.visualization.arrayToDataTable(googlevalues);
 
   var options = {
@@ -772,5 +733,4 @@ function drawChart(googlevalues)
   chart.draw(data, options);
 
 }
-
 

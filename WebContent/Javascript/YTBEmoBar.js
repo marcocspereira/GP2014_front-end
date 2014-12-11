@@ -11,7 +11,7 @@ function onYouTubeIframeAPIReady() {
     player = new YT.Player('ytplayer', {
       //height: '420',
       //width: '390',
-      videoId: videoid, //'1lefGrqcC1A',//'pQxh4aoq_U4',
+      videoId: videoid, // for instance, '1lefGrqcC1A'
         playerVars: {
         'autoplay' : 1,
         'controls' : 1,
@@ -67,8 +67,10 @@ function onPlayerStateChange(event) {
     
     else if (event.data == YT.PlayerState.ENDED) {
     	
-    	/*barcounter=0;
-    	checkstate=1;    	*/
+    	/*
+    	barcounter=0;
+    	checkstate=1;
+    	*/
     }
     else {
       
@@ -78,18 +80,17 @@ function onPlayerStateChange(event) {
 	
 }
 
-/*retorna tamanho de cada pedaco da emotion bar*/
+/* it returns the size of each piece of emotion bar */
 function getprogbarw(){
 	return $('#progressBar').width() / emotsize;
 }
 
 function chartPoints(playerTimeDifference){
-	//console.log(playerTimeDifference);
 	
 	var googlevalues =  [[ '', 	'',	{'type': 'string', 'role': 'style'}]];
 	var i;
 	
-	//distribuicao dos pontos no grafico	
+	/* point distribution in the plot */
 	for(i=0;i<serverdata.length-1;i++){
 		var check=true;
 		if(playerTimeDifference>=serverdata[i].endTime){
@@ -113,8 +114,6 @@ function chartPoints(playerTimeDifference){
 			break;
 		}
 	}
-	
-	
 }
 
 function contains(index) {
@@ -136,7 +135,6 @@ function contains(index) {
     	  	var distance = Math.sqrt( xs + ys );
     	  	
     	  	if(distance<0.05){
-    	  		//console.log("contains "+distance);
     	  		return false;
     	  	}
     	}
@@ -147,32 +145,25 @@ function contains(index) {
 
 
 function progress(emotions) {
-	console.log("construçao da emotionbar e aplicaçao da scumdiv");
+	console.log("construction of emotionbar and application of scumdiv");
 	if(checkVideoRep!=0)
 		player.loadVideoById(videoid);
 	checkVideoRep++;
-	
-	
+		
 	$('#progressBar').empty();
 	$('#progressBar').append('<div id="scumDiv" style="visibility:hidden"></div> <div id="newBar"></div>');
-	//clearBar();
-	//$('div[id|="legacydiv"]').remove();
-	
-	
-	//var scumtop = $('#progressBar').position().top-31;
+		
 	var scumtop = $('.n_p_video_progressbar').position().top;
 	var scumw = $('.n_p_video_progressbar').width();
-	//	var scumw = 30;
-	//console.log("scum "+scumtop);
+	
 	$('#scumDiv').show();
 	$('#scumDiv').css({"background-color": '#FFFFFF', "width": scumw, "height": '27px', "position": 'absolute', "top": scumtop, "visibility":"visible"});
 	
 	$('#scumDiv').slideDown("slow") ;
 	
-	
 	$.each(emotions, function(i, emo) {
-		//define o tamanho na nova barra
-		var progressBarWidth =  $('#progressBar').width() / emotions.length;//player.getDuration();
+		/* it defines the size of the new bar */
+		var progressBarWidth =  $('#progressBar').width() / emotions.length; //player.getDuration();
 		// $element.find('div').animate({ width: progressBarWidth }, 500).html(percent + "%&nbsp;");
 		$('#progressBar').find('#newBar').animate({ width: progressBarWidth });		  	
 	   
@@ -186,7 +177,7 @@ function progress(emotions) {
 		else if(emo.arousal<0 && emo.valence<0)
 			co='green';
 		
-		//renomeia a div newbar, cria nova newbar
+		/* renames the newbar div, create new newbar */
 		$('#newBar').height(10);
 	
 		var emotionbartop = $('#progressBar').position().top-40;
@@ -197,7 +188,6 @@ function progress(emotions) {
 		else
 			$('#newBar').css({"position": 'absolute' , "top": emotionbartop , "left": barcounter*progressBarWidth+emotionbarleft});
 		barcounter++;
-		
 		
 		$('#newBar').addClass("legacydiv");
 		$('#newBar').attr("id","legacydiv");
@@ -210,7 +200,7 @@ function progress(emotions) {
 	
 }
 
-//apaga a barra de emocoes apenas quando existe uma nova reproducao do video
+/* erases the emotions bar just when exists a new video reprodution */
 function clearBar(){
 	if(checkstate==1){
 		checkstate=0;
@@ -222,16 +212,16 @@ function clearBar(){
 }
 
 function stopVideo() {
-    player.stopVideo();
+	player.stopVideo();
 }
 
 
-//funcao auxiliar que simula um sleep em java
+/* aux function that simulates sleep in java */
 function sleep(milliseconds) {
-	  var start = new Date().getTime();
-	  for (var i = 0; i < 1e7; i++) {
-	    if ((new Date().getTime() - start) > milliseconds){
-	      break;
-	    }
-	  }
+	var start = new Date().getTime();
+	for (var i = 0; i < 1e7; i++) {
+		if ((new Date().getTime() - start) > milliseconds){
+			break;
+		}
 	}
+}
