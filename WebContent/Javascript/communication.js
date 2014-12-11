@@ -259,16 +259,16 @@ function feedbackType(state,stateText)
 {
 	var code = "";
 	if(state=='UNSTARTED'){
-		code += '<li class="list-group-item feedback_notstarted_li"><i class="fa fa-plug"></i><strong>' + stateText + '</strong> ' + state.statusName + '</li>';
+		code += '<li class="list-group-item feedback_notstarted_li"><i class="fa fa-plug"></i><strong>' + stateText + '</strong> ' + state + '</li>';
 	}
 	else if(state=='QUEUED' || state=='SEGMENTING' || state=='OCR_WORKING' || state=='PRE_PROCESSING' || state=='ANALYSING'){
-		code += '<li class="list-group-item feedback_processing_li"><i class="fa fa-cog fa-spin"></i><strong>' + stateText + '</strong> ' + state.statusName + '</li>';
+		code += '<li class="list-group-item feedback_processing_li"><i class="fa fa-cog fa-spin"></i><strong>' + stateText + '</strong> ' + state + '</li>';
 	}
 	else if(state=='DONE'){
-		code += '<li class="list-group-item feedback_ok_li"><i class="fa fa-check"></i><strong>' + stateText + '</strong> ' + state.statusName + '</li>';
+		code += '<li class="list-group-item feedback_ok_li"><i class="fa fa-check"></i><strong>' + stateText + '</strong> ' + state + '</li>';
 	}
 	else if(state=='ERROR'){
-		code += '<li class="list-group-item feedback_problem_li"><i class="fa fa-remove"></i><strong>' + stateText + '</strong> ' + state.statusName + '</li>';
+		code += '<li class="list-group-item feedback_problem_li"><i class="fa fa-remove"></i><strong>' + stateText + '</strong> ' + state + '</li>';
 	}
 	
 	return code;
@@ -346,7 +346,7 @@ function textualSearch()
 				}
 				else if(data == "null")
 				{
-					htmlCodeToInput='<h3 align = "center">There\'s no musics or artists with the key:<br><span style="color: blue">'+textSearchIn+'</span></h3>';
+					htmlCodeToInput='<h3 align = "center">There are no songs or artists with the key:<br><span style="color: blue">'+textSearchIn+'</span></h3>';
 					$('#library_musics_div').empty();
 					$('#library_musics_div').append(htmlCodeToInput);
 					console.log(textSearchIn + ": sorry, we didn't found anything");

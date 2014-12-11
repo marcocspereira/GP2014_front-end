@@ -25,7 +25,7 @@ import edu.dei.gp.jpa.Song;
 @WebServlet("/SearchServlet")
 public class SearchServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static final boolean debug = true;
+    private static final boolean debug = false;
 
     @EJB
     FrontEndBeanRemote frontendBean;
@@ -124,6 +124,7 @@ public class SearchServlet extends HttpServlet {
 		    if (songStatus != null && songStatus.getListContents().size() > 0) {
 			if (debug) {
 			    System.out.println("[SEARCHServlet] maxPages: " + songStatus.getNumberOfPages());
+			    System.out.println(songStatus.getListContents().get(0).getLyricsStatus().toString());
 			}
 			//List<SongStatus> songsList = songStatus.getListContents();
 			String json = new Gson().toJson(songStatus);
