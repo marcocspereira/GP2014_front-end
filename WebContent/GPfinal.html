@@ -48,7 +48,14 @@
   				<div class="modal-dialog modal-lg">
     				<div class="modal-content">
       					<h1><i class="fa fa-cog" id="feedbackIcon"></i> FEEDBACK</h1>
-      					<br /> <br />
+      					<br> 
+      					<nav>
+							<ul class="pager">
+								<li onclick="clickPageFeed('back');" id="backButtonFeed" style="display:none" class="previous"><a ><span aria-hidden="true">&larr;</span> Older</a></li>
+								<li onclick="clickPageFeed('next');" id="nextButtonFeed" style="display:none" class="next"><a >Newer <span aria-hidden="true">&rarr;</span></a></li>
+							</ul>
+						</nav>
+						<br>
       					<!-- BOOTSTRAP ACCORDION WITH PROCESSING VIDEOS IN THE SYSTEM -->
       					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">      					
   							
@@ -271,12 +278,6 @@
         				<h4 class="modal-title" id="myModalLabelInputFeedback">Input feedback</h4>
       				</div>
       				
-      				<nav>
-						<ul class="pager">
-							<li onclick="clickPageFeed('back');" id="backButtonFeed" style="display:none" class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
-							<li onclick="clickPageFeed('next');" id="nextButtonFeed" style="display:none" class="next"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
-						</ul>
-					</nav>
       				
       				
       				<div class="modal-body" id="importLinkTextFeedback">

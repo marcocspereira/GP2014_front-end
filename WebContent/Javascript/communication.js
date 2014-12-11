@@ -81,7 +81,8 @@ function importFile(){
 	reader.onload = function(e) {
 		var contents = e.target.result;
 		var urls = contents.split("\n");
-		urls.pop(); // remove ultima linha criada pelo split
+		if(urls[urls.length].length<1)
+			urls.pop(); // remove ultima linha criada pelo split
 		var urlconf = new Array();		// good URLs 
 		var urlnaoconf = new Array();	// bad URLs
 		
@@ -156,7 +157,12 @@ function importFile(){
 
 /******************************************************************************************
  ******************************************************************************************
- 										FEEDBACK 
+ 								console.log('mudança de pagina no feedback');
+
+	if(away=='next')
+		pageNumberFeed++;
+	else
+		pageNumberFeed--;
  ******************************************************************************************
  *******************************************************************************************
  */
@@ -166,14 +172,17 @@ function importFile(){
  ****************************/
 function feedbackSongs()
 {
-	console.log("mostrar feedback");
-	var dataString = {"FLAG":"getfeedback","page":pageNumberFeed};
-	var htmlCodeToInput = "";
 	
 	if(pageFeed==false){
 		pageNumberFeed=1;
 		pageFeed=true;
 	}
+	
+	console.log("mostrar feedback "+pageFeed);
+	var dataString = {"FLAG":"getfeedback","page":pageNumberFeed};
+	var htmlCodeToInput = "";
+	
+	
 		
 	//pageText = null;
 	//pageAV = [];
@@ -213,7 +222,7 @@ function feedbackSongs()
 	    		
 	    		// URLs that should go to the SearchServlet
 	    		$.each(feedbackMusics, function(i, m) {
-	    			htmlCodeToInput += '<div class="panel panel-default">' +
+	    			htmlCodeToInput += 	'<div class="panel panel-default">' +
 	    									'<div class="panel-heading" role="tab" id="heading'+ m.songId +'">' +
 	    										'<h4 style="width:100%" class="panel-title">' +
 	    											'<a  data-toggle="collapse" data-parent="#accordion" href="#collapse'+ m.songId +'" aria-expanded="true" aria-controls="collapse'+ m.songId +'">' +
@@ -583,9 +592,10 @@ function getAllMusicsL(){
 
 function clickPage(away){
 
-	//var pageAV = new Array();
+	
 	
 	if(pageAll==true){
+		console.log('mudança de pagina principal ALL');
 		if(away=='next')
 			pageNumber++;
 		else
@@ -594,6 +604,7 @@ function clickPage(away){
 	}
 	
 	else if(pageText != null){
+		console.log('mudança de pagina principal TEXTO');
 		if(away=='next')
 			pageNumber++;
 		else
@@ -601,24 +612,18 @@ function clickPage(away){
 		textualSearch();
 	}
 	
-	else if(pageFeed != true){
-		if(away=='next')
-			pageNumber++;
-		else
-			pageNumber--;
-		feedbackSongs();
-	}	
 }
 
 function clickPageFeed(away){
+	//if(pageFeed == true){
+	console.log('mudança de pagina no feedback');
 
-	if(pageFeed != true){
-		if(away=='next')
-			pageNumberFeed++;
-		else
-			pageNumberFeed--;
-		feedbackSongs();
-	}
+	if(away=='next')
+		pageNumberFeed++;
+	else
+		pageNumberFeed--;
+	feedbackSongs();
+	//}
 	
 	
 }
