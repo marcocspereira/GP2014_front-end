@@ -81,7 +81,7 @@ function importFile(){
 	reader.onload = function(e) {
 		var contents = e.target.result;
 		var urls = contents.split("\n");
-		if(urls[urls.length].length<1)
+		if(urls[urls.length-1].length<1)
 			urls.pop(); // remove ultima linha criada pelo split
 		var urlconf = new Array();		// good URLs 
 		var urlnaoconf = new Array();	// bad URLs
