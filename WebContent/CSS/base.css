@@ -5,6 +5,22 @@ body{
 	font-family: 'Open Sans', sans-erif;
 }
 
+.all{
+	background-color:white;
+}
+.hap{
+	background-color:#FF3333;
+}
+.anx{
+	background-color:#FFD633;
+}
+.mel{
+	background-color:#46A13E;
+}
+.con{
+	background-color:#5C7EFB;
+}
+
 #xesquerdo:hover {
 	color : gray;
 }

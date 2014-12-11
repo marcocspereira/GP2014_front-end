@@ -404,7 +404,12 @@ function searchByAV()
 
 	var resultFromSearch;
 	var htmlCodeToInput = "";
-	$('#xdireito').css({"display":"inline"});
+	
+	if(minArousal!=-1 || minValence!=-1 || maxArousal!=1 || maxValence!=1)
+		$('#xdireito').css({"display":"inline"});
+	else
+		$('#xdireito').css({"display":"none"});
+	
 	$.ajax({
 		type: "GET",
 	    data:dataString,

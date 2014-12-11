@@ -161,12 +161,12 @@
 								</div>
 								<div id="emotion_search_div">
 									<label for="emotionChosen"> Emotion</label>
-									<select name="emotionChosen" id="emotionChosen" onchange="setValuesAV(); searchByAV();">
-  										<option value="all">All emotions</option>
-  										<option value="hap">Happiness</option>
-  										<option value="anx">Anxiety</option>
-  										<option value="mel">Melancholy</option>
-  										<option value="con">Contentment</option>
+									<select name="emotionChosen" id="emotionChosen" >
+  										<option class ="all" value="all">All emotions</option>
+  										<option class ="hap" value="hap"> Happiness</option>
+  										<option class ="anx" value="anx">Anxiety</option>
+  										<option class ="mel" value="mel">Melancholy</option>
+  										<option class ="con" value="con">Contentment</option>
 									</select>
 								
 								<!-- BOTAO PARA PESQUISA POR AROUSAL E VALENCE -->
@@ -394,6 +394,14 @@
 		      return false;
 		    }
 		  });
+		
+		var select = document.getElementById('emotionChosen');
+		select.onchange = function () {
+		    select.className = this.options[this.selectedIndex].className;
+		    setValuesAV(); 
+		    searchByAV();
+		}
+		
 		  
 	</script>
 
