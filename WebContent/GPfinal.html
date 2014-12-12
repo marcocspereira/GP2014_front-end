@@ -27,8 +27,6 @@
 <link rel="stylesheet" href="library/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="CSS/base.css">
 
-
-
 </head>
 <body onload="setArousal(); setValence();">
 	<!-- BANNER TOP -->
@@ -42,12 +40,12 @@
 		<nav id="top_buttons_div">
 			<!-- FEEDBACK FOR PROCESSING VIDEOS -->
 			<button id="feedback_button" data-toggle="modal" data-target=".bs-example-modal-feedback" onclick="pageFeed=false; feedbackSongs();">
-				<i class="fa fa-cog"></i>
+				<i class="fa fa-spinner"></i>
 			</button>
 			<div class="modal fade bs-example-modal-feedback" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   				<div class="modal-dialog modal-lg">
     				<div class="modal-content">
-      					<h1><i class="fa fa-cog" id="feedbackIcon"></i> FEEDBACK</h1>
+      					<h1><i class="fa fa-spinner" id="feedbackIcon"></i> RUNNING TASKS</h1>
       					<br> 
       					<nav>
 							<ul class="pager">

@@ -68,8 +68,7 @@ public class SearchServlet extends HttpServlet {
 		    }
 
 		    // communicates with back-end
-		    GenericSongPack<SongLight> textSongs = frontendBean.getReadyLighSongs(page);//TESTE TESTE TESTE
-		    //GenericSongPack<SongLight> textSongs = frontendBean.searchAuthorAndTitle(toSearch, page);
+		    GenericSongPack<SongLight> textSongs = frontendBean.searchAuthorAndTitle(toSearch, page);
 		    // processing back-end response in order to send to AJAX
 		    if (textSongs != null) {
 			String json = new Gson().toJson(textSongs);
@@ -97,9 +96,8 @@ public class SearchServlet extends HttpServlet {
 		    float maxValence = Float.parseFloat(request.getParameter("maxValence"));
 
 		    // Sends to frontendBean with values and page to search for
-		    GenericSongPack<SongLight> avSongs = frontendBean.getReadyLighSongs(page);//TESTE TESTE TESTE
-//		    GenericSongPack<SongLight> avSongs = frontendBean.searchArousalAndValenceValues(minArousal, maxArousal,
-//			    minValence, maxValence, page);
+		    GenericSongPack<SongLight> avSongs = frontendBean.searchArousalAndValenceValues(minArousal, maxArousal,
+			    minValence, maxValence, page);
 
 		    // processing back-end response in order to send to AJAX
 		    if (avSongs != null) {

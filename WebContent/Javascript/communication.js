@@ -246,7 +246,7 @@ function feedbackSongs()
 	    	else
 	    	{
 	    		$('#feedbackIcon').removeClass("fa-spin");
-	    		console.log("nada a receber [feedback]");
+	    		console.log("nothing to receive [feedback]");
 	    	}
 	 	}
 	});
