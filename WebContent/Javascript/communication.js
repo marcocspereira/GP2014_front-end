@@ -289,8 +289,8 @@ function textualSearch()
 	console.log("search by text");
 	var textSearchIn = $("#textSearchInput").val();
 	
-	if(textSearchIn==pageText)
-		return;
+	/*if(textSearchIn==pageText)
+		return;*/
 	
 	if(pageText == null || textSearchIn!=pageText){
 		pageNumber=1;
@@ -317,7 +317,9 @@ function textualSearch()
 				{	    		
 					var generic = JSON.parse(data);
 		    		var totalPages = generic.numberOfPages;
+		    		console.log(totalPages);
 		    		var page = generic.page;
+		    		console.log(page);
 		    		resultFromSearch = generic.listContents;
 		    		
 		    		if(totalPages ==  page)
@@ -389,8 +391,8 @@ function searchByAV()
 {
 	var textSearchIn = $("#textSearchInput").val();
 	
-	if(pageAV[0]==minArousal && pageAV[1]==maxArousal && pageAV[2]==minValence && pageAV[3]==maxValence)
-		return;
+	/*if(pageAV[0]==minArousal && pageAV[1]==maxArousal && pageAV[2]==minValence && pageAV[3]==maxValence)
+		return;*/
 	
 	if(pageAV.length == 0  || (pageAV[0]!=minArousal && pageAV[1]!=maxArousal && pageAV[2]!=minValence && pageAV[3]!=maxValence)){
 		pageNumber=1;
@@ -430,7 +432,9 @@ function searchByAV()
 	    		
 	    		var generic = JSON.parse(data);
 	    		var totalPages = generic.numberOfPages;
+	    		console.log(totalPages);
 	    		var page = generic.page;
+	    		console.log(page);
 	    		resultFromSearch = generic.listContents;
 	    		
 	    		if(totalPages ==  page)
@@ -606,7 +610,16 @@ function clickPage(away){
 		else
 			pageNumber--;
 		textualSearch();
-	}	
+	}
+	
+	else if(pageAV.length > 0){
+		console.log('mudança de pagina principal AVsearch');
+		if(away=='next')
+			pageNumber++;
+		else
+			pageNumber--;
+		searchByAV();
+	}
 }
 
 function clickPageFeed(away){
