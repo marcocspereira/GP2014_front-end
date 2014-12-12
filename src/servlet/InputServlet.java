@@ -59,9 +59,9 @@ public class InputServlet extends HttpServlet {
 
 		/**
 		 * IMPORT LINKS FROM A .TXT FILE
-		 * receives a list in JSON and converts to a ArrayList
+		 * receives a list in JSON and converts it to an ArrayList
 		 * communicates with frontendBean
-		 * for each URL sent, receives a feedback
+		 * for each URL sent, receives feedback
 		 * sends the response via JSON to AJAX
 		 */
 		if (op.equalsIgnoreCase("importfile")) {
@@ -84,7 +84,7 @@ public class InputServlet extends HttpServlet {
 		 * IMPORT LINKS FROM A SINGLE URL
 		 * receives a single URL
 		 * communicates with frontendBean
-		 * receives a feedback
+		 * receives feedback
 		 * sends the response via JSON to AJAX
 		 */
 		else if (op.equalsIgnoreCase("importlink")) {

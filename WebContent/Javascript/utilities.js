@@ -1,4 +1,4 @@
-/*da os valores ao tour (onde irá aparece ajuda)*/
+/*Sends values to tour (where help will appear)*/
 function initTour(){
 	var simpleGuide = {
 			  id: 'simple',

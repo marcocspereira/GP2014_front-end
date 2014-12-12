@@ -82,14 +82,14 @@ function importFile(){
 		var contents = e.target.result;
 		var urls = contents.split("\n");
 		if(urls[urls.length-1].length<1)
-			urls.pop(); // remove ultima linha criada pelo split
+			urls.pop(); // remove last line created by split
 		var urlconf = new Array();		// good URLs 
 		var urlnaoconf = new Array();	// bad URLs
 		
 		var infoMusics;
 		var htmlCodeToInsert = "";
 		
-		// 1st link verification, before to send to the InputServlet
+		// 1st link verification, before sending to InputServlet
 		$.each(urls, function(index, value) {
 			var matches = value.match( /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/);
 			if (matches){
@@ -120,7 +120,7 @@ function importFile(){
 		    	{
 		    		infoMusics = JSON.parse(data);
 		    		
-		    		// URLs that go to the InputServlet
+		    		// URLs that go to InputServlet
 		    		$.each(infoMusics, function(i, m) {
 		    			if(m.status=="OK"){
 		    				htmlCodeToInsert += '<div class="alert alert-success" role="alert">' +
@@ -168,7 +168,7 @@ function importFile(){
  */
 
 /****************************
- * ASK FOR FEEDBACK THAT ARE IN ANALYSIS IN THE SYSTEM
+ * ASK FOR FEEDBACK THAT ARE ANALYSISED BY THE SYSTEM
  ****************************/
 function feedbackSongs()
 {
@@ -450,7 +450,7 @@ function searchByAV()
 	    		
 	    		// delete library content to contain the search result
 				$('#library_musics_div').empty();
-				// for each finded music, returned by the SearchServlet
+				// for each found music, returned by the SearchServlet
 				$.each(resultFromSearch, function(i, m) {
 					// determine the color (red, yellow, green, blue) by predominant emotion
 					var emocolor = setMainColor(m.dominantEmotion);
@@ -577,7 +577,7 @@ function getAllMusicsL(){
 	    		
 	    		// delete library content to contain the search result
 				$('#library_musics_div').empty();
-				// for each finded music, returned by the SearchServlet
+				// for each found music, returned by the SearchServlet
 				$.each(musics, function(i, m) {
 					// determine the color (red, yellow, green, blue) by predominant emotion
 					var emocolor = setMainColor(m.dominantEmotion);

@@ -212,7 +212,7 @@
             $message: null,             // #pageGuideMessage
             $toggle: null,              // #pageGuideToggle
             $shadow: null,              // #pageGuideShadow
-            $fwd: null,                 // a.pageguide-fwd
+            $fwd: null,                 // a.pageguide-forward
             $back: null,                // a.pageguide-back
 
             /**
@@ -243,14 +243,14 @@
                 shadow.append('<span class="pageguide-shadow-pulse"></span>');
 
                 //wrapper.append(toggle);
-                /*******ao nao fazer wrap do toggle, nao o apresenta na pagina *******/
+                /*******By not wrapping toggle, it doesn't show appears in the page *******/
                 wrapper.append(message);
                 wrapper.append(shadow);
                 $('body').append(wrapper);
 
                 this.$wrapper = wrapper;
                 //this.$toggle = toggle;
-                this.$toggle = $('#tour_button');/**** MODIFICACAO , ignora o botao default e reage ao nosso #tour_button*****/
+                this.$toggle = $('#tour_button');/**** MODIFICATION ,Ignores default button and is modified according to #tour_button*****/
                 this.$message = message;
                 this.$shadow = shadow;
 
@@ -292,7 +292,7 @@
 
             /**
              * Get or set overrides for base options. If the argument is
-             * ommitted, an object containing the current options are returned.
+             * ommitted, an object containing the current options is returned.
              *
              * @param  {Object} [options] Settings to override for all guides
              * @return {PageGuide}
@@ -497,7 +497,7 @@
                     $(this).hide();
                 });
 
-                /* clear number tags and shading elements */
+                /* clear number of tags and shading elements */
                 $('ins').remove();
                 $('body').removeClass('pageguide-open');
 
@@ -684,7 +684,7 @@
                     }
                 }, this));
 
-                /* interaction: fwd click */
+                /* interaction: forward click */
                 this.$fwd.on('click', $.proxy(function(e) {
                     e.stopPropagation();
 
@@ -861,7 +861,7 @@
                 this.refresh();
                 this.curIdx = 0;
 
-                /* add number tags and PG shading elements */
+                /* add number of tags and PG shading elements */
                 var that = this;
                 this.$visibleItems.each(function(i) {
                     var settings = $.extend(true, {}, that.settings.step, $(this).data('options') || {}),

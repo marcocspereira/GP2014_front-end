@@ -54,7 +54,7 @@ public class SearchServlet extends HttpServlet {
 		 * receives the page that should be requested from back-end (>=1)
 		 * receives a text value from AJAX
 		 * communicates with frontendBean
-		 ** receives a pack with an ArrayList of Songs, numberOfPages and currentPage
+		 * receives a pack with an ArrayList of Songs, numberOfPages and currentPage
 		 * sends the response via JSON to AJAX
 		 */
 		if (op.equalsIgnoreCase("textsearch"))
@@ -81,9 +81,9 @@ public class SearchServlet extends HttpServlet {
 		/**
 		 * SEARCH MUSICS BY AROUSAL AND VALENCE VALUES
 		 * receives 4 values: MIN and MAX to Arousal and Valence
-		 * receives the page to search for
+		 * receives which page to search for
 		 * communicates with frontendBean
-		 ** receives a pack with an ArrayList of Songs, numberOfPages and currentPage
+		 * receives a pack with an ArrayList of Songs, numberOfPages and currentPage
 		 * sends the response via JSON to AJAX
 		 */
 		else if (op.equalsIgnoreCase("avsearch"))
@@ -110,9 +110,9 @@ public class SearchServlet extends HttpServlet {
 		}
 		/**
 		 * REQUIRES FEEDBACK OF EVERY MUSIC IN PROCESSING PHASE
-		 * receives the page of feedbacks to show
+		 * receives which page of feedbacks to show
 		 * communicates with frontendBean
-		 ** receives a pack with an ArrayList of Feedbacks, numberOfPages and currentPage
+		 * receives a pack with an ArrayList of Feedbacks, numberOfPages and currentPage
 		 * sends the response via JSON to AJAX
 		 */
 		else if (op.equalsIgnoreCase("getfeedback"))
@@ -137,9 +137,9 @@ public class SearchServlet extends HttpServlet {
 		}
 		/**
 		 * REQUIRES ALL MUSICS IN THE SYSTEMS
-		 * receives the page to show
+		 * receives which page to show
 		 * communicates with frontendBean
-		 ** receives a pack with an ArrayList of Songs, numberOfPages and currentPage
+		 * receives a pack with an ArrayList of Songs, numberOfPages and currentPage
 		 * sends the response via JSON to AJAX
 		 */
 		else if (op.equalsIgnoreCase("getall"))
@@ -156,7 +156,7 @@ public class SearchServlet extends HttpServlet {
 		 * REQUIRES A SPECIFIC MUSIC BY ID
 		 * receives the id to get information
 		 * communicates with frontendBean
-		 ** receives a Song
+		 * receives a Song
 		 * sends the response via JSON to AJAX
 		 */
 		else if (op.equalsIgnoreCase("getmusic"))

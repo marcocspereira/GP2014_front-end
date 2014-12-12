@@ -6,7 +6,7 @@ var emotsize;
 var serverdata;
 var idrep;
 
-// 3. This function creates an <iframe> (and YouTube player)  after the API code downloads.
+// 3. This function creates an <iframe> (and YouTube player) after the API code downloads.
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('ytplayer', {
       //height: '420',
@@ -80,7 +80,7 @@ function onPlayerStateChange(event) {
 	
 }
 
-/* it returns the size of each piece of emotion bar */
+/* returns the size of each piece of emotion bar */
 function getprogbarw(){
 	return $('#progressBar').width() / emotsize;
 }
