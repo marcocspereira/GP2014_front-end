@@ -1,10 +1,9 @@
-var mytimer;
-var player;
+var mytimer; 	//responsable timer for plot update (later will show lyrics in right time) 
+var player; 	//youtube player
 var barcounter=0;
-var videoid;
-var emotsize;
-var serverdata;
-var idrep;
+var videoid; 	//video id
+var emotsize; 	//emotion array size
+var serverdata; //emotion array
 
 // 3. This function creates an <iframe> (and YouTube player) after the API code downloads.
 function onYouTubeIframeAPIReady() {
@@ -36,9 +35,9 @@ function setVideoId(vid){
 }
 
 function setEmotionList(emotions){
-	emotsize=emotions.length;
-	serverdata = emotions;
-	progress(emotions);
+	emotsize=emotions.length;	//set size
+	serverdata = emotions;		//set array
+	progress(emotions);			//fill emotion bar
 }
 
 // 4. The API will call this function when the video player is ready.
@@ -46,7 +45,6 @@ function onPlayerReady(event) {
     event.target.playVideo();
 }
 
-var checkstate=0;//0-playing, 1-ended, 2-deleting divs mode
 // 5. The API calls this function when the player's state changes.
 function onPlayerStateChange(event) {
 
@@ -59,21 +57,17 @@ function onPlayerStateChange(event) {
 		mytimer = setInterval(function() {
 			var playerCurrentTime = player.getCurrentTime();
 			
-			//var playerTimeDifference = (playerCurrentTime / playerTotalTime) * 100*2;
 			
 			chartPoints(playerCurrentTime);
-		}, 1000/2);	// redesenha o plot em x ms       
+		}, 1000/2);	// plot redraw in 500ms       
 	} 
     
     else if (event.data == YT.PlayerState.ENDED) {
-    	
     	/*
-    	barcounter=0;
-    	checkstate=1;
+    	ENDED
     	*/
     }
     else {
-      
     	clearTimeout(mytimer);
     }
 		
@@ -85,6 +79,7 @@ function getprogbarw(){
 	return $('#progressBar').width() / emotsize;
 }
 
+//update plot with new points
 function chartPoints(playerTimeDifference){
 	
 	var googlevalues =  [[ '', 	'',	{'type': 'string', 'role': 'style'}]];
@@ -93,13 +88,13 @@ function chartPoints(playerTimeDifference){
 	/* point distribution in the plot */
 	for(i=0;i<serverdata.length-1;i++){
 		var check=true;
-		if(playerTimeDifference>=serverdata[i].endTime){
+		if(playerTimeDifference>=serverdata[i].endTime){	//old gray points
 			if( contains(i))
 				googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: #C0C0C0}']);
 			else
 				check = false;
 		}
-		else if(check){
+		else if(check){		//new colored point
 			
 			if(serverdata[i].arousal>0 && serverdata[i].valence>0)
 				googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: red}']);
@@ -110,12 +105,13 @@ function chartPoints(playerTimeDifference){
 			else if(serverdata[i].arousal<0 && serverdata[i].valence<0)
 				googlevalues.push([serverdata[i].arousal,serverdata[i].valence,'point { fill-color: green}']);
 			
-			drawChart(googlevalues);
+			drawChart(googlevalues);	//set points to plot
 			break;
 		}
 	}
 }
 
+//verifies if point is already in array
 function contains(index) {
     var i;
 
@@ -134,7 +130,7 @@ function contains(index) {
     	  	
     	  	var distance = Math.sqrt( xs + ys );
     	  	
-    	  	if(distance<0.05){
+    	  	if(distance<0.05){	//minimum euclidian distance beetween 2 points, if less than 0.05, the point is hiden
     	  		return false;
     	  	}
     	}
@@ -143,7 +139,7 @@ function contains(index) {
     return true;
 }
 
-
+//emotion bar construction
 function progress(emotions) {
 	console.log("construction of emotionbar and application of scumdiv");
 	if(checkVideoRep!=0)
@@ -167,6 +163,7 @@ function progress(emotions) {
 		// $element.find('div').animate({ width: progressBarWidth }, 500).html(percent + "%&nbsp;");
 		$('#progressBar').find('#newBar').animate({ width: progressBarWidth });		  	
 	   
+		//color select
 		var co ;
 		if(emo.arousal>0 && emo.valence>0)
 			co='red';
@@ -205,8 +202,6 @@ function clearBar(){
 	if(checkstate==1){
 		checkstate=0;
 		console.log("parou");
-		//$('div[id|="legacydiv"]').fadeOut("slow");
-		//sleep(2000);
 		$('div[id|="legacydiv"]').remove();
 	}
 }
