@@ -327,6 +327,13 @@
 	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['corechart']}]}"></script>
     	
 	<script type="text/javascript">
+		/**
+		* pageSubject - helps to identify the subject of the textual search
+		* pageNumber - helps to identify the page that we want to get from the servlet
+		* pageNumberFeed - same as pageNumber but for the running tasks
+		*
+		* pageAll, pageText, pageAV, pageFeed - variables to control which information is required from SearchServlet
+		*/
 		var pageSubject = null;
 		var pageNumber = 1;
 		var pageNumberFeed = 1;

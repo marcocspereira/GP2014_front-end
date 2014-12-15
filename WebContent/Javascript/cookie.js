@@ -27,7 +27,7 @@ function checkCookie(cookieName) {
         $('#seccaodas3janelas').css({'display':'none'});
         //console.log(user);
         if (user != "" && user != null) {
-            setCookie(cookieName, user, 365); //expires in 365 days
+            setCookie(cookieName, user, 365); //expires in 365days
         }
     }
 }
