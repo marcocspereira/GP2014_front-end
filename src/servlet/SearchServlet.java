@@ -171,6 +171,8 @@ public class SearchServlet extends HttpServlet {
 		    // Communicates with back-end
 		    Song theSong = frontendBean.getSongById(Integer.parseInt(songId));
 
+		    theSong.setLyric(theSong.getLyric().replace("\\n", "<br>"));
+
 		    // processing back-end response in order to send to AJAX
 		    String json = new Gson().toJson(theSong);
 		    out.write(json);
